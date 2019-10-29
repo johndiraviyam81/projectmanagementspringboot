@@ -69,14 +69,14 @@ public class ProjectsController {
 			projectId=projectsService.save(projectDTO);
 			 if(projectId>0L)
 			 {
-			 projectDTO.setMessage(message);
-			 return ResponseEntity.ok().body(projectDTO);
+			 projectDTO.setMessage(message);			
 			 }
 			 else
 			 {
 				projectDTO.setMessage(badRequestMessage);
-				return ResponseEntity.badRequest().body(projectDTO); 
+				
 			 }
+			 return ResponseEntity.ok().body(projectDTO);
 		}
 		catch(Exception e)
 		{

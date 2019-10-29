@@ -65,6 +65,31 @@ public class UsersServiceImpl implements UsersService {
 			return allUsers;
 	}
 	
+	
+	@Override
+	@Transactional
+	public List<UserDTO> searchUsers(List<String> userNames) throws Exception
+	{
+		
+		List<UserDTO> allUsers=new ArrayList<UserDTO>();
+		
+		List<UsersVO> userList=new ArrayList<UsersVO>();
+		
+			userList= usersVORepository.findByFirstNameIn(userNames);
+		 if(userList!=null && userList.size()>0)
+		 {
+			for(UsersVO usersVO : userList) 
+			{
+				System.out.print(usersVO.toString());
+				allUsers.add(mapUserDto(usersVO));				
+			}
+		 }
+		 
+					
+					
+			return allUsers;
+	}
+	
 	@Override
 	@Transactional
 	public UserDTO getUser(String userId) throws Exception {

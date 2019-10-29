@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -58,6 +59,57 @@ public class UsersController {
 	}
 	
 	@CrossOrigin
+	@PostMapping(value = "/searchusers")
+	public ResponseEntity<List<UserDTO>> searchUsers(@RequestBody List<String> userNames)
+	{
+		List<UserDTO> userList=new ArrayList<UserDTO>();
+		try
+		{		
+			userList=usersService.searchUsers(userNames);
+			
+			return ResponseEntity.ok().body(userList);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			
+		}
+		
+		return ResponseEntity.badRequest().body(userList);
+		
+	}
+	
+	@CrossOrigin
+	@PutMapping(value = "/user")
+	public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO)
+	{
+		String message="User is updated successfully";
+		String badRequestMessage="Error has been occured while updating User";
+		long userId=0L;		
+		try
+		{	
+			userId=usersService.save(userDTO);
+			 if(userId>0L)
+			 {
+				 userDTO.setMessage(message);			 
+			 }
+			 else
+			 {
+				 userDTO.setMessage(badRequestMessage);
+				 
+			 }
+			 return ResponseEntity.ok().body(userDTO);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			userDTO.setMessage(badRequestMessage);
+			return ResponseEntity.badRequest().body(userDTO);
+		}
+				
+	}
+	
+	@CrossOrigin
 	@PostMapping(value = "/add")
 	public ResponseEntity<UserDTO> addUser(@RequestBody UserDTO userDTO)
 	{
@@ -70,13 +122,14 @@ public class UsersController {
 			 if(userId>0L)
 			 {
 				 userDTO.setMessage(message);
-			 return ResponseEntity.ok().body(userDTO);
+			 
 			 }
 			 else
 			 {
 				 userDTO.setMessage(badRequestMessage);
-				return ResponseEntity.badRequest().body(userDTO); 
+				
 			 }
+			 return ResponseEntity.ok().body(userDTO);
 		}
 		catch(Exception e)
 		{

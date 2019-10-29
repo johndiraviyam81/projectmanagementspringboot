@@ -16,6 +16,8 @@ public interface UsersService
 	public UserDTO getUser(String userId) throws Exception;
 
 	public List<UserDTO> getAllUsers();
+	
+	public List<UserDTO> searchUsers(List<String> userNames) throws Exception;
 
 
 }
