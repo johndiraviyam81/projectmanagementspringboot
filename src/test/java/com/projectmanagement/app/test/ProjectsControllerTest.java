@@ -1,38 +1,31 @@
 package com.projectmanagement.app.test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.util.NestedServletException;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.projectmanagement.app.controllers.ProjectsController;
 import com.projectmanagement.app.model.ProjectDTO;
 import com.projectmanagement.app.service.ProjectsService;
-import com.projectmanagement.app.test.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
+
 class ProjectsControllerTest {
 	
 	@InjectMocks
@@ -58,12 +51,12 @@ class ProjectsControllerTest {
 	
 	ProjectDTO projectDTO4Error=new ProjectDTO();
 	
-	String projectListJson="[{\"projectId\":\"1\",\"project\":\"Solr elmer project\",\"startDate\":\"2019-12-01\",\"endDate\":\"2019-12-28\",\"priority\":\"60\",\"message\":null},{\"projectId\":\"2\",\"project\":\"Perkin elmer project\",\"startDate\":\"2018-06-17\",\"endDate\":\"2018-11-28\",\"priority\":\"90\",\"message\":null},{\"projectId\":\"3\",\"project\":\"ILL elmer project\",\"startDate\":\"2019-02-17\",\"endDate\":\"2019-08-28\",\"priority\":\"30\",\"message\":null}]";
+	String projectListJson="[{\"projectId\":\"1\",\"userId\":null,\"userName\":null,\"project\":\"Solr elmer project\",\"startDate\":\"2019-12-01\",\"endDate\":\"2019-12-28\",\"priority\":\"60\",\"message\":null},{\"projectId\":\"2\",\"userId\":null,\"userName\":null,\"project\":\"Perkin elmer project\",\"startDate\":\"2018-06-17\",\"endDate\":\"2018-11-28\",\"priority\":\"90\",\"message\":null},{\"projectId\":\"3\",\"userId\":null,\"userName\":null,\"project\":\"ILL elmer project\",\"startDate\":\"2019-02-17\",\"endDate\":\"2019-08-28\",\"priority\":\"30\",\"message\":null}]";
 
-	String project4Json="{\"projectId\":null,\"project\":\"Marion Bestie project\",\"startDate\":\"2008-05-01\",\"endDate\":\"2014-10-21\",\"priority\":\"60\",\"message\":\"Error has been occured while creating project\"}";
+	String project4Json="{\"projectId\":null,\"userId\":null,\"userName\":null,\"project\":\"Marion Bestie project\",\"startDate\":\"2008-05-01\",\"endDate\":\"2014-10-21\",\"priority\":\"60\",\"message\":\"Error has been occured while creating project\"}";
        
 	
-	String project4ErrorJson="{\"projectId\":null,\"project\":\"Doveton selton project\",\"startDate\":\"121232007-05-01\",\"endDate\":\"2014-10-21\",\"priority\":\"30\",\"message\":\"Error has been occured while creating project\"}";
+	String project4ErrorJson="{\"projectId\":null,\"userId\":null,\"userName\":null,\"project\":\"Doveton selton project\",\"startDate\":\"121232007-05-01\",\"endDate\":\"2014-10-21\",\"priority\":\"30\",\"message\":\"Error has been occured while creating project\"}";
 	   
 	ResponseEntity<List<ProjectDTO>> responseProject=null;
 	
@@ -71,14 +64,12 @@ class ProjectsControllerTest {
 	
 	String badRequestMessage="Error has been occured while creating project";
 	
-	private ObjectMapper objectMapper;
 	
 	
 	@BeforeEach
 	void setUp() throws Exception {
 
 		mvc = MockMvcBuilders.standaloneSetup(projectsController).build();
-		objectMapper = Jackson2ObjectMapperBuilder.json().modules(new JavaTimeModule()).build();
 		this.projectDTO1.setProjectId("1");
 		this.projectDTO1.setProject("Solr elmer project");
 		this.projectDTO1.setStartDate("2019-12-01");
@@ -145,16 +136,9 @@ class ProjectsControllerTest {
 	@Test
 	void testAddProjectPositiveFlow() throws Exception {
 		when(projectsService.save(this.projectDTO4)).thenReturn(9L);
-		try {
-		String request = objectMapper.writeValueAsString(this.projectDTO4);
-			MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/projects/add").accept(MediaType.APPLICATION_JSON).content(request).contentType(MediaType.APPLICATION_JSON);
+			MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/projects/add").content(project4Json).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
 		MockHttpServletResponse response =mvc.perform(requestBuilder).andExpect(status().isOk()).andReturn().getResponse();
 		assertEquals(project4Json,response.getContentAsString());
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-		}
 		
 	}
 	

@@ -13,11 +13,14 @@ public class ProjectDTO  implements Serializable {
 		
 				
 	public	String projectId;
+	public	String userId;
+	public	String userName;
 	public	String project;
 	public	String startDate;
 	public	String endDate;
 	public	String priority;
 	public	String message;
+	
 		
 
 
@@ -31,6 +34,34 @@ public class ProjectDTO  implements Serializable {
 
 	public void setProjectId(String projectId) {
 		this.projectId = projectId;
+	}
+
+
+
+
+	public String getUserId() {
+		return userId;
+	}
+
+
+
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+
+
+
+	public String getUserName() {
+		return userName;
+	}
+
+
+
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 
