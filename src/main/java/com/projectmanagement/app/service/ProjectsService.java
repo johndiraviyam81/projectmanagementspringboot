@@ -14,6 +14,9 @@ public interface ProjectsService
 	public long save(ProjectDTO projectdto) throws Exception;
 
 	public List<ProjectDTO> getAllProjects();
+	
+	public List<ProjectDTO> searchProjects(String projectContain);
 
+	public ProjectDTO getProjectById(long projectId);
 
 }

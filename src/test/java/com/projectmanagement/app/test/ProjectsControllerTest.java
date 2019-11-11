@@ -51,12 +51,12 @@ class ProjectsControllerTest {
 	
 	ProjectDTO projectDTO4Error=new ProjectDTO();
 	
-	String projectListJson="[{\"projectId\":\"1\",\"userId\":null,\"userName\":null,\"project\":\"Solr elmer project\",\"startDate\":\"2019-12-01\",\"endDate\":\"2019-12-28\",\"priority\":\"60\",\"message\":null},{\"projectId\":\"2\",\"userId\":null,\"userName\":null,\"project\":\"Perkin elmer project\",\"startDate\":\"2018-06-17\",\"endDate\":\"2018-11-28\",\"priority\":\"90\",\"message\":null},{\"projectId\":\"3\",\"userId\":null,\"userName\":null,\"project\":\"ILL elmer project\",\"startDate\":\"2019-02-17\",\"endDate\":\"2019-08-28\",\"priority\":\"30\",\"message\":null}]";
+	String projectListJson="[{\"projectId\":\"1\",\"userId\":null,\"userName\":null,\"projectName\":\"Solr elmer project\",\"startDate\":\"2019-12-01\",\"endDate\":\"2019-12-28\",\"priority\":\"60\",\"message\":null},{\"projectId\":\"2\",\"userId\":null,\"userName\":null,\"projectName\":\"Perkin elmer project\",\"startDate\":\"2018-06-17\",\"endDate\":\"2018-11-28\",\"priority\":\"90\",\"message\":null},{\"projectId\":\"3\",\"userId\":null,\"userName\":null,\"projectName\":\"ILL elmer project\",\"startDate\":\"2019-02-17\",\"endDate\":\"2019-08-28\",\"priority\":\"30\",\"message\":null}]";
 
-	String project4Json="{\"projectId\":null,\"userId\":null,\"userName\":null,\"project\":\"Marion Bestie project\",\"startDate\":\"2008-05-01\",\"endDate\":\"2014-10-21\",\"priority\":\"60\",\"message\":\"Error has been occured while creating project\"}";
+	String project4Json="{\"projectId\":null,\"userId\":null,\"userName\":null,\"projectName\":\"Marion Bestie project\",\"startDate\":\"2008-05-01\",\"endDate\":\"2014-10-21\",\"priority\":\"60\",\"message\":\"Error has been occured while creating project\"}";
        
 	
-	String project4ErrorJson="{\"projectId\":null,\"userId\":null,\"userName\":null,\"project\":\"Doveton selton project\",\"startDate\":\"121232007-05-01\",\"endDate\":\"2014-10-21\",\"priority\":\"30\",\"message\":\"Error has been occured while creating project\"}";
+	String project4ErrorJson="{\"projectId\":null,\"userId\":null,\"userName\":null,\"projectName\":\"Doveton selton project\",\"startDate\":\"121232007-05-01\",\"endDate\":\"2014-10-21\",\"priority\":\"30\",\"message\":\"Error has been occured while creating project\"}";
 	   
 	ResponseEntity<List<ProjectDTO>> responseProject=null;
 	
@@ -71,33 +71,33 @@ class ProjectsControllerTest {
 
 		mvc = MockMvcBuilders.standaloneSetup(projectsController).build();
 		this.projectDTO1.setProjectId("1");
-		this.projectDTO1.setProject("Solr elmer project");
+		this.projectDTO1.setProjectName("Solr elmer project");
 		this.projectDTO1.setStartDate("2019-12-01");
 		this.projectDTO1.setEndDate("2019-12-28");
 		this.projectDTO1.setPriority("60");
 		
 		this.projectDTO2.setProjectId("2");
-		this.projectDTO2.setProject("Perkin elmer project");
+		this.projectDTO2.setProjectName("Perkin elmer project");
 		this.projectDTO2.setStartDate("2018-06-17");
 		this.projectDTO2.setEndDate("2018-11-28");
 		this.projectDTO2.setPriority("90");
 		
 		this.projectDTO3.setProjectId("3");
-		this.projectDTO3.setProject("ILL elmer project");
+		this.projectDTO3.setProjectName("ILL elmer project");
 		this.projectDTO3.setStartDate("2019-02-17");
 		this.projectDTO3.setEndDate("2019-08-28");
 		this.projectDTO3.setPriority("30");
 
 
 	
-		this.projectDTO4.setProject("Marion Bestie project");
+		this.projectDTO4.setProjectName("Marion Bestie project");
 		this.projectDTO4.setStartDate("2008-05-01");
 		this.projectDTO4.setEndDate("2014-10-21");
 		this.projectDTO4.setPriority("60");
 		this.projectDTO4.setMessage(addSuccessMessage);
 
 
-		this.projectDTO4Error.setProject("Doveton selton project");
+		this.projectDTO4Error.setProjectName("Doveton selton project");
 		this.projectDTO4Error.setStartDate("121232007-05-01");
 		this.projectDTO4Error.setEndDate("2014-10-21");
 		this.projectDTO4Error.setPriority("30");

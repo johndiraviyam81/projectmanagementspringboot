@@ -76,7 +76,7 @@ List<ProjectVO> projectVONullList=new ArrayList<ProjectVO>();
 		MockitoAnnotations.initMocks(this);
 		
 		this.projectDTO1.setProjectId("1");
-		this.projectDTO1.setProject("Solr elmer project");
+		this.projectDTO1.setProjectName("Solr elmer project");
 		this.projectDTO1.setStartDate("2019-12-01");
 		this.projectDTO1.setEndDate("2019-12-28");
 		this.projectDTO1.setPriority("60");
@@ -88,7 +88,7 @@ List<ProjectVO> projectVONullList=new ArrayList<ProjectVO>();
 		this.projectVO1.setPriority(60);
 		
 		this.projectDTO2.setProjectId("2");
-		this.projectDTO2.setProject("Perkin elmer project");
+		this.projectDTO2.setProjectName("Perkin elmer project");
 		this.projectDTO2.setStartDate("2018-06-17");
 		this.projectDTO2.setEndDate("2018-11-28");
 		this.projectDTO2.setPriority("90");
@@ -102,7 +102,7 @@ List<ProjectVO> projectVONullList=new ArrayList<ProjectVO>();
 		
 		
 		this.projectDTO3.setProjectId("3");
-		this.projectDTO3.setProject("ILL elmer project");
+		this.projectDTO3.setProjectName("ILL elmer project");
 		this.projectDTO3.setStartDate("2019-02-17");
 		this.projectDTO3.setEndDate("2019-08-28");
 		this.projectDTO3.setPriority("30");

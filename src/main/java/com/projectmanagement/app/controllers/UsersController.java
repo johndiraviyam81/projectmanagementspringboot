@@ -145,7 +145,7 @@ public class UsersController {
 	@GetMapping(value = "/user/{userId}")
 	public ResponseEntity<UserDTO> getUser(@PathVariable("userId")String userId)
 	{
-		String message="User is added successfully";
+		String message="User is received successfully";
 		String badRequestMessage="Error has been occured while creating User";
 		UserDTO userDto=new UserDTO();	
 		try

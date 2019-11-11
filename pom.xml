@@ -4,12 +4,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.projectmanagement.app</groupId>
-	<artifactId>projectmanagement</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-<packaging>jar</packaging>
-	<name>projectmanagementapp</name>
-	<description>project management app</description>
-
+	<artifactId>ProjectManagementApp</artifactId>
+	<packaging>jar</packaging>
+	<version>v1</version>
+	<name>Project management app</name>
+	<url>http://maven.apache.org</url>
+	
+	
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -17,6 +18,7 @@
 	</parent>
 
 	<properties>
+	<failOnMissingWebXml>false</failOnMissingWebXml>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 				<junit-platform-launcherversion>1.2.0</junit-platform-launcherversion>
@@ -122,7 +124,7 @@
 		<dependency>
 			<groupId>org.junit.platform</groupId>
 			<artifactId>junit-platform-launcher</artifactId>
-			<version>${junit-platform-launcherversion}</version>
+			<version>${junit-platform-launcherversion}</version><!--$NO-MVN-MAN-VER$-->
 			<scope>test</scope>
 		</dependency>
 
@@ -254,4 +256,5 @@
 	</build>
 
 
+	<description>Project management app</description>
 </project>

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -58,6 +59,28 @@ public class ProjectsController {
 	}
 	
 	@CrossOrigin
+	@PostMapping(value = "/search")
+	public ResponseEntity<List<ProjectDTO>> searchAllProjects(@RequestBody String projectName)
+	{
+		List<ProjectDTO> projectList=new ArrayList<ProjectDTO>();
+		try
+		{		
+			projectList=projectsService.searchProjects(projectName);
+			
+			return ResponseEntity.ok().body(projectList);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			
+		}
+		
+		return ResponseEntity.badRequest().body(projectList);
+		
+	}
+	
+	
+	@CrossOrigin
 	@PostMapping(value = "/add")
 	public ResponseEntity<ProjectDTO> addProject(@RequestBody ProjectDTO projectDTO)
 	{
@@ -87,6 +110,65 @@ public class ProjectsController {
 				
 	}
 		
+	@CrossOrigin
+	@GetMapping(value = "/project/{projectId}")
+	public ResponseEntity<ProjectDTO> getProject(@PathVariable("projectId")String projectId)
+	{
+		String message="Project is updated successfully";
+		String badRequestMessage="Error has been occured while creating project";
+		ProjectDTO projectDTO=new ProjectDTO();		
+		try
+		{	
+			projectDTO=projectsService.getProjectById(Long.parseLong(projectId));
+			 if(!projectDTO.getProjectId().isEmpty())
+			 {
+			 projectDTO.setMessage(message);			
+			 }
+			 else
+			 {
+				projectDTO.setMessage(badRequestMessage);
+				
+			 }
+			 return ResponseEntity.ok().body(projectDTO);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			projectDTO.setMessage(badRequestMessage);
+			return ResponseEntity.badRequest().body(projectDTO);
+		}
+				
+	}
+	
+	@CrossOrigin
+	@PutMapping(value = "/project")
+	public ResponseEntity<ProjectDTO> updateProject(@RequestBody ProjectDTO projectDTO)
+	{
+		String message="Project is updated successfully";
+		String badRequestMessage="Error has been occured while creating project";
+		long projectId=0L;		
+		try
+		{	
+			projectId=projectsService.save(projectDTO);
+			 if(projectId>0L)
+			 {
+			 projectDTO.setMessage(message);			
+			 }
+			 else
+			 {
+				projectDTO.setMessage(badRequestMessage);
+				
+			 }
+			 return ResponseEntity.ok().body(projectDTO);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			projectDTO.setMessage(badRequestMessage);
+			return ResponseEntity.badRequest().body(projectDTO);
+		}
+				
+	}
 
 
 }

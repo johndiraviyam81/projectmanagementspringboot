@@ -14,5 +14,7 @@ public interface ProjectVORepository extends JpaRepository<ProjectVO, Integer>{
 
 	ProjectVO findByProjectId(long projectId);
 	
+	List<ProjectVO> findByProjectContaining(String projectName);
+	
 
 }

@@ -15,7 +15,7 @@ public class ProjectDTO  implements Serializable {
 	public	String projectId;
 	public	String userId;
 	public	String userName;
-	public	String project;
+	public	String projectName;
 	public	String startDate;
 	public	String endDate;
 	public	String priority;
@@ -67,15 +67,15 @@ public class ProjectDTO  implements Serializable {
 
 
 
-	public String getProject() {
-		return project;
+	public String getProjectName() {
+		return projectName;
 	}
 
 
 
 
-	public void setProject(String project) {
-		this.project = project;
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
 	}
 
 
@@ -139,7 +139,7 @@ public class ProjectDTO  implements Serializable {
 
 				@Override
 		public String toString() {
-			return "ProjectDTO [projectId=" + projectId + ", project=" + project + ", startDate=" + startDate + ", endDate=" + endDate
+			return "ProjectDTO [projectId=" + projectId + ", projectName=" + projectName + ", startDate=" + startDate + ", endDate=" + endDate
 					+ ", priority=" + priority+ ", message=" + message + "]";
 		}
 

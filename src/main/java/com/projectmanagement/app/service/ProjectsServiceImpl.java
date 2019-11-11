@@ -10,7 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.projectmanagement.app.entity.ProjectVO;
+import com.projectmanagement.app.entity.UsersVO;
 import com.projectmanagement.app.repositories.ProjectVORepository;
+import com.projectmanagement.app.repositories.UsersVORepository;
 import com.projectmanagement.app.model.ProjectDTO;
 
 
@@ -24,7 +26,35 @@ public class ProjectsServiceImpl implements ProjectsService {
 	@Autowired
 	ProjectVORepository projectVORepository;
 	
+	@Autowired
+	UsersVORepository usersVORepository;
 	
+	@Override
+	@Transactional
+	public ProjectDTO  getProjectById(long projectId)
+	{
+		
+		ProjectDTO getProjectDTO=new ProjectDTO();
+		
+		ProjectVO projectVo1=new  ProjectVO();
+		try
+		{
+			projectVo1= projectVORepository.findByProjectId(projectId);
+		 if(projectVo1!=null && projectVo1.getProjectId()!=0L)
+		 {
+			 getProjectDTO=mapProjectDto(projectVo1);	
+			
+		 }
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+					
+					
+			return getProjectDTO;
+	}
+
 	
 	@Override
 	@Transactional
@@ -55,6 +85,37 @@ public class ProjectsServiceImpl implements ProjectsService {
 			return allProjects;
 	}
 
+
+	@Override
+	@Transactional
+	public List<ProjectDTO> searchProjects(String projectContain) 
+	{
+		
+		List<ProjectDTO> allProjects=new ArrayList<ProjectDTO>();
+		
+		List<ProjectVO> projectList=new ArrayList<ProjectVO>();
+		try
+		{
+			String containsProjectName=projectContain;
+			projectList= projectVORepository.findByProjectContaining(containsProjectName);
+		 if(projectList!=null && projectList.size()>0)
+		 {
+			for(ProjectVO projectVO : projectList) 
+			{
+				System.out.print(projectVO.toString());
+				allProjects.add(mapProjectDto(projectVO));				
+			}
+		 }
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+					
+					
+			return allProjects;
+	}
+
 	@Override
 	@Transactional
 	public long save(ProjectDTO projectDTO) throws Exception {
@@ -62,6 +123,12 @@ public class ProjectsServiceImpl implements ProjectsService {
 	long projectId=0L;
 	
 	ProjectVO projectVO=projectVORepository.save(mapProjectVo(projectDTO));
+	UsersVO userVoDt=usersVORepository.findByUserId(Long.parseLong(projectDTO.getUserId()));
+	if(userVoDt!=null && userVoDt.getUserId()!=0L)
+	{
+		userVoDt.setProjectVO(projectVO);
+		usersVORepository.save(userVoDt);
+	}
 	if(projectVO!=null && projectVO.getProjectId()!=0)
 		projectId=projectVO.getProjectId();
 	return projectId;
@@ -71,13 +138,14 @@ public class ProjectsServiceImpl implements ProjectsService {
 	{
 		ProjectVO projectVo=new ProjectVO();
 		System.out.println("******* projectDTO object the  **********\n"+projectDTO.toString());
-		projectVo.setProject(projectDTO.getProject());
+		projectVo.setProject(projectDTO.getProjectName());
 		if(projectDTO.getProjectId()!=null && !projectDTO.getProjectId().isEmpty())
 		projectVo.setProjectId(Long.parseLong(projectDTO.getProjectId()));
 		
 		projectVo.setStartDate(LocalDate.parse(projectDTO.getStartDate()));
 		projectVo.setEndDate(LocalDate.parse(projectDTO.getEndDate()));
 		projectVo.setPriority(Integer.parseInt(projectDTO.getPriority()));
+		
 		
 		return projectVo;
 	}
@@ -87,11 +155,16 @@ public class ProjectsServiceImpl implements ProjectsService {
 		ProjectDTO projectDTO=new ProjectDTO();
 		System.out.println("******* projectVO object the  **********\n"+projectVO.toString());
 		projectDTO.setProjectId(String.valueOf(projectVO.getProjectId()));
-		projectDTO.setProject(projectVO.getProject());
+		projectDTO.setProjectName(projectVO.getProject());
 		projectDTO.setStartDate(String.valueOf(projectVO.getStartDate()));
 		projectDTO.setEndDate(String.valueOf(projectVO.getEndDate()));
 		projectDTO.setPriority(String.valueOf(projectVO.getPriority()));
-		
+		UsersVO userVoDt=usersVORepository.findByProjectVO(projectVO);
+		if(userVoDt!=null && userVoDt.getUserId()!=0L)
+		{
+			projectDTO.setUserId(String.valueOf(userVoDt.getUserId()));
+			projectDTO.setUserName(userVoDt.getFirstName()+ " " +userVoDt.getLastName());
+		}
 		return projectDTO;
 	}
 }
