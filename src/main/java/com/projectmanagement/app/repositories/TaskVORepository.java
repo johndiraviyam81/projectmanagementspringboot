@@ -13,5 +13,7 @@ import com.projectmanagement.app.entity.TaskVO;
 public interface TaskVORepository extends JpaRepository<TaskVO, Integer>{
 
 	TaskVO findByTaskId(long taskId);
+	List<TaskVO> findByTaskContaining(String taskName);
+	
 
 }

@@ -29,13 +29,7 @@ public class UsersVO {
 	@Column(name="employee_id")
 	private long employeeId;
 
-	@ManyToOne
-	@JoinColumn(name="project_id")
-	private ProjectVO projectVO;
 
-	@ManyToOne
-	@JoinColumn(name="task_id")
-	private TaskVO taskVO;
 
 	
 
@@ -102,37 +96,9 @@ public class UsersVO {
 
 
 
-	public ProjectVO getProjectVO() {
-		return projectVO;
-	}
-
-
-
-
-	public void setProjectVO(ProjectVO projectVO) {
-		this.projectVO = projectVO;
-	}
-
-
-
-
-	public TaskVO getTaskVO() {
-		return taskVO;
-	}
-
-
-
-
-	public void setTaskVO(TaskVO taskVO) {
-		this.taskVO = taskVO;
-	}
-
-
-
-
 	@Override
 	public String toString() {
-		return "UsersVO [userId=" + userId + ", firstName=" + firstName +", lastName=" + lastName +", employeeId=" + employeeId +  ", projectVO=" + (projectVO!=null?projectVO.toString():"") +", taskVO=" + (taskVO!=null?taskVO.toString():"") + "]";
+		return "UsersVO [userId=" + userId + ", firstName=" + firstName +", lastName=" + lastName +", employeeId=" + employeeId  + "]";
 	}
 
 }

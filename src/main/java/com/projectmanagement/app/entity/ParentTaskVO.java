@@ -2,7 +2,13 @@ package com.projectmanagement.app.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -10,11 +16,13 @@ import javax.persistence.Table;
 public class ParentTaskVO {
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="Parent_Id")
 	protected	long parentId;
 	
-	@Column(name="Parent_Task")
-	protected String parentTask;
+	@OneToOne
+	@JoinColumn(name="Parent_Task")
+	private TaskVO parentTask;
 	
 	public ParentTaskVO()
 	{
@@ -29,17 +37,17 @@ public class ParentTaskVO {
 		this.parentId = parentId;
 	}
 
-	public String getParentTask() {
+	public TaskVO getParentTask() {
 		return parentTask;
 	}
 
-	public void setParentTask(String parentTask) {
+	public void setParentTask(TaskVO parentTask) {
 		this.parentTask = parentTask;
 	}
 	
 	@Override
 	public String toString() {
-		return "ParentTaskVO [parentId=" + parentId  + ", parentTask=" + parentTask + "]";
+		return "ParentTaskVO [parentId=" + parentId  + ", parentTask=" + parentTask.toString() + "]";
 	}
 
 }

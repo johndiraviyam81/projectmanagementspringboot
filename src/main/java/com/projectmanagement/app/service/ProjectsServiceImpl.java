@@ -123,12 +123,8 @@ public class ProjectsServiceImpl implements ProjectsService {
 	long projectId=0L;
 	
 	ProjectVO projectVO=projectVORepository.save(mapProjectVo(projectDTO));
-	UsersVO userVoDt=usersVORepository.findByUserId(Long.parseLong(projectDTO.getUserId()));
-	if(userVoDt!=null && userVoDt.getUserId()!=0L)
-	{
-		userVoDt.setProjectVO(projectVO);
-		usersVORepository.save(userVoDt);
-	}
+	
+
 	if(projectVO!=null && projectVO.getProjectId()!=0)
 		projectId=projectVO.getProjectId();
 	return projectId;
@@ -145,8 +141,11 @@ public class ProjectsServiceImpl implements ProjectsService {
 		projectVo.setStartDate(LocalDate.parse(projectDTO.getStartDate()));
 		projectVo.setEndDate(LocalDate.parse(projectDTO.getEndDate()));
 		projectVo.setPriority(Integer.parseInt(projectDTO.getPriority()));
-		
-		
+		if(projectDTO.getUserId()!=null && !projectDTO.getUserId().isEmpty())
+		{
+		UsersVO userVoDt=usersVORepository.findByUserId(Long.parseLong(projectDTO.getUserId()));
+		projectVo.setUsersVO(userVoDt);
+		}
 		return projectVo;
 	}
 	
@@ -159,12 +158,10 @@ public class ProjectsServiceImpl implements ProjectsService {
 		projectDTO.setStartDate(String.valueOf(projectVO.getStartDate()));
 		projectDTO.setEndDate(String.valueOf(projectVO.getEndDate()));
 		projectDTO.setPriority(String.valueOf(projectVO.getPriority()));
-		UsersVO userVoDt=usersVORepository.findByProjectVO(projectVO);
-		if(userVoDt!=null && userVoDt.getUserId()!=0L)
-		{
-			projectDTO.setUserId(String.valueOf(userVoDt.getUserId()));
-			projectDTO.setUserName(userVoDt.getFirstName()+ " " +userVoDt.getLastName());
-		}
+		projectDTO.setUserId(String.valueOf(projectVO.getUsersVO().getUserId()));
+		
+		projectDTO.setUserName(projectVO.getUsersVO().getFirstName());
+		
 		return projectDTO;
 	}
 }

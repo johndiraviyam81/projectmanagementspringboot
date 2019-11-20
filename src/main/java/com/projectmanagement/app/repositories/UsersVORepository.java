@@ -18,8 +18,6 @@ public interface UsersVORepository extends JpaRepository<UsersVO, Integer>{
 
 	List<UsersVO> findByFirstNameIn(List<String> userNames);
 	
-	UsersVO findByProjectVO(ProjectVO projectVO);
-	
-	UsersVO findByTaskVO(TaskVO taskVO);
+
 		
 }

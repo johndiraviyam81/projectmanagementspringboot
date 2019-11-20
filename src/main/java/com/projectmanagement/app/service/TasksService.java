@@ -14,6 +14,12 @@ public interface TasksService
 	public long save(TaskDTO taskDTO) throws Exception;
 
 	public List<TaskDTO> getAllTasks();
+	
+	public TaskDTO getTaskById(long taskId);
+	
+	public TaskDTO getTaskByParentId(long parentById);
+	
+	public List<TaskDTO> searchTasks(String taskName);
 
 
 }

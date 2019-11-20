@@ -17,39 +17,11 @@ public class UserDTO  implements Serializable {
 	public	String firstName;
 	public	String lastName;
 	public	String employeeId;
-	public	String projectId;
-	public	String taskId;
-	public	String projectName;
-	public	String taskName;
 	public	String message;
 	
 
 
 
-		public String getProjectName() {
-		return projectName;
-	}
-
-
-
-
-	public void setProjectName(String projectName) {
-		this.projectName = projectName;
-	}
-
-
-
-
-	public String getTaskName() {
-		return taskName;
-	}
-
-
-
-
-	public void setTaskName(String taskName) {
-		this.taskName = taskName;
-	}
 
 
 
@@ -110,30 +82,6 @@ public class UserDTO  implements Serializable {
 
 
 
-	public String getProjectId() {
-		return projectId;
-	}
-
-
-
-
-	public void setProjectId(String projectId) {
-		this.projectId = projectId;
-	}
-
-
-
-
-	public String getTaskId() {
-		return taskId;
-	}
-
-
-
-
-	public void setTaskId(String taskId) {
-		this.taskId = taskId;
-	}
 
 
 
@@ -154,8 +102,7 @@ public class UserDTO  implements Serializable {
 
 				@Override
 		public String toString() {
-			return "UserDTO [userId=" + userId  + ", firstName=" + firstName+", lastName=" + lastName +", employeeId=" + employeeId +", projectId=" + projectId +", "
-					+ "taskId=" + taskId + ", message=" + message + "]";
+			return "UserDTO [userId=" + userId  + ", firstName=" + firstName+", lastName=" + lastName +", employeeId=" + employeeId + ", message=" + message + "]";
 		}
 
 	}

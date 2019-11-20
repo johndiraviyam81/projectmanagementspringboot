@@ -15,13 +15,33 @@ public class TaskDTO  implements Serializable {
 	public	String taskId;
 	public	String parentTaskId;
 	public	String projectId;
-	public	String task;
+	public	String userId;
+	public	String taskName;
 	public	String startDate;
 	public	String endDate;
 	public	String priority;
 	public	String status;
 	public	String message;
-	
+	public	String parentTaskName;
+	public	String projectName;
+	public	String userName;
+
+
+
+
+
+				public String getUserId() {
+		return userId;
+	}
+
+
+
+
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
 
 
 
@@ -74,16 +94,16 @@ public class TaskDTO  implements Serializable {
 
 
 
-	public String getTask() {
-		return task;
+	public String getTaskName() {
+		return taskName;
 	}
 
 
 
 
 
-	public void setTask(String task) {
-		this.task = task;
+	public void setTaskName(String taskName) {
+		this.taskName = taskName;
 	}
 
 
@@ -167,12 +187,61 @@ public class TaskDTO  implements Serializable {
 	}
 
 
+	
+
+
+
+				public String getParentTaskName() {
+		return parentTaskName;
+	}
+
+
+
+
+
+	public void setParentTaskName(String parentTaskName) {
+		this.parentTaskName = parentTaskName;
+	}
+
+
+
+
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+
+
+
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+
+
+
+
+
+	public String getUserName() {
+		return userName;
+	}
+
+
+
+
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+
 
 
 
 				@Override
 		public String toString() {
-			return "TaskDTO [taskId=" + taskId  + ", parentTaskId=" + parentTaskId+", task=" + task +", projectId=" + projectId +", startDate=" + startDate +", "
+			return "TaskDTO [taskId=" + taskId  + ", parentTaskId=" + parentTaskId	+", parentTaskName=" + parentTaskName+", projectName=" + projectName+", userName=" + userName+", taskName=" + taskName +", projectId=" + projectId +", startDate=" + startDate +", "
 					+ "endDate=" + endDate + ", priority=" + priority +  ", status=" + status + "]";
 		}
 

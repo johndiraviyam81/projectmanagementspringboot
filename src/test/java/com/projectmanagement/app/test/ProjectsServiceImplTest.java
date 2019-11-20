@@ -28,6 +28,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.util.NestedServletException;
 
 import com.projectmanagement.app.entity.ProjectVO;
+import com.projectmanagement.app.entity.UsersVO;
 import com.projectmanagement.app.model.ProjectDTO;
 import com.projectmanagement.app.repositories.ProjectVORepository;
 import com.projectmanagement.app.service.ProjectsService;
@@ -69,29 +70,39 @@ List<ProjectVO> projectVONullList=new ArrayList<ProjectVO>();
 	
 	ProjectDTO projectDTO4Error=new ProjectDTO();
 	
-
+	UsersVO usersVO=new UsersVO();
 	
 	@BeforeEach
 	void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
+	
+		this.usersVO.setUserId(1);
+		this.usersVO.setFirstName("John");
+		this.usersVO.setLastName("Diraviyam");
+		this.usersVO.setEmployeeId(12412);
 		
 		this.projectDTO1.setProjectId("1");
 		this.projectDTO1.setProjectName("Solr elmer project");
 		this.projectDTO1.setStartDate("2019-12-01");
 		this.projectDTO1.setEndDate("2019-12-28");
 		this.projectDTO1.setPriority("60");
-		
+		this.projectDTO1.setUserId("1");
+		this.projectDTO1.setUserName("John");
+	
 		this.projectVO1.setProjectId(1L);
 		this.projectVO1.setProject("Solr elmer project");
 		this.projectVO1.setStartDate(LocalDate.parse("2019-12-01"));
 		this.projectVO1.setEndDate(LocalDate.parse("2019-12-28"));
 		this.projectVO1.setPriority(60);
+		this.projectVO1.setUsersVO(this.usersVO);
 		
 		this.projectDTO2.setProjectId("2");
 		this.projectDTO2.setProjectName("Perkin elmer project");
 		this.projectDTO2.setStartDate("2018-06-17");
 		this.projectDTO2.setEndDate("2018-11-28");
 		this.projectDTO2.setPriority("90");
+		this.projectDTO2.setUserId("1");
+		this.projectDTO2.setUserName("John");
 		
 	
 		this.projectVO2.setProjectId(2L);
@@ -99,20 +110,23 @@ List<ProjectVO> projectVONullList=new ArrayList<ProjectVO>();
 		this.projectVO2.setStartDate(LocalDate.parse("2018-06-17"));
 		this.projectVO2.setEndDate(LocalDate.parse("2018-11-28"));
 		this.projectVO2.setPriority(90);
-		
+		this.projectVO2.setUsersVO(this.usersVO);
 		
 		this.projectDTO3.setProjectId("3");
 		this.projectDTO3.setProjectName("ILL elmer project");
 		this.projectDTO3.setStartDate("2019-02-17");
 		this.projectDTO3.setEndDate("2019-08-28");
 		this.projectDTO3.setPriority("30");
+		this.projectDTO3.setUserId("1");
+		this.projectDTO3.setUserName("John");
+		
 		
 		this.projectVO3.setProjectId(3L);
 		this.projectVO3.setProject("ILL elmer project");
 		this.projectVO3.setStartDate(LocalDate.parse("2019-02-17"));
 		this.projectVO3.setEndDate(LocalDate.parse("2019-08-28"));
 		this.projectVO3.setPriority(30);
-		
+		this.projectVO3.setUsersVO(this.usersVO);
 		/*this.projectVO4.setProjectId(0L);
 		this.projectVO4.setProject("ILL elmer project");
 		

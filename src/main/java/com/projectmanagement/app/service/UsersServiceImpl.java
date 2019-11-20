@@ -116,19 +116,8 @@ public class UsersServiceImpl implements UsersService {
 	TaskVO  taskVO=new TaskVO();
 	ProjectVO projectVO=new ProjectVO();
 	UsersVO createUserVO=mapUserVo(userDTO);
-	if(userDTO!=null && userDTO.getTaskId()!=null && !userDTO.getTaskId().isEmpty())
-	{
-		taskVO=taskVORepository.findByTaskId(Long.parseLong(userDTO.getTaskId()));
-		createUserVO.setTaskVO(taskVO);
-	}
-	
-	if(userDTO!=null && userDTO.getProjectId()!=null && !userDTO.getProjectId().isEmpty())
-	{
-		projectVO=projectVORepository.findByProjectId(Long.parseLong(userDTO.getProjectId()));
-		createUserVO.setProjectVO(projectVO);
-	}	
-	
 	UsersVO usersVO=usersVORepository.save(createUserVO);
+	
 	if(usersVO!=null && usersVO.getUserId()>0L)
 		userId=usersVO.getUserId();
 	return userId;
@@ -161,17 +150,7 @@ public class UsersServiceImpl implements UsersService {
 		
 	
 		
-		if(usersVO.getTaskVO()!=null && usersVO.getTaskVO().getTaskId()>0L)
-		{
-			userDTO.setTaskId(String.valueOf(usersVO.getTaskVO().getTaskId()));
-			userDTO.setTaskName(usersVO.getTaskVO().getTask());
-		}
-		
-		if(usersVO.getProjectVO()!=null && usersVO.getProjectVO().getProjectId()>0L)
-		{
-			userDTO.setProjectId(String.valueOf(usersVO.getProjectVO().getProjectId()));
-			userDTO.setProjectName(usersVO.getProjectVO().getProject());
-		}
+	
 		
 		
 		return userDTO;

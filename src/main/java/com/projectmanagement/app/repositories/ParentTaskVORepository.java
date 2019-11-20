@@ -7,11 +7,14 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.projectmanagement.app.entity.ParentTaskVO;
+import com.projectmanagement.app.entity.TaskVO;
+
 
 @Transactional
 @Repository("parentTaskVORepository")
 public interface ParentTaskVORepository extends JpaRepository<ParentTaskVO, Integer>{
 
-		
-
+	ParentTaskVO findByParentId(long parentId);
+	ParentTaskVO findByParentTask(TaskVO parentTaskVO);
+	
 }

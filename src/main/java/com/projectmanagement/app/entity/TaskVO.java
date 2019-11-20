@@ -32,6 +32,9 @@ public class TaskVO {
 	@JoinColumn(name="project_id")
 	private ProjectVO projectVO;
 	
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private UsersVO usersVO;
 
 	@Column(name="task")
 	protected String task;
@@ -165,11 +168,25 @@ public class TaskVO {
 	}
 
 
+	public UsersVO getUsersVO() {
+		return usersVO;
+	}
+
+
+
+
+	public void setUsersVO(UsersVO usersVO) {
+		this.usersVO = usersVO;
+	}
 
 
 	@Override
 	public String toString() {
-		return "TaskVO [taskId=" + taskId  + ", task=" + task + ", parentTaskVO=" + parentTaskVO +", projectVO=" + projectVO +", startDate=" + startDate +", endDate=" + endDate + ", priority=" + priority +  ", status=" + status + "]";
+		return "TaskVO [taskId=" + taskId  + ", task=" + task  +", parentTaskVO=" + ((parentTaskVO!=null)?parentTaskVO.toString():"") +", projectVO=" + ((projectVO!=null)?projectVO.toString():"") +", startDate=" + startDate +", endDate=" + endDate + ", priority=" + priority +  ", status=" + status +", UsersVO=" + ((usersVO!=null)?usersVO.toString():"") + "]";
 	}
+
+
+
+
 
 }

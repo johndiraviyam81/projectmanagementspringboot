@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -31,6 +33,10 @@ public class ProjectVO {
 	@Column(name="priority")
 	protected int priority;
 	
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private UsersVO usersVO;
+	
 	public ProjectVO() {
 		
 	}
@@ -38,6 +44,20 @@ public class ProjectVO {
 	
 	
 	
+	public UsersVO getUsersVO() {
+		return usersVO;
+	}
+
+
+
+
+	public void setUsersVO(UsersVO usersVO) {
+		this.usersVO = usersVO;
+	}
+
+
+
+
 	public long getProjectId() {
 		return projectId;
 	}
@@ -110,7 +130,7 @@ public class ProjectVO {
 
 	@Override
 	public String toString() {
-		return "Project [projectId=" + projectId + ", project=" + project +  ", startDate=" + startDate +", endDate=" + endDate + ", priority=" + priority + "]";
+		return "Project [projectId=" + projectId + ", project=" + project +  ", startDate=" + startDate +", endDate=" + endDate + ", priority=" + priority +", UsersVO=" + ((usersVO!=null)?usersVO.toString():"") + "]";
 	}
 
 }
