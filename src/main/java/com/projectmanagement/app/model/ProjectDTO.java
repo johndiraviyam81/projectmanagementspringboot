@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package com.projectmanagement.app.model;
 
 import java.io.Serializable;
@@ -7,24 +10,49 @@ import java.util.Date;
 import javax.persistence.Column;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ProjectDTO.
+ */
 public class ProjectDTO  implements Serializable {
 		
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 1L;
 		
 				
+	/** The project id. */
 	public	String projectId;
+	
+	/** The user id. */
 	public	String userId;
+	
+	/** The user name. */
 	public	String userName;
+	
+	/** The project name. */
 	public	String projectName;
+	
+	/** The start date. */
 	public	String startDate;
+	
+	/** The end date. */
 	public	String endDate;
+	
+	/** The priority. */
 	public	String priority;
+	
+	/** The message. */
 	public	String message;
 	
 		
 
 
 
+				/**
+				 * Gets the project id.
+				 *
+				 * @return the project id
+				 */
 				public String getProjectId() {
 		return projectId;
 	}
@@ -32,6 +60,11 @@ public class ProjectDTO  implements Serializable {
 
 
 
+	/**
+	 * Sets the project id.
+	 *
+	 * @param projectId the new project id
+	 */
 	public void setProjectId(String projectId) {
 		this.projectId = projectId;
 	}
@@ -39,6 +72,11 @@ public class ProjectDTO  implements Serializable {
 
 
 
+	/**
+	 * Gets the user id.
+	 *
+	 * @return the user id
+	 */
 	public String getUserId() {
 		return userId;
 	}
@@ -46,6 +84,11 @@ public class ProjectDTO  implements Serializable {
 
 
 
+	/**
+	 * Sets the user id.
+	 *
+	 * @param userId the new user id
+	 */
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
@@ -53,6 +96,11 @@ public class ProjectDTO  implements Serializable {
 
 
 
+	/**
+	 * Gets the user name.
+	 *
+	 * @return the user name
+	 */
 	public String getUserName() {
 		return userName;
 	}
@@ -60,6 +108,11 @@ public class ProjectDTO  implements Serializable {
 
 
 
+	/**
+	 * Sets the user name.
+	 *
+	 * @param userName the new user name
+	 */
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
@@ -67,6 +120,11 @@ public class ProjectDTO  implements Serializable {
 
 
 
+	/**
+	 * Gets the project name.
+	 *
+	 * @return the project name
+	 */
 	public String getProjectName() {
 		return projectName;
 	}
@@ -74,6 +132,11 @@ public class ProjectDTO  implements Serializable {
 
 
 
+	/**
+	 * Sets the project name.
+	 *
+	 * @param projectName the new project name
+	 */
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
@@ -81,6 +144,11 @@ public class ProjectDTO  implements Serializable {
 
 
 
+	/**
+	 * Gets the start date.
+	 *
+	 * @return the start date
+	 */
 	public String getStartDate() {
 		return startDate;
 	}
@@ -88,6 +156,11 @@ public class ProjectDTO  implements Serializable {
 
 
 
+	/**
+	 * Sets the start date.
+	 *
+	 * @param startDate the new start date
+	 */
 	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
@@ -95,6 +168,11 @@ public class ProjectDTO  implements Serializable {
 
 
 
+	/**
+	 * Gets the end date.
+	 *
+	 * @return the end date
+	 */
 	public String getEndDate() {
 		return endDate;
 	}
@@ -102,6 +180,11 @@ public class ProjectDTO  implements Serializable {
 
 
 
+	/**
+	 * Sets the end date.
+	 *
+	 * @param endDate the new end date
+	 */
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
@@ -109,6 +192,11 @@ public class ProjectDTO  implements Serializable {
 
 
 
+	/**
+	 * Gets the priority.
+	 *
+	 * @return the priority
+	 */
 	public String getPriority() {
 		return priority;
 	}
@@ -116,6 +204,11 @@ public class ProjectDTO  implements Serializable {
 
 
 
+	/**
+	 * Sets the priority.
+	 *
+	 * @param priority the new priority
+	 */
 	public void setPriority(String priority) {
 		this.priority = priority;
 	}
@@ -123,6 +216,11 @@ public class ProjectDTO  implements Serializable {
 
 
 
+	/**
+	 * Gets the message.
+	 *
+	 * @return the message
+	 */
 	public String getMessage() {
 		return message;
 	}
@@ -130,6 +228,11 @@ public class ProjectDTO  implements Serializable {
 
 
 
+	/**
+	 * Sets the message.
+	 *
+	 * @param message the new message
+	 */
 	public void setMessage(String message) {
 		this.message = message;
 	}
@@ -137,6 +240,9 @@ public class ProjectDTO  implements Serializable {
 
 
 
+				/* (non-Javadoc)
+				 * @see java.lang.Object#toString()
+				 */
 				@Override
 		public String toString() {
 			return "ProjectDTO [projectId=" + projectId + ", projectName=" + projectName + ", startDate=" + startDate + ", endDate=" + endDate

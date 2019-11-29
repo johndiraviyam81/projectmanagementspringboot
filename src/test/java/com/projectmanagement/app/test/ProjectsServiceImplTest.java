@@ -1,10 +1,13 @@
 package com.projectmanagement.app.test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,53 +28,112 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.util.NestedServletException;
 
+import com.projectmanagement.app.entity.ParentTaskVO;
 import com.projectmanagement.app.entity.ProjectVO;
+import com.projectmanagement.app.entity.TaskVO;
 import com.projectmanagement.app.entity.UsersVO;
 import com.projectmanagement.app.model.ProjectDTO;
+import com.projectmanagement.app.repositories.ParentTaskVORepository;
 import com.projectmanagement.app.repositories.ProjectVORepository;
+import com.projectmanagement.app.repositories.TaskVORepository;
+import com.projectmanagement.app.repositories.UsersVORepository;
 import com.projectmanagement.app.service.ProjectsService;
 import com.projectmanagement.app.service.ProjectsServiceImpl;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ProjectsServiceImplTest.
+ */
 class ProjectsServiceImplTest {
 
+	/** The projects service. */
 	@InjectMocks
 	private	ProjectsServiceImpl projectsService;
 	
+	/** The project VO repository. */
 	@Mock
 	private	ProjectVORepository projectVORepository;
 	
+	/** The User VO repository. */
+	@Mock
+	private UsersVORepository usersVORepository;
 	
+	/** The task VO repository. */
+	@Mock
+	private TaskVORepository taskVORepository;
 	
+	/** The parent task VO repository. */
+	@Mock
+	private ParentTaskVORepository parentTaskVORepository;
+	
+/** The project list. */
 List<ProjectDTO> projectList=new ArrayList<ProjectDTO>();
 
+/** The project VO list. */
 List<ProjectVO> projectVOList=new ArrayList<ProjectVO>();
 
+/** The project VO null list. */
 List<ProjectVO> projectVONullList=new ArrayList<ProjectVO>();
 	
+	/** The project null list. */
 	List<ProjectDTO> projectNullList=new ArrayList<ProjectDTO>();
 	
+	/** The project DTO 1. */
 	ProjectDTO projectDTO1=new ProjectDTO();
 	
+	/** The project VO 1. */
 	ProjectVO projectVO1=new ProjectVO();
 	
+	/** The project DTO 2. */
 	ProjectDTO projectDTO2=new ProjectDTO();
 	
+	/** The project VO 2. */
 	ProjectVO projectVO2=new ProjectVO();
 	
+	/** The project DTO 3. */
 	ProjectDTO projectDTO3=new ProjectDTO();
 	
+	/** The project VO 3. */
 	ProjectVO projectVO3=new ProjectVO();
 	
+	/** The project DTO 4. */
 	ProjectDTO projectDTO4=new ProjectDTO();
 	
+	/** The project VO 4. */
 	ProjectVO projectVO4=new ProjectVO();
 	
+	/** The project DTO 4 error. */
 	ProjectDTO projectDTO4Error=new ProjectDTO();
 	
+	/** The users VO. */
 	UsersVO usersVO=new UsersVO();
 	
+	/** The projectContain. */
+	String projectContain="Solr";
+	
+	/** The task vo 1. */
+	TaskVO taskVo1=new TaskVO();
+	
+	/** The task vo 2. */
+	TaskVO taskVo2=new TaskVO();
+	
+	/** The parent task VO. */
+	ParentTaskVO parentTaskVO=new ParentTaskVO();
+	
+	/** The task VO list. */
+	List<TaskVO> taskVOList=new ArrayList<TaskVO>();
+	
+	/** The task VO list null. */
+	List<TaskVO> taskVOListNull=null;
+	
+	/**
+	 * Sets the up.
+	 *
+	 * @throws Exception the exception
+	 */
 	@BeforeEach
 	void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
@@ -80,6 +142,32 @@ List<ProjectVO> projectVONullList=new ArrayList<ProjectVO>();
 		this.usersVO.setFirstName("John");
 		this.usersVO.setLastName("Diraviyam");
 		this.usersVO.setEmployeeId(12412);
+		
+		this.taskVo1.setTaskId(1);
+		this.taskVo1.setTask("Solr first Task");
+		this.taskVo1.setProjectVO(projectVO1);
+		this.taskVo1.setEndDate(LocalDate.parse("2019-12-01"));
+		this.taskVo1.setStartDate(LocalDate.parse("2019-12-11"));
+		this.taskVo1.setPriority(30);
+		this.taskVo1.setUsersVO(usersVO);
+		this.taskVo1.setStatus("Start");
+		this.taskVo1.setParentTaskVO(null);
+		
+		this.parentTaskVO.setParentId(1);
+		this.parentTaskVO.setParentTask(taskVo1);
+		
+		this.taskVo2.setTaskId(2);
+		this.taskVo2.setTask("Solr second Task");
+		this.taskVo2.setProjectVO(projectVO1);
+		this.taskVo2.setEndDate(LocalDate.parse("2018-12-01"));
+		this.taskVo2.setStartDate(LocalDate.parse("2018-12-11"));
+		this.taskVo2.setPriority(60);
+		this.taskVo2.setUsersVO(usersVO);
+		this.taskVo2.setStatus("Start");
+		this.taskVo2.setParentTaskVO(parentTaskVO);
+		
+		this.taskVOList.add(this.taskVo1);
+		this.taskVOList.add(this.taskVo2);
 		
 		this.projectDTO1.setProjectId("1");
 		this.projectDTO1.setProjectName("Solr elmer project");
@@ -120,13 +208,17 @@ List<ProjectVO> projectVONullList=new ArrayList<ProjectVO>();
 		this.projectDTO3.setUserId("1");
 		this.projectDTO3.setUserName("John");
 		
+
 		
-		this.projectVO3.setProjectId(3L);
-		this.projectVO3.setProject("ILL elmer project");
-		this.projectVO3.setStartDate(LocalDate.parse("2019-02-17"));
-		this.projectVO3.setEndDate(LocalDate.parse("2019-08-28"));
-		this.projectVO3.setPriority(30);
+		this.projectVO3.setProject(this.projectDTO3.getProjectName());
+		this.projectVO3.setProjectId(Long.parseLong(this.projectDTO3.getProjectId()));
+		
+		this.projectVO3.setStartDate(LocalDate.parse(this.projectDTO3.getStartDate()));
+		this.projectVO3.setEndDate(LocalDate.parse(this.projectDTO3.getEndDate()));
+		this.projectVO3.setPriority(Integer.parseInt(this.projectDTO3.getPriority()));
 		this.projectVO3.setUsersVO(this.usersVO);
+		
+	 
 		/*this.projectVO4.setProjectId(0L);
 		this.projectVO4.setProject("ILL elmer project");
 		
@@ -139,40 +231,190 @@ List<ProjectVO> projectVONullList=new ArrayList<ProjectVO>();
 		  this.projectVOList.add(this.projectVO1);
 		  this.projectVOList.add(this.projectVO2);
 		  this.projectVOList.add(this.projectVO3);
+		  
+		  
 	}
 
+	/**
+	 * Test get all projects possitive flow.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	void testGetAllProjectsPossitiveFlow()  throws Exception {
 		when(projectVORepository.findAll()).thenReturn(projectVOList);
 		List<ProjectDTO> allProjects=new ArrayList<ProjectDTO>();
+		this.projectList.stream().forEach(projectVO->{allProjects.add(projectVO);});
+		projectsService.getAllProjects();
 		
-		allProjects=projectsService.getAllProjects();
-		assertEquals(allProjects.size(),projectList.size());
+		verify(projectVORepository, times(1)).findAll();
+		assertEquals(3,projectList.size());
+	}
+	
+	
+	/**
+	 * Test search all projects possitive flow.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	void testSearchProjectsPossitiveFlow()  throws Exception {
+		when(projectVORepository.findByProjectContaining(this.projectContain)).thenReturn(projectVOList);
+		List<ProjectDTO> allProjects=new ArrayList<ProjectDTO>();
+		projectList.stream().forEach(projectVO->{allProjects.add(projectVO);});
+		
+		projectsService.searchProjects(projectContain);
+		 verify(projectVORepository, times(1)).findByProjectContaining(projectContain);		 
+		assertEquals(3,allProjects.size());
+		
 	}
 	 
+	/**
+	 * Test get all projects negative flow.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	void testGetAllProjectsNegativeFlow()  throws Exception {
 		when(projectVORepository.findAll()).thenReturn(null);
 		List<ProjectDTO> allProjects=new ArrayList<ProjectDTO>();
 		
 		allProjects=projectsService.getAllProjects();
-		assertEquals(allProjects.size(),projectNullList.size());
+		
+		 verify(projectVORepository, times(1)).findAll();	
+		assertEquals(0,projectNullList.size());
+		
 	}
 	
+	/**
+	 * Test search all projects negative flow.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	void testSearchProjectsNegativeFlow()  throws Exception {
+		when(projectVORepository.findByProjectContaining(this.projectContain)).thenReturn(null);
+		List<ProjectDTO> allProjects=new ArrayList<ProjectDTO>();
+		
+		this.projectNullList.stream().forEach(projectVO->{allProjects.add(projectVO);});
+		
+		projectsService.searchProjects(projectContain);
+		 verify(projectVORepository, times(1)).findByProjectContaining(projectContain);		 
+		assertEquals(0,allProjects.size());
+		
+	}
+	
+	/**
+	 * Test save postive flow.
+	 *
+	 * @throws Exception the exception
+	 */
 	@Test
 	void testSavePostiveFlow() throws Exception {
-		when(projectVORepository.save(this.projectVO3)).thenReturn(projectVO3);
-			
-		ProjectVO projectVOnew=projectVORepository.save(this.projectVO3);
-		assertEquals(projectVOnew.getProjectId(),projectVO3.getProjectId());
+		when(usersVORepository.findByUserId(1L)).thenReturn(this.usersVO);
+		when(projectVORepository.save(this.projectVO3)).thenReturn(this.projectVO3);
+		
+		projectsService.save(this.projectDTO3);
+		 verify(projectVORepository, times(1)).save(projectVO3);
+		assertEquals(3L,projectVO3.getProjectId());
+		
 	}
 	
+	/**
+	 * Test save negative flow.
+	 *
+	 * @throws Exception the exception
+	 */
+
 	@Test
 	void testSaveNegativeFlow() throws Exception{
-		when(projectVORepository.save(this.projectVO3)).thenReturn(null);
-			
-		ProjectVO projectVOnew=projectVORepository.save(this.projectVO3);
-		assertEquals(projectVOnew,null);
+		when(usersVORepository.findByUserId(1)).thenReturn(this.usersVO);
+		when(projectVORepository.save(this.projectVO3)).thenReturn(null);		
+		UsersVO negUser=null;
+		projectsService.save(this.projectDTO3);
+		verify(projectVORepository, times(1)).save(projectVO3);
+		assertEquals(negUser,null);
 	}
 
+
+	/**
+	 * Test get project by id possitive flow.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	void testGetProjectByIdPossitiveFlow() throws Exception{
+		
+		when(projectVORepository.findByProjectId(1)).thenReturn(this.projectVO1);		
+		ProjectVO projectGetVo=this.projectVO1;
+		projectsService.getProjectById(1);
+		verify(projectVORepository, times(1)).findByProjectId(1);
+		assertEquals(1,this.projectVO1.getProjectId());
+		assertEquals("Solr elmer project",this.projectVO1.getProject());
+		assertEquals(projectGetVo,this.projectVO1);
+	}
+	
+	/**
+	 * Test get project by id negative flow.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	void testGetProjectByIdNegativeFlow() throws Exception{
+		
+		when(projectVORepository.findByProjectId(5)).thenReturn(null);		
+		ProjectVO projectGetVo=null;
+		projectsService.getProjectById(5);
+		verify(projectVORepository, times(1)).findByProjectId(5);
+		assertEquals(null,projectGetVo);
+		 
+	}
+	
+	/**
+	 * Test delete project by id possitive flow.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	void testDeleteProjectByIdPossitiveFlow() throws Exception{
+		ProjectVO deleteProject=new ProjectVO();
+		when(projectVORepository.findByProjectId(1)).thenReturn(this.projectVO1);	
+		when(taskVORepository.findByProjectVO(this.projectVO1)).thenReturn(this.taskVOList);
+		
+			parentTaskVORepository.deleteByParentTask(null);
+			taskVORepository.deleteByTaskId(this.taskVOList.get(0).getTaskId()); 
+			parentTaskVORepository.deleteByParentTask(this.taskVOList.get(0));
+			taskVORepository.deleteByTaskId(this.taskVOList.get(1).getTaskId()); 
+		
+		projectVORepository.deleteByProjectId(1);
+		 
+		projectsService.deleteProjectById(1);
+ 
+		assertEquals(null,deleteProject.getProject());
+ 
+	}
+	
+	/**
+	 * Test delete project by id negative flow.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	void testDeleteProjectByIdNegativeFlow() throws Exception{
+		ProjectVO deleteProject=new ProjectVO();
+		when(projectVORepository.findByProjectId(1)).thenReturn(null);	
+		when(taskVORepository.findByProjectVO(this.projectVO1)).thenReturn(null);
+		
+			parentTaskVORepository.deleteByParentTask(null);
+			taskVORepository.deleteByTaskId(0); 
+		 
+		
+		projectVORepository.deleteByProjectId(1);
+		 
+		projectsService.deleteProjectById(1);
+ 
+		assertEquals("Solr elmer project",this.projectVO1.getProject());
+ 
+	}
+		
 }

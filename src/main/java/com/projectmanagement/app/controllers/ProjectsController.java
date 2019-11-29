@@ -1,14 +1,19 @@
+/*
+ * 
+ */
 package com.projectmanagement.app.controllers;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+import com.projectmanagement.app.util.ProjectManagementConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.projectmanagement.app.model.DeleteRecordDTO;
 import com.projectmanagement.app.model.ProjectDTO;
 import com.projectmanagement.app.service.ProjectsService;
 import com.projectmanagement.app.entity.ProjectVO;
@@ -26,22 +32,32 @@ import com.projectmanagement.app.entity.ProjectVO;
 
 
 
+
+/**
+ * The Class ProjectsController.
+ */
 @RestController
-@RequestMapping("/projects")
+@RequestMapping(value=ProjectManagementConstants.URL_PROJECT_Service)
 public class ProjectsController {
 
 
 	
+	/** The projects service. */
 	@Autowired
 	private	ProjectsService projectsService;
 	
 	
 	
+	/**
+	 * Gets the all projects.
+	 *
+	 * @return the all projects
+	 */
 	@CrossOrigin
-	@GetMapping(value = "/allprojects")
+	@GetMapping(value=ProjectManagementConstants.URL_PROJECT_getAllProjects)
 	public ResponseEntity<List<ProjectDTO>> getAllProjects()
 	{
-		List<ProjectDTO> projectList=new ArrayList<ProjectDTO>();
+		List<ProjectDTO> projectList=new ArrayList<>();
 		try
 		{		
 			projectList=projectsService.getAllProjects();
@@ -51,18 +67,24 @@ public class ProjectsController {
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			
+			return ResponseEntity.badRequest().body(null);
 		}
 		
-		return ResponseEntity.badRequest().body(projectList);
+		
 		
 	}
 	
+	/**
+	 * Search all projects.
+	 *
+	 * @param projectName the project name
+	 * @return the response entity
+	 */
 	@CrossOrigin
-	@PostMapping(value = "/search")
+	@PostMapping(value=ProjectManagementConstants.URL_PROJECT_searchAllProjects)
 	public ResponseEntity<List<ProjectDTO>> searchAllProjects(@RequestBody String projectName)
 	{
-		List<ProjectDTO> projectList=new ArrayList<ProjectDTO>();
+		List<ProjectDTO> projectList=new ArrayList<>();
 		try
 		{		
 			projectList=projectsService.searchProjects(projectName);
@@ -72,99 +94,123 @@ public class ProjectsController {
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			
+			return ResponseEntity.badRequest().body(null);	
+					
 		}
 		
-		return ResponseEntity.badRequest().body(projectList);
+		
 		
 	}
 	
 	
+	
+	/**
+	 * Adds the project.
+	 *
+	 * @param projectDTO the project DTO
+	 * @return the response entity
+	 */
 	@CrossOrigin
-	@PostMapping(value = "/add")
+	@PostMapping(value=ProjectManagementConstants.URL_PROJECT_addProject)
 	public ResponseEntity<ProjectDTO> addProject(@RequestBody ProjectDTO projectDTO)
 	{
-		String message="Project is added successfully";
-		String badRequestMessage="Error has been occured while creating project";
-		long projectId=0L;		
 		try
 		{	
-			projectId=projectsService.save(projectDTO);
-			 if(projectId>0L)
-			 {
-			 projectDTO.setMessage(message);			
-			 }
-			 else
-			 {
-				projectDTO.setMessage(badRequestMessage);
-				
-			 }
+			projectsService.save(projectDTO);
+			 projectDTO.setMessage(ProjectManagementConstants.PROJECT_Add_msgSuccess); 
 			 return ResponseEntity.ok().body(projectDTO);
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			projectDTO.setMessage(badRequestMessage);
+			projectDTO.setMessage(ProjectManagementConstants.PROJECT_Add_msgFailure);
 			return ResponseEntity.badRequest().body(projectDTO);
+		}
+	}
+	
+	
+
+	/**
+	 * Delete project.
+	 *
+	 * @param projectId the project id
+	 * @return the response entity
+	 */
+	@CrossOrigin
+	@DeleteMapping(value=ProjectManagementConstants.URL_PROJECT_deleteGetProject)
+	public ResponseEntity<DeleteRecordDTO> deleteProject(@PathVariable("projectId")String projectId)
+	{
+		DeleteRecordDTO deleteRecord=new DeleteRecordDTO();		
+		deleteRecord.setDeleteId(projectId);
+		boolean deleteFlag=false;
+		try
+		{	
+			
+			deleteFlag=projectsService.deleteProjectById(Long.parseLong(projectId));	
+			if(deleteFlag)
+			deleteRecord.setMessage(ProjectManagementConstants.PROJECT_Delete_msgSuccess);
+			else
+			deleteRecord.setMessage(ProjectManagementConstants.PROJECT_Delete_msgFailure);	
+			
+			 return ResponseEntity.ok().body(deleteRecord);
+			 
+		}
+		catch (Exception e) {
+				
+			e.printStackTrace();
+			deleteRecord.setMessage(ProjectManagementConstants.PROJECT_Delete_msgFailure);
+			return ResponseEntity.badRequest().body(deleteRecord);
 		}
 				
 	}
 		
+	/**
+	 * Gets the project.
+	 *
+	 * @param projectId the project id
+	 * @return the project
+	 */
 	@CrossOrigin
-	@GetMapping(value = "/project/{projectId}")
+	@GetMapping(value=ProjectManagementConstants.URL_PROJECT_deleteGetProject)
 	public ResponseEntity<ProjectDTO> getProject(@PathVariable("projectId")String projectId)
 	{
-		String message="Project is updated successfully";
-		String badRequestMessage="Error has been occured while creating project";
 		ProjectDTO projectDTO=new ProjectDTO();		
 		try
 		{	
-			projectDTO=projectsService.getProjectById(Long.parseLong(projectId));
-			 if(!projectDTO.getProjectId().isEmpty())
-			 {
-			 projectDTO.setMessage(message);			
-			 }
-			 else
-			 {
-				projectDTO.setMessage(badRequestMessage);
-				
-			 }
+			projectDTO=projectsService.getProjectById(Long.parseLong(projectId));			
+			 projectDTO.setMessage(ProjectManagementConstants.PROJECT_Get_msgSuccess);		
 			 return ResponseEntity.ok().body(projectDTO);
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			projectDTO.setMessage(badRequestMessage);
+			projectDTO.setMessage(ProjectManagementConstants.PROJECT_Get_msgFailure);
 			return ResponseEntity.badRequest().body(projectDTO);
 		}
 				
 	}
 	
+	/**
+	 * Update project.
+	 *
+	 * @param projectDTO the project DTO
+	 * @return the response entity
+	 */
 	@CrossOrigin
-	@PutMapping(value = "/project")
+	@PutMapping(value=ProjectManagementConstants.URL_PROJECT_update)
 	public ResponseEntity<ProjectDTO> updateProject(@RequestBody ProjectDTO projectDTO)
 	{
-		String message="Project is updated successfully";
-		String badRequestMessage="Error has been occured while creating project";
-		long projectId=0L;		
 		try
 		{	
-			projectId=projectsService.save(projectDTO);
-			 if(projectId>0L)
-			 {
-			 projectDTO.setMessage(message);			
-			 }
-			 else
-			 {
-				projectDTO.setMessage(badRequestMessage);
-				
-			 }
+			projectsService.save(projectDTO);
+			projectDTO.setMessage(ProjectManagementConstants.PROJECT_Update_msgSuccess);			
+			
 			 return ResponseEntity.ok().body(projectDTO);
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			projectDTO.setMessage(badRequestMessage);
+			projectDTO.setMessage(ProjectManagementConstants.PROJECT_Update_msgFailure);
 			return ResponseEntity.badRequest().body(projectDTO);
 		}
 				

@@ -1,6 +1,7 @@
 package com.projectmanagement.app.service;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,65 +25,59 @@ import com.projectmanagement.app.model.UserDTO;
 
 
 
+
+/**
+ * The Class UsersServiceImpl.
+ */
 @Service
 public class UsersServiceImpl implements UsersService {
 
+	/** The users VO repository. */
 	@Autowired
 	UsersVORepository usersVORepository;
 	
+	/** The project VO repository. */
 	@Autowired
 	ProjectVORepository projectVORepository;
 	
+	/** The task VO repository. */
 	@Autowired
 	TaskVORepository taskVORepository;
 	
+	/* (non-Javadoc)
+	 * @see com.projectmanagement.app.service.UsersService#getAllUsers()
+	 */
 	@Override
 	@Transactional
-	public List<UserDTO> getAllUsers() 
+	public List<UserDTO> getAllUsers() throws Exception
 	{
 		
-		List<UserDTO> allUsers=new ArrayList<UserDTO>();
+		List<UserDTO> allUsers=new ArrayList<>();
 		
-		List<UsersVO> userList=new ArrayList<UsersVO>();
-		try
-		{
-			userList= usersVORepository.findAll();
-		 if(userList!=null && userList.size()>0)
+		List<UsersVO> userList= usersVORepository.findAll();
+		 if(userList!=null && !userList.isEmpty())
 		 {
-			for(UsersVO usersVO : userList) 
-			{
-				System.out.print(usersVO.toString());
-				allUsers.add(mapUserDto(usersVO));				
-			}
+			 userList.stream().forEach(usersVO->allUsers.add(mapUserDto(usersVO)));			
 		 }
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-					
-					
+								
 			return allUsers;
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see com.projectmanagement.app.service.UsersService#searchUsers(java.util.List)
+	 */
 	@Override
 	@Transactional
 	public List<UserDTO> searchUsers(List<String> userNames) throws Exception
 	{
 		
-		List<UserDTO> allUsers=new ArrayList<UserDTO>();
+		List<UserDTO> allUsers=new ArrayList<>();
 		
-		List<UsersVO> userList=new ArrayList<UsersVO>();
-		
-			userList= usersVORepository.findByFirstNameIn(userNames);
-		 if(userList!=null && userList.size()>0)
+		List<UsersVO> userList=usersVORepository.findByFirstNameIn(userNames);
+		 if(userList!=null && !userList.isEmpty())
 		 {
-			for(UsersVO usersVO : userList) 
-			{
-				System.out.print(usersVO.toString());
-				allUsers.add(mapUserDto(usersVO));				
-			}
+			 userList.stream().forEach(usersVO->allUsers.add(mapUserDto(usersVO)));			
 		 }
 		 
 					
@@ -90,31 +85,62 @@ public class UsersServiceImpl implements UsersService {
 			return allUsers;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.projectmanagement.app.service.UsersService#getUser(java.lang.String)
+	 */
 	@Override
 	@Transactional
 	public UserDTO getUser(String userId) throws Exception {
 	
 		UserDTO userDTO=new UserDTO();
-	
- 
-	UsersVO createUserVO=new UsersVO();
+
 	if(userId!=null && !userId.isEmpty())
 	{
-		createUserVO=usersVORepository.findByUserId(Long.parseLong(userId));
+		UsersVO	createUserVO=usersVORepository.findByUserId(Long.parseLong(userId));
 		userDTO=mapUserDto(createUserVO);
 	}
 	return userDTO;
 	
 	}
+
+	/* (non-Javadoc)
+	 * @see com.projectmanagement.app.service.UsersService#deleteUser(java.lang.String)
+	 */
+	@Override
+	@Transactional
+	public boolean deleteUser(String userId) throws SQLException {	
+		boolean deleteFlag=false;
 	
+	
+		if(userId!=null && !userId.isEmpty())
+		{
+			UsersVO userVO=usersVORepository.findByUserId(Long.parseLong(userId));
+			List<ProjectVO> projectsVO=projectVORepository.findByUsersVO(userVO);
+			List<TaskVO> tasksVO=taskVORepository.findByUsersVO(userVO);
+			if((projectsVO!=null && !projectsVO.isEmpty()) || (tasksVO!=null && !tasksVO.isEmpty()))
+			{
+				return deleteFlag;
+			}
+			else
+			{
+			usersVORepository.deleteByUserId(Long.parseLong(userId));	
+			deleteFlag=true;
+			}
+		
+	
+	}
+		return deleteFlag;
+}
+	
+	/* (non-Javadoc)
+	 * @see com.projectmanagement.app.service.UsersService#save(com.projectmanagement.app.model.UserDTO)
+	 */
 	@Override
 	@Transactional
 	public long save(UserDTO userDTO) throws Exception {
 	
 	long userId=0L;
 	
-	TaskVO  taskVO=new TaskVO();
-	ProjectVO projectVO=new ProjectVO();
 	UsersVO createUserVO=mapUserVo(userDTO);
 	UsersVO usersVO=usersVORepository.save(createUserVO);
 	
@@ -123,10 +149,15 @@ public class UsersServiceImpl implements UsersService {
 	return userId;
 	}
 
+	/**
+	 * Map user vo.
+	 *
+	 * @param userDTO the user DTO
+	 * @return the users VO
+	 */
 	private UsersVO mapUserVo(UserDTO userDTO)
 	{
 		UsersVO usersVO=new UsersVO();
-		System.out.println("******* userDTO object the  **********\n"+userDTO.toString());
 		
 		usersVO.setFirstName(userDTO.getFirstName());
 		usersVO.setLastName(userDTO.getLastName());
@@ -138,21 +169,22 @@ public class UsersServiceImpl implements UsersService {
 		return usersVO;
 	}
 	
+	/**
+	 * Map user dto.
+	 *
+	 * @param usersVO the users VO
+	 * @return the user DTO
+	 */
 	private UserDTO mapUserDto(UsersVO usersVO)
 	{
 		UserDTO userDTO=new UserDTO();
-		System.out.println("******* usersVO object the  **********\n"+usersVO.toString());
-		
+			
 		userDTO.setUserId(String.valueOf(usersVO.getUserId()));
 		userDTO.setFirstName(usersVO.getFirstName());
 		userDTO.setLastName(usersVO.getLastName());
 		userDTO.setEmployeeId(String.valueOf(usersVO.getEmployeeId()));
 		
 	
-		
-	
-		
-		
 		return userDTO;
 	}
 }

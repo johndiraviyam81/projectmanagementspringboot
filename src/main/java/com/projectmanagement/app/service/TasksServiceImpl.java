@@ -1,6 +1,7 @@
 package com.projectmanagement.app.service;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,132 +22,122 @@ import com.projectmanagement.app.model.TaskDTO;
 
 
 
-
-
-
+/**
+ * The Class TasksServiceImpl.
+ */
 @Service
 public class TasksServiceImpl implements TasksService {
 
+	/** The task VO repository. */
 	@Autowired
 	TaskVORepository taskVORepository;
 	
+	/** The parent task VO repository. */
 	@Autowired
 	ParentTaskVORepository parentTaskVORepository;
 	
+	/** The project VO repository. */
 	@Autowired
 	ProjectVORepository projectVORepository;
 	
+	/** The users VO repository. */
 	@Autowired
 	UsersVORepository usersVORepository;
 	
+	/* (non-Javadoc)
+	 * @see com.projectmanagement.app.service.TasksService#getAllTasks()
+	 */
 	@Override
 	@Transactional
-	public List<TaskDTO> getAllTasks() 
+	public List<TaskDTO> getAllTasks() throws Exception
 	{
 		
-		List<TaskDTO> allTasks=new ArrayList<TaskDTO>();
+		List<TaskDTO> allTasks=new ArrayList<>();
 		
-		List<TaskVO> taskList=new ArrayList<TaskVO>();
-		try
-		{
-			taskList= taskVORepository.findAll();
-		 if(taskList!=null && taskList.size()>0)
+		List<TaskVO> taskList= taskVORepository.findAll();
+		 if(taskList!=null && !taskList.isEmpty())
 		 {
-			for(TaskVO taskVO : taskList) 
-			{
-				System.out.print(taskVO.toString());
-				allTasks.add(mapTaskDto(taskVO));				
-			}
+			taskList.stream().forEach(taskVO->allTasks.add(mapTaskDto(taskVO)));
 		 }
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
 					
-					
-			return allTasks;
+		return allTasks;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.projectmanagement.app.service.TasksService#searchTasks(java.lang.String)
+	 */
 	@Override
 	@Transactional
 	public List<TaskDTO> searchTasks(String taskName) 
 	{
 		
-		List<TaskDTO> allTasks=new ArrayList<TaskDTO>();
+		List<TaskDTO> allTasks=new ArrayList<>();
 		
-		List<TaskVO> taskList=new ArrayList<TaskVO>();
-		try
-		{
-			taskList= taskVORepository.findByTaskContaining(taskName);
-		 if(taskList!=null && taskList.size()>0)
-		 {
-			for(TaskVO taskVO : taskList) 
-			{
-				System.out.print(taskVO.toString());
-				allTasks.add(mapTaskDto(taskVO));				
-			}
-		 }
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-					
-					
+		List<TaskVO> taskList= taskVORepository.findByTaskContaining(taskName);
+			
+			if(taskList!=null && !taskList.isEmpty())
+			 {
+				taskList.stream().forEach(taskVO->allTasks.add(mapTaskDto(taskVO)));
+			 }
+							
 			return allTasks;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.projectmanagement.app.service.TasksService#getTaskById(long)
+	 */
 	@Override
 	@Transactional
-	public TaskDTO getTaskById(long taskId) 
+	public TaskDTO getTaskById(long taskId) throws Exception
 	{
 		
 		TaskDTO taskDTO=new TaskDTO();
-		TaskVO taskVO=new TaskVO();
-		 
-		try
-		{
-			taskVO= taskVORepository.findByTaskId(taskId);
+		TaskVO taskVO=taskVORepository.findByTaskId(taskId);
 		 if(taskVO!=null && taskVO.getTaskId()>0L)
-		 taskDTO=mapTaskDto(taskVO);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-					
-					
-			return taskDTO;
+		 { taskDTO=mapTaskDto(taskVO); }
+		
+		return taskDTO;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.projectmanagement.app.service.TasksService#deleteByTaskById(long)
+	 */
+	@Override
+	@Transactional
+	public boolean deleteByTaskById(long taskId) throws Exception
+	{
+		boolean deleteFlag=false;		
+		TaskVO deleteTaskVO=taskVORepository.findByTaskId(taskId);
+		parentTaskVORepository.deleteByParentTask(deleteTaskVO);
+		taskVORepository.deleteByTaskId(taskId);
+		
+		deleteFlag=true;
+		
+		return deleteFlag;
+	}
 	
+	/* (non-Javadoc)
+	 * @see com.projectmanagement.app.service.TasksService#getTaskByParentId(long)
+	 */
 	@Override
 	@Transactional
 	public TaskDTO getTaskByParentId(long parentById) 
 	{
 		
 		TaskDTO taskDTO=new TaskDTO();
-		ParentTaskVO parentTaskVO=new ParentTaskVO();
-		 
-		try
-		{
-			parentTaskVO= parentTaskVORepository.findByParentId(parentById);
+		ParentTaskVO parentTaskVO= parentTaskVORepository.findByParentId(parentById);
 		 if(parentTaskVO!=null && parentTaskVO.getParentId()>0L)
 		 {
 		 taskDTO=mapTaskDto(parentTaskVO.getParentTask());
 		 }
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-					
 					
 			return taskDTO;
 	}
 
 	
+	/* (non-Javadoc)
+	 * @see com.projectmanagement.app.service.TasksService#save(com.projectmanagement.app.model.TaskDTO)
+	 */
 	@Override
 	@Transactional
 	public long save(TaskDTO taskDTO) throws Exception {
@@ -154,14 +145,14 @@ public class TasksServiceImpl implements TasksService {
 	long taskId=0L;
 	TaskVO parentCreateTaskVO=null;
 	ParentTaskVO  patentTaskVO=new ParentTaskVO();
-	ParentTaskVO  patentExistTaskVO=new ParentTaskVO();
-	ProjectVO projectVO=new ProjectVO();
+	
 	TaskVO createTaskVO=mapTaskVo(taskDTO);
+	
 	if(taskDTO!=null && taskDTO.getParentTaskId()!=null && !taskDTO.getParentTaskId().isEmpty())
 	{
 		System.out.println("\n******* taskDTO.getParentTaskId()::"+taskDTO.getParentTaskId());
 		parentCreateTaskVO=taskVORepository.findByTaskId(Long.parseLong(taskDTO.getParentTaskId()));
-		patentExistTaskVO=parentTaskVORepository.findByParentTask(parentCreateTaskVO);
+		ParentTaskVO patentExistTaskVO=parentTaskVORepository.findByParentTask(parentCreateTaskVO);
 		if(patentExistTaskVO!=null && patentExistTaskVO.getParentId()>0)
 		{	patentTaskVO=patentExistTaskVO; }
 		else
@@ -174,7 +165,7 @@ public class TasksServiceImpl implements TasksService {
 	
 	if(taskDTO!=null && taskDTO.getProjectId()!=null && !taskDTO.getProjectId().isEmpty())
 	{
-		projectVO=projectVORepository.findByProjectId(Long.parseLong(taskDTO.getProjectId()));
+		ProjectVO projectVO=projectVORepository.findByProjectId(Long.parseLong(taskDTO.getProjectId()));
 		createTaskVO.setProjectVO(projectVO);
 	}	
 	
@@ -191,10 +182,16 @@ public class TasksServiceImpl implements TasksService {
 	return taskId;
 	}
 
+	/**
+	 * Map task vo.
+	 *
+	 * @param taskDTO the task DTO
+	 * @return the task VO
+	 */
 	private TaskVO mapTaskVo(TaskDTO taskDTO)
 	{
 		TaskVO taskVO=new TaskVO();
-		System.out.println("******* TaskDTO object the  **********\n"+taskDTO.toString());
+		
 		
 		taskVO.setEndDate(LocalDate.parse(taskDTO.getEndDate()));
 		taskVO.setPriority(Integer.parseInt(taskDTO.getPriority()));
@@ -209,10 +206,16 @@ public class TasksServiceImpl implements TasksService {
 		return taskVO;
 	}
 	
+	/**
+	 * Map task dto.
+	 *
+	 * @param taskVO the task VO
+	 * @return the task DTO
+	 */
 	private TaskDTO mapTaskDto(TaskVO taskVO)
 	{
 		TaskDTO taskDTO=new TaskDTO();
-		System.out.println("******* taskVO object the  **********\n"+taskVO.toString());
+		
 		taskDTO.setTaskId(String.valueOf(taskVO.getTaskId()));
 		taskDTO.setStartDate(String.valueOf(taskVO.getStartDate()));
 		taskDTO.setEndDate(String.valueOf(taskVO.getEndDate()));

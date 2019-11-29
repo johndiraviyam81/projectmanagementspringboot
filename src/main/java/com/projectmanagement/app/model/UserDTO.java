@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package com.projectmanagement.app.model;
 
 import java.io.Serializable;
@@ -7,16 +10,30 @@ import java.util.Date;
 import javax.persistence.Column;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class UserDTO.
+ */
 public class UserDTO  implements Serializable {
 		
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 1L;
 		
 				
 	
+	/** The user id. */
 	public	String userId;
+	
+	/** The first name. */
 	public	String firstName;
+	
+	/** The last name. */
 	public	String lastName;
+	
+	/** The employee id. */
 	public	String employeeId;
+	
+	/** The message. */
 	public	String message;
 	
 
@@ -26,6 +43,11 @@ public class UserDTO  implements Serializable {
 
 
 
+		/**
+		 * Gets the user id.
+		 *
+		 * @return the user id
+		 */
 		public String getUserId() {
 		return userId;
 	}
@@ -33,6 +55,11 @@ public class UserDTO  implements Serializable {
 
 
 
+	/**
+	 * Sets the user id.
+	 *
+	 * @param userId the new user id
+	 */
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
@@ -40,6 +67,11 @@ public class UserDTO  implements Serializable {
 
 
 
+	/**
+	 * Gets the first name.
+	 *
+	 * @return the first name
+	 */
 	public String getFirstName() {
 		return firstName;
 	}
@@ -47,6 +79,11 @@ public class UserDTO  implements Serializable {
 
 
 
+	/**
+	 * Sets the first name.
+	 *
+	 * @param firstName the new first name
+	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
@@ -54,6 +91,11 @@ public class UserDTO  implements Serializable {
 
 
 
+	/**
+	 * Gets the last name.
+	 *
+	 * @return the last name
+	 */
 	public String getLastName() {
 		return lastName;
 	}
@@ -61,6 +103,11 @@ public class UserDTO  implements Serializable {
 
 
 
+	/**
+	 * Sets the last name.
+	 *
+	 * @param lastName the new last name
+	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
@@ -68,6 +115,11 @@ public class UserDTO  implements Serializable {
 
 
 
+	/**
+	 * Gets the employee id.
+	 *
+	 * @return the employee id
+	 */
 	public String getEmployeeId() {
 		return employeeId;
 	}
@@ -75,6 +127,11 @@ public class UserDTO  implements Serializable {
 
 
 
+	/**
+	 * Sets the employee id.
+	 *
+	 * @param employeeId the new employee id
+	 */
 	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
@@ -86,6 +143,11 @@ public class UserDTO  implements Serializable {
 
 
 
+	/**
+	 * Gets the message.
+	 *
+	 * @return the message
+	 */
 	public String getMessage() {
 		return message;
 	}
@@ -93,6 +155,11 @@ public class UserDTO  implements Serializable {
 
 
 
+	/**
+	 * Sets the message.
+	 *
+	 * @param message the new message
+	 */
 	public void setMessage(String message) {
 		this.message = message;
 	}
@@ -100,6 +167,9 @@ public class UserDTO  implements Serializable {
 
 
 
+				/* (non-Javadoc)
+				 * @see java.lang.Object#toString()
+				 */
 				@Override
 		public String toString() {
 			return "UserDTO [userId=" + userId  + ", firstName=" + firstName+", lastName=" + lastName +", employeeId=" + employeeId + ", message=" + message + "]";

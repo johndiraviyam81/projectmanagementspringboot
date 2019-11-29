@@ -1,7 +1,11 @@
+/*
+ * 
+ */
 package com.projectmanagement.app.entity;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,31 +16,44 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ProjectVO.
+ */
 @Entity
 @Table(name = "project")
 public class ProjectVO {
 	
+	/** The project id. */
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="project_id")
 	protected	long projectId;
 
+	/** The project. */
 	@Column(name="project")
 	protected String project;
 
+	/** The start date. */
 	@Column(name="start_date")
 	protected LocalDate startDate;
 	
+	/** The end date. */
 	@Column(name="end_date")
 	protected LocalDate endDate;
 
+	/** The priority. */
 	@Column(name="priority")
 	protected int priority;
 	
+	/** The users VO. */
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private UsersVO usersVO;
 	
+	/**
+	 * Instantiates a new project VO.
+	 */
 	public ProjectVO() {
 		
 	}
@@ -44,6 +61,11 @@ public class ProjectVO {
 	
 	
 	
+	/**
+	 * Gets the users VO.
+	 *
+	 * @return the users VO
+	 */
 	public UsersVO getUsersVO() {
 		return usersVO;
 	}
@@ -51,6 +73,11 @@ public class ProjectVO {
 
 
 
+	/**
+	 * Sets the users VO.
+	 *
+	 * @param usersVO the new users VO
+	 */
 	public void setUsersVO(UsersVO usersVO) {
 		this.usersVO = usersVO;
 	}
@@ -58,6 +85,11 @@ public class ProjectVO {
 
 
 
+	/**
+	 * Gets the project id.
+	 *
+	 * @return the project id
+	 */
 	public long getProjectId() {
 		return projectId;
 	}
@@ -65,6 +97,11 @@ public class ProjectVO {
 
 
 
+	/**
+	 * Sets the project id.
+	 *
+	 * @param projectId the new project id
+	 */
 	public void setProjectId(long projectId) {
 		this.projectId = projectId;
 	}
@@ -72,6 +109,11 @@ public class ProjectVO {
 
 
 
+	/**
+	 * Gets the project.
+	 *
+	 * @return the project
+	 */
 	public String getProject() {
 		return project;
 	}
@@ -79,6 +121,11 @@ public class ProjectVO {
 
 
 
+	/**
+	 * Sets the project.
+	 *
+	 * @param project the new project
+	 */
 	public void setProject(String project) {
 		this.project = project;
 	}
@@ -86,6 +133,11 @@ public class ProjectVO {
 
 
 
+	/**
+	 * Gets the start date.
+	 *
+	 * @return the start date
+	 */
 	public LocalDate getStartDate() {
 		return startDate;
 	}
@@ -93,6 +145,11 @@ public class ProjectVO {
 
 
 
+	/**
+	 * Sets the start date.
+	 *
+	 * @param startDate the new start date
+	 */
 	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
@@ -100,6 +157,11 @@ public class ProjectVO {
 
 
 
+	/**
+	 * Gets the end date.
+	 *
+	 * @return the end date
+	 */
 	public LocalDate getEndDate() {
 		return endDate;
 	}
@@ -107,6 +169,11 @@ public class ProjectVO {
 
 
 
+	/**
+	 * Sets the end date.
+	 *
+	 * @param endDate the new end date
+	 */
 	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
@@ -114,6 +181,11 @@ public class ProjectVO {
 
 
 
+	/**
+	 * Gets the priority.
+	 *
+	 * @return the priority
+	 */
 	public int getPriority() {
 		return priority;
 	}
@@ -121,16 +193,41 @@ public class ProjectVO {
 
 
 
+	/**
+	 * Sets the priority.
+	 *
+	 * @param priority the new priority
+	 */
 	public void setPriority(int priority) {
 		this.priority = priority;
 	}
 
 
+	 /* (non-Javadoc)
+ 	 * @see java.lang.Object#equals(java.lang.Object)
+ 	 */
+ 	@Override
+	    public boolean equals(Object o) {
+	        if (this == o) return true;
+	        if (!(o instanceof ProjectVO)) return false;
+	        ProjectVO projectVO = (ProjectVO) o;
+	        return Objects.equals(project, projectVO.project);
+	    }
 
+	    /* (non-Javadoc)
+    	 * @see java.lang.Object#hashCode()
+    	 */
+    	@Override
+	    public int hashCode() {
+	        return Objects.hash(project);
+	    }
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
-		return "Project [projectId=" + projectId + ", project=" + project +  ", startDate=" + startDate +", endDate=" + endDate + ", priority=" + priority +", UsersVO=" + ((usersVO!=null)?usersVO.toString():"") + "]";
+		return "ProjectVO [projectId=" + projectId + ", project=" + project +  ", startDate=" + startDate +", endDate=" + endDate + ", priority=" + priority +", UsersVO=" + ((usersVO!=null)?usersVO.toString():"") + "]";
 	}
 
 }

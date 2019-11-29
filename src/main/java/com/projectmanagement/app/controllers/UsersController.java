@@ -1,14 +1,19 @@
+/*
+ * 
+ */
 package com.projectmanagement.app.controllers;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+import com.projectmanagement.app.util.ProjectManagementConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,29 +24,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.projectmanagement.app.model.DeleteRecordDTO;
 import com.projectmanagement.app.model.UserDTO;
 import com.projectmanagement.app.service.UsersService;
 import com.projectmanagement.app.entity.UsersVO;
 
 
 
-
+/**
+ * The Class UsersController.
+ */
 @RestController
-@RequestMapping("/users")
+@RequestMapping(value=ProjectManagementConstants.URL_USER_Service)
 public class UsersController {
 
 
 	
+	/** The users service. */
 	@Autowired
 	private	UsersService usersService;
 	
 	
 	
+	/**
+	 * Gets the all users.
+	 *
+	 * @return the all users
+	 */
 	@CrossOrigin
-	@GetMapping(value = "/allusers")
+	@GetMapping(value = ProjectManagementConstants.URL_USER_getAllUsers)
 	public ResponseEntity<List<UserDTO>> getAllUsers()
 	{
-		List<UserDTO> userList=new ArrayList<UserDTO>();
+		List<UserDTO> userList=new ArrayList<>();
 		try
 		{		
 			userList=usersService.getAllUsers();
@@ -51,18 +65,24 @@ public class UsersController {
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			
+			return ResponseEntity.badRequest().body(null);
 		}
 		
-		return ResponseEntity.badRequest().body(userList);
+		
 		
 	}
 	
+	/**
+	 * Search users.
+	 *
+	 * @param userNames the user names
+	 * @return the response entity
+	 */
 	@CrossOrigin
-	@PostMapping(value = "/searchusers")
+	@PostMapping(value = ProjectManagementConstants.URL_USER_searchAllUsers)
 	public ResponseEntity<List<UserDTO>> searchUsers(@RequestBody List<String> userNames)
 	{
-		List<UserDTO> userList=new ArrayList<UserDTO>();
+		List<UserDTO> userList=new ArrayList<>();
 		try
 		{		
 			userList=usersService.searchUsers(userNames);
@@ -72,101 +92,117 @@ public class UsersController {
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			
+			return ResponseEntity.badRequest().body(null);
 		}
 		
-		return ResponseEntity.badRequest().body(userList);
+		
 		
 	}
 	
+	/**
+	 * Update user.
+	 *
+	 * @param userDTO the user DTO
+	 * @return the response entity
+	 */
 	@CrossOrigin
-	@PutMapping(value = "/user")
+	@PutMapping(value = ProjectManagementConstants.URL_USER_update)
 	public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO)
 	{
-		String message="User is updated successfully";
-		String badRequestMessage="Error has been occured while updating User";
-		long userId=0L;		
 		try
 		{	
-			userId=usersService.save(userDTO);
-			 if(userId>0L)
-			 {
-				 userDTO.setMessage(message);			 
-			 }
-			 else
-			 {
-				 userDTO.setMessage(badRequestMessage);
-				 
-			 }
+			 usersService.save(userDTO);
+			 userDTO.setMessage(ProjectManagementConstants.USER_Update_msgSuccess);			 
 			 return ResponseEntity.ok().body(userDTO);
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			userDTO.setMessage(badRequestMessage);
+			userDTO.setMessage(ProjectManagementConstants.USER_Update_msgFailure);
 			return ResponseEntity.badRequest().body(userDTO);
 		}
 				
 	}
 	
+	/**
+	 * Adds the user.
+	 *
+	 * @param userDTO the user DTO
+	 * @return the response entity
+	 */
 	@CrossOrigin
-	@PostMapping(value = "/add")
+	@PostMapping(value = ProjectManagementConstants.URL_USER_addUser)
 	public ResponseEntity<UserDTO> addUser(@RequestBody UserDTO userDTO)
 	{
-		String message="User is added successfully";
-		String badRequestMessage="Error has been occured while creating User";
-		long userId=0L;		
 		try
 		{	
-			userId=usersService.save(userDTO);
-			 if(userId>0L)
-			 {
-				 userDTO.setMessage(message);
-			 
-			 }
-			 else
-			 {
-				 userDTO.setMessage(badRequestMessage);
-				
-			 }
-			 return ResponseEntity.ok().body(userDTO);
+			usersService.save(userDTO);
+			userDTO.setMessage(ProjectManagementConstants.USER_Add_msgSuccess);
+			return ResponseEntity.ok().body(userDTO);
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			userDTO.setMessage(badRequestMessage);
+			userDTO.setMessage(ProjectManagementConstants.USER_Add_msgFailure);
 			return ResponseEntity.badRequest().body(userDTO);
+		}
+				
+	}
+	
+	/**
+	 * Gets the user.
+	 *
+	 * @param userId the user id
+	 * @return the user
+	 */
+	@CrossOrigin
+	@GetMapping(value = ProjectManagementConstants.URL_USER_deleteGetUser)
+	public ResponseEntity<UserDTO> getUser(@PathVariable("userId")String userId)
+	{
+		UserDTO userDto=new UserDTO();	
+		try
+		{	
+			userDto=usersService.getUser(userId);
+			userDto.setMessage(ProjectManagementConstants.USER_Get_msgSuccess);
+			return ResponseEntity.ok().body(userDto);
+			 
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			userDto.setMessage(ProjectManagementConstants.USER_Get_msgFailure);
+			return ResponseEntity.badRequest().body(userDto);
 		}
 				
 	}
 	
 
+	/**
+	 * Delete user.
+	 *
+	 * @param userId the user id
+	 * @return the response entity
+	 */
 	@CrossOrigin
-	@GetMapping(value = "/user/{userId}")
-	public ResponseEntity<UserDTO> getUser(@PathVariable("userId")String userId)
+	@DeleteMapping(value = ProjectManagementConstants.URL_USER_deleteGetUser)
+	public ResponseEntity<DeleteRecordDTO> deleteUser(@PathVariable("userId")String userId)
 	{
-		String message="User is received successfully";
-		String badRequestMessage="Error has been occured while creating User";
-		UserDTO userDto=new UserDTO();	
+		DeleteRecordDTO deleteRecord=new DeleteRecordDTO();		
+			
 		try
 		{	
-			userDto=usersService.getUser(userId);
-			 if(userDto.getUserId()!=null)
-			 {
-				
-			 return ResponseEntity.ok().body(userDto);
-			 }
-			 else
-			 {
-				 
-				return ResponseEntity.badRequest().body(userDto); 
-			 }
+			boolean deleteFlag=usersService.deleteUser(userId);	
+			if(deleteFlag)
+			{ deleteRecord.setMessage(ProjectManagementConstants.USER_Delete_msgSuccess); }
+			else
+				{ deleteRecord.setMessage(ProjectManagementConstants.USER_Delete_msgFailure); }	
+			 return ResponseEntity.ok().body(deleteRecord);			 
 		}
-		catch(Exception e)
-		{
+		 catch (Exception e) {
+			
 			e.printStackTrace();
-			userDto.setMessage(badRequestMessage);
-			return ResponseEntity.badRequest().body(userDto);
+			deleteRecord.setMessage(ProjectManagementConstants.USER_Delete_msgFailure);
+			return ResponseEntity.badRequest().body(deleteRecord);
 		}
 				
 	}
