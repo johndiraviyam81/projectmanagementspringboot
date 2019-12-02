@@ -70,16 +70,16 @@ class ProjectsServiceImplTest {
 	private ParentTaskVORepository parentTaskVORepository;
 	
 /** The project list. */
-List<ProjectDTO> projectList=new ArrayList<ProjectDTO>();
+List<ProjectDTO> projectList=new ArrayList<>();
 
 /** The project VO list. */
-List<ProjectVO> projectVOList=new ArrayList<ProjectVO>();
+List<ProjectVO> projectVOList=new ArrayList<>();
 
 /** The project VO null list. */
-List<ProjectVO> projectVONullList=new ArrayList<ProjectVO>();
+List<ProjectVO> projectVONullList=new ArrayList<>();
 	
 	/** The project null list. */
-	List<ProjectDTO> projectNullList=new ArrayList<ProjectDTO>();
+	List<ProjectDTO> projectNullList=new ArrayList<>();
 	
 	/** The project DTO 1. */
 	ProjectDTO projectDTO1=new ProjectDTO();
@@ -124,7 +124,7 @@ List<ProjectVO> projectVONullList=new ArrayList<ProjectVO>();
 	ParentTaskVO parentTaskVO=new ParentTaskVO();
 	
 	/** The task VO list. */
-	List<TaskVO> taskVOList=new ArrayList<TaskVO>();
+	List<TaskVO> taskVOList=new ArrayList<>();
 	
 	/** The task VO list null. */
 	List<TaskVO> taskVOListNull=null;
@@ -241,9 +241,9 @@ List<ProjectVO> projectVONullList=new ArrayList<ProjectVO>();
 	 * @throws Exception the exception
 	 */
 	@Test
-	void testGetAllProjectsPossitiveFlow()  throws Exception {
+	void testGetAllProjectsPositiveFlow()  throws Exception {
 		when(projectVORepository.findAll()).thenReturn(projectVOList);
-		List<ProjectDTO> allProjects=new ArrayList<ProjectDTO>();
+		List<ProjectDTO> allProjects=new ArrayList<>();
 		this.projectList.stream().forEach(projectVO->{allProjects.add(projectVO);});
 		projectsService.getAllProjects();
 		
@@ -258,9 +258,9 @@ List<ProjectVO> projectVONullList=new ArrayList<ProjectVO>();
 	 * @throws Exception the exception
 	 */
 	@Test
-	void testSearchProjectsPossitiveFlow()  throws Exception {
+	void testSearchProjectsPositiveFlow()  throws Exception {
 		when(projectVORepository.findByProjectContaining(this.projectContain)).thenReturn(projectVOList);
-		List<ProjectDTO> allProjects=new ArrayList<ProjectDTO>();
+		List<ProjectDTO> allProjects=new ArrayList<>();
 		projectList.stream().forEach(projectVO->{allProjects.add(projectVO);});
 		
 		projectsService.searchProjects(projectContain);
@@ -277,7 +277,7 @@ List<ProjectVO> projectVONullList=new ArrayList<ProjectVO>();
 	@Test
 	void testGetAllProjectsNegativeFlow()  throws Exception {
 		when(projectVORepository.findAll()).thenReturn(null);
-		List<ProjectDTO> allProjects=new ArrayList<ProjectDTO>();
+		List<ProjectDTO> allProjects=new ArrayList<>();
 		
 		allProjects=projectsService.getAllProjects();
 		
@@ -294,7 +294,7 @@ List<ProjectVO> projectVONullList=new ArrayList<ProjectVO>();
 	@Test
 	void testSearchProjectsNegativeFlow()  throws Exception {
 		when(projectVORepository.findByProjectContaining(this.projectContain)).thenReturn(null);
-		List<ProjectDTO> allProjects=new ArrayList<ProjectDTO>();
+		List<ProjectDTO> allProjects=new ArrayList<>();
 		
 		this.projectNullList.stream().forEach(projectVO->{allProjects.add(projectVO);});
 		
@@ -343,7 +343,7 @@ List<ProjectVO> projectVONullList=new ArrayList<ProjectVO>();
 	 * @throws Exception the exception
 	 */
 	@Test
-	void testGetProjectByIdPossitiveFlow() throws Exception{
+	void testGetProjectByIdPositiveFlow() throws Exception{
 		
 		when(projectVORepository.findByProjectId(1)).thenReturn(this.projectVO1);		
 		ProjectVO projectGetVo=this.projectVO1;
@@ -376,7 +376,7 @@ List<ProjectVO> projectVONullList=new ArrayList<ProjectVO>();
 	 * @throws Exception the exception
 	 */
 	@Test
-	void testDeleteProjectByIdPossitiveFlow() throws Exception{
+	void testDeleteProjectByIdPositiveFlow() throws Exception{
 		ProjectVO deleteProject=new ProjectVO();
 		when(projectVORepository.findByProjectId(1)).thenReturn(this.projectVO1);	
 		when(taskVORepository.findByProjectVO(this.projectVO1)).thenReturn(this.taskVOList);

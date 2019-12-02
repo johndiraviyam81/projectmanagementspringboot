@@ -108,7 +108,7 @@ public class UsersServiceImpl implements UsersService {
 	 */
 	@Override
 	@Transactional
-	public boolean deleteUser(String userId) throws SQLException {	
+	public boolean deleteUser(String userId) throws Exception {	
 		boolean deleteFlag=false;
 	
 	
@@ -178,12 +178,13 @@ public class UsersServiceImpl implements UsersService {
 	private UserDTO mapUserDto(UsersVO usersVO)
 	{
 		UserDTO userDTO=new UserDTO();
-			
+		if(usersVO!=null && usersVO.getUserId()>0L)
+		{
 		userDTO.setUserId(String.valueOf(usersVO.getUserId()));
 		userDTO.setFirstName(usersVO.getFirstName());
 		userDTO.setLastName(usersVO.getLastName());
 		userDTO.setEmployeeId(String.valueOf(usersVO.getEmployeeId()));
-		
+		}
 	
 		return userDTO;
 	}

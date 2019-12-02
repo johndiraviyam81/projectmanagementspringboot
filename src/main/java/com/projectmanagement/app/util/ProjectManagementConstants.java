@@ -18,6 +18,7 @@ public final class ProjectManagementConstants {
 	public static final String  URL_TASK_deleteGetTask="/task/{taskId}";
 	public static final String  URL_TASK_update="/task";
 	public static final String  URL_TASK_Parent_Task="/parent/{parentId}";
+	public static final String  URL_TASK_Parent_Task_Test="/parent";
 	
 
 	public static final String  URL_USER_Service="/users";

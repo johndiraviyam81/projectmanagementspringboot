@@ -32,12 +32,11 @@ import com.projectmanagement.app.model.DeleteRecordDTO;
 import com.projectmanagement.app.model.ProjectDTO;
 import com.projectmanagement.app.service.ProjectsService;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class ProjectsControllerTest.
  */
 @ExtendWith(MockitoExtension.class)
-
 class ProjectsControllerTest {
 	
 	/** The projects controller. */
@@ -53,10 +52,10 @@ class ProjectsControllerTest {
 	private MockMvc mvc;
 	
 	/** The project list. */
-	List<ProjectDTO> projectList=new ArrayList<ProjectDTO>();
+	List<ProjectDTO> projectList=new ArrayList<>();
 	
 	/** The project null list. */
-	List<ProjectDTO> projectNullList=new ArrayList<ProjectDTO>();
+	List<ProjectDTO> projectNullList=new ArrayList<>();
 	
 	/** The project DTO 1. */
 	ProjectDTO projectDTO1=new ProjectDTO();
@@ -120,10 +119,6 @@ class ProjectsControllerTest {
 	String project5UpErrorJson="{\"projectId\":null,\"userId\":null,\"userName\":null,\"projectName\":null,\"startDate\":\"sdsfsdf32007-05-01\",\"endDate\":\"saa-10-21\",\"priority\":\"fgfghg\",\"message\":\"Project is updated successfully\"}";
 	
 	
-	/** The response project. */
-	ResponseEntity<List<ProjectDTO>> responseProject=null;
-	
-		
 	/** The projectContain. */
 	String projectContain="Solr";
 	

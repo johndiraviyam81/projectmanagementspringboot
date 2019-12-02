@@ -81,12 +81,12 @@ public class TasksController {
 	 */
 	@CrossOrigin
 	@PostMapping(value=ProjectManagementConstants.URL_TASK_searchAllTasks)
-	public ResponseEntity<List<TaskDTO>> searchTasks(@RequestBody String projectName)
+	public ResponseEntity<List<TaskDTO>> searchTasks(@RequestBody String taskName)
 	{
 		List<TaskDTO> taskList=new ArrayList<>();
 		try
 		{		
-			taskList=tasksService.searchTasks(projectName);
+			taskList=tasksService.searchTasks(taskName);
 			
 			return ResponseEntity.ok().body(taskList);
 		}
