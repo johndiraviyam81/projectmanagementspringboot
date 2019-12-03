@@ -119,7 +119,7 @@ public class UsersController {
 		{
 			e.printStackTrace();
 			userDTO.setMessage(ProjectManagementConstants.USER_Update_msgFailure);
-			return ResponseEntity.badRequest().body(null);
+			return ResponseEntity.badRequest().body(userDTO);
 		}
 				
 	}

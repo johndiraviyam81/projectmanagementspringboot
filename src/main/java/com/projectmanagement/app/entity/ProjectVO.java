@@ -209,7 +209,6 @@ public class ProjectVO {
  	@Override
 	    public boolean equals(Object o) {
 	        if (this == o) return true;
-	        if (!(o instanceof ProjectVO)) return false;
 	        ProjectVO projectVO = (ProjectVO) o;
 	        return Objects.equals(project, projectVO.project);
 	    }

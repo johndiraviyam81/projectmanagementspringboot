@@ -311,14 +311,17 @@ public class TaskVO {
 	    public int hashCode() {
 	        return Objects.hash(task);
 	    }
+
+
+		@Override
+		public String toString() {
+			return "TaskVO [taskId=" + taskId + ", parentTaskVO=" + parentTaskVO + ", projectVO=" + projectVO
+					+ ", usersVO=" + usersVO + ", task=" + task + ", startDate=" + startDate + ", endDate=" + endDate
+					+ ", priority=" + priority + ", status=" + status + "]";
+		}
 	    
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "TaskVO [taskId=" + taskId  + ", task=" + task  +", parentTaskVO=" + ((parentTaskVO!=null)?parentTaskVO.toString():"") +", projectVO=" + ((projectVO!=null)?projectVO.toString():"") +", startDate=" + startDate +", endDate=" + endDate + ", priority=" + priority +  ", status=" + status +", UsersVO=" + ((usersVO!=null)?usersVO.toString():"") + "]";
-	}
+
+
 
 
 

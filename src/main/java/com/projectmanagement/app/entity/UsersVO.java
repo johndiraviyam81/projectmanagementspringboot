@@ -154,7 +154,6 @@ public class UsersVO {
  	@Override
 	    public boolean equals(Object o) {
 	        if (this == o) return true;
-	        if (!(o instanceof UsersVO)) return false;
 	        UsersVO usersVO = (UsersVO) o;
 	        return Objects.equals(firstName, usersVO.firstName);
 	    }

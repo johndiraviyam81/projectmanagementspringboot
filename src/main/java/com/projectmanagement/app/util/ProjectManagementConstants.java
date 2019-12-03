@@ -68,7 +68,7 @@ public final class ProjectManagementConstants {
 	public static final String  USER_Add_msgFailure="Error has been occured while creating user";
 	
 	public static final String  USER_Update_msgSuccess="User is updated successfully";
-	public static final String  USER_Update_msgFailure="Error has been occured while updating User";
+	public static final String  USER_Update_msgFailure="Error has been occured while updating user";
 	
 	
 		

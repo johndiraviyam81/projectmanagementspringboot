@@ -87,7 +87,6 @@ public class ParentTaskVO {
  	@Override
 	    public boolean equals(Object o) {
 	        if (this == o) return true;
-	        if (!(o instanceof ParentTaskVO)) return false;
 	        ParentTaskVO parentTaskVO = (ParentTaskVO) o;
 	        return Objects.equals(parentTask, parentTaskVO.parentTask);
 	    }

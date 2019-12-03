@@ -9,111 +9,91 @@ import java.util.Date;
 
 import javax.persistence.Column;
 
-
 // TODO: Auto-generated Javadoc
 /**
  * The Class TaskDTO.
  */
-public class TaskDTO  implements Serializable {
-		
-		/** The Constant serialVersionUID. */
-		private static final long serialVersionUID = 1L;
-		
-				
+public class TaskDTO implements Serializable {
+
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
+
 	/** The task id. */
-	public	String taskId;
-	
+	public String taskId;
+
 	/** The parent task id. */
-	public	String parentTaskId;
-	
+	public String parentTaskId;
+
 	/** The project id. */
-	public	String projectId;
-	
+	public String projectId;
+
 	/** The user id. */
-	public	String userId;
-	
+	public String userId;
+
 	/** The task name. */
-	public	String taskName;
-	
+	public String taskName;
+
 	/** The start date. */
-	public	String startDate;
-	
+	public String startDate;
+
 	/** The end date. */
-	public	String endDate;
-	
+	public String endDate;
+
 	/** The priority. */
-	public	String priority;
-	
+	public String priority;
+
 	/** The status. */
-	public	String status;
-	
+	public String status;
+
 	/** The message. */
-	public	String message;
-	
+	public String message;
+
 	/** The parent task name. */
-	public	String parentTaskName;
-	
+	public String parentTaskName;
+
 	/** The project name. */
-	public	String projectName;
-	
+	public String projectName;
+
 	/** The user name. */
-	public	String userName;
+	public String userName;
 
-
-
-
-
-				/**
-				 * Gets the user id.
-				 *
-				 * @return the user id
-				 */
-				public String getUserId() {
+	/**
+	 * Gets the user id.
+	 *
+	 * @return the user id
+	 */
+	public String getUserId() {
 		return userId;
 	}
-
-
-
-
 
 	/**
 	 * Sets the user id.
 	 *
-	 * @param userId the new user id
+	 * @param userId
+	 *            the new user id
 	 */
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
-
-
-
-
-				/**
-				 * Gets the task id.
-				 *
-				 * @return the task id
-				 */
-				public String getTaskId() {
+	/**
+	 * Gets the task id.
+	 *
+	 * @return the task id
+	 */
+	public String getTaskId() {
 		return taskId;
 	}
-
-
-
-
 
 	/**
 	 * Sets the task id.
 	 *
-	 * @param taskId the new task id
+	 * @param taskId
+	 *            the new task id
 	 */
 	public void setTaskId(String taskId) {
 		this.taskId = taskId;
 	}
-
-
-
-
 
 	/**
 	 * Gets the parent task id.
@@ -124,22 +104,15 @@ public class TaskDTO  implements Serializable {
 		return parentTaskId;
 	}
 
-
-
-
-
 	/**
 	 * Sets the parent task id.
 	 *
-	 * @param parentTaskId the new parent task id
+	 * @param parentTaskId
+	 *            the new parent task id
 	 */
 	public void setParentTaskId(String parentTaskId) {
 		this.parentTaskId = parentTaskId;
 	}
-
-
-
-
 
 	/**
 	 * Gets the project id.
@@ -150,22 +123,15 @@ public class TaskDTO  implements Serializable {
 		return projectId;
 	}
 
-
-
-
-
 	/**
 	 * Sets the project id.
 	 *
-	 * @param projectId the new project id
+	 * @param projectId
+	 *            the new project id
 	 */
 	public void setProjectId(String projectId) {
 		this.projectId = projectId;
 	}
-
-
-
-
 
 	/**
 	 * Gets the task name.
@@ -176,22 +142,15 @@ public class TaskDTO  implements Serializable {
 		return taskName;
 	}
 
-
-
-
-
 	/**
 	 * Sets the task name.
 	 *
-	 * @param taskName the new task name
+	 * @param taskName
+	 *            the new task name
 	 */
 	public void setTaskName(String taskName) {
 		this.taskName = taskName;
 	}
-
-
-
-
 
 	/**
 	 * Gets the start date.
@@ -202,22 +161,15 @@ public class TaskDTO  implements Serializable {
 		return startDate;
 	}
 
-
-
-
-
 	/**
 	 * Sets the start date.
 	 *
-	 * @param startDate the new start date
+	 * @param startDate
+	 *            the new start date
 	 */
 	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
-
-
-
-
 
 	/**
 	 * Gets the end date.
@@ -228,22 +180,15 @@ public class TaskDTO  implements Serializable {
 		return endDate;
 	}
 
-
-
-
-
 	/**
 	 * Sets the end date.
 	 *
-	 * @param endDate the new end date
+	 * @param endDate
+	 *            the new end date
 	 */
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
-
-
-
-
 
 	/**
 	 * Gets the priority.
@@ -254,22 +199,15 @@ public class TaskDTO  implements Serializable {
 		return priority;
 	}
 
-
-
-
-
 	/**
 	 * Sets the priority.
 	 *
-	 * @param priority the new priority
+	 * @param priority
+	 *            the new priority
 	 */
 	public void setPriority(String priority) {
 		this.priority = priority;
 	}
-
-
-
-
 
 	/**
 	 * Gets the status.
@@ -280,22 +218,15 @@ public class TaskDTO  implements Serializable {
 		return status;
 	}
 
-
-
-
-
 	/**
 	 * Sets the status.
 	 *
-	 * @param status the new status
+	 * @param status
+	 *            the new status
 	 */
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
-
-
-
 
 	/**
 	 * Gets the message.
@@ -306,49 +237,34 @@ public class TaskDTO  implements Serializable {
 		return message;
 	}
 
-
-
-
-
 	/**
 	 * Sets the message.
 	 *
-	 * @param message the new message
+	 * @param message
+	 *            the new message
 	 */
 	public void setMessage(String message) {
 		this.message = message;
 	}
 
-
-	
-
-
-
-				/**
-				 * Gets the parent task name.
-				 *
-				 * @return the parent task name
-				 */
-				public String getParentTaskName() {
+	/**
+	 * Gets the parent task name.
+	 *
+	 * @return the parent task name
+	 */
+	public String getParentTaskName() {
 		return parentTaskName;
 	}
-
-
-
-
 
 	/**
 	 * Sets the parent task name.
 	 *
-	 * @param parentTaskName the new parent task name
+	 * @param parentTaskName
+	 *            the new parent task name
 	 */
 	public void setParentTaskName(String parentTaskName) {
 		this.parentTaskName = parentTaskName;
 	}
-
-
-
-
 
 	/**
 	 * Gets the project name.
@@ -359,22 +275,15 @@ public class TaskDTO  implements Serializable {
 		return projectName;
 	}
 
-
-
-
-
 	/**
 	 * Sets the project name.
 	 *
-	 * @param projectName the new project name
+	 * @param projectName
+	 *            the new project name
 	 */
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
-
-
-
-
 
 	/**
 	 * Gets the user name.
@@ -385,30 +294,30 @@ public class TaskDTO  implements Serializable {
 		return userName;
 	}
 
-
-
-
-
 	/**
 	 * Sets the user name.
 	 *
-	 * @param userName the new user name
+	 * @param userName
+	 *            the new user name
 	 */
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 
-
-
-
-
-				/* (non-Javadoc)
-				 * @see java.lang.Object#toString()
-				 */
-				@Override
-		public String toString() {
-			return "TaskDTO [taskId=" + taskId  + ", parentTaskId=" + parentTaskId	+", parentTaskName=" + parentTaskName+", projectName=" + projectName+", userName=" + userName+", taskName=" + taskName +", projectId=" + projectId +", startDate=" + startDate +", "
-					+ "endDate=" + endDate + ", priority=" + priority +  ", status=" + status + "]";
-		}
-
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		TaskDTO other = (TaskDTO) obj;
+		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "TaskDTO [taskId=" + taskId + ", parentTaskId=" + parentTaskId + ", projectId=" + projectId + ", userId="
+				+ userId + ", taskName=" + taskName + ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", priority=" + priority + ", message=" + message + ", parentTaskName=" + parentTaskName
+				+ ", projectName=" + projectName + ", userName=" + userName + "]";
+	}
+
+}

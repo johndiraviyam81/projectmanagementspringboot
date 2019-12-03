@@ -142,6 +142,9 @@ List<ProjectVO> projectVONullList=new ArrayList<>();
 		this.usersVO.setFirstName("John");
 		this.usersVO.setLastName("Diraviyam");
 		this.usersVO.setEmployeeId(12412);
+		this.usersVO.toString();
+		this.usersVO.hashCode();
+		this.usersVO.equals(usersVO);
 		
 		this.taskVo1.setTaskId(1);
 		this.taskVo1.setTask("Solr first Task");
@@ -153,8 +156,18 @@ List<ProjectVO> projectVONullList=new ArrayList<>();
 		this.taskVo1.setStatus("Start");
 		this.taskVo1.setParentTaskVO(null);
 		
+		this.taskVo1.toString();
+		this.taskVo1.hashCode();
+		this.taskVo1.equals(taskVo1);
+		
+		
+		
 		this.parentTaskVO.setParentId(1);
 		this.parentTaskVO.setParentTask(taskVo1);
+		
+		this.parentTaskVO.toString();
+		this.parentTaskVO.hashCode();
+		this.parentTaskVO.equals(parentTaskVO);
 		
 		this.taskVo2.setTaskId(2);
 		this.taskVo2.setTask("Solr second Task");
@@ -183,6 +196,10 @@ List<ProjectVO> projectVONullList=new ArrayList<>();
 		this.projectVO1.setEndDate(LocalDate.parse("2019-12-28"));
 		this.projectVO1.setPriority(60);
 		this.projectVO1.setUsersVO(this.usersVO);
+		
+		this.projectVO1.toString();
+		this.projectVO1.hashCode();
+		this.projectVO1.equals(projectVO1);
 		
 		this.projectDTO2.setProjectId("2");
 		this.projectDTO2.setProjectName("Perkin elmer project");
