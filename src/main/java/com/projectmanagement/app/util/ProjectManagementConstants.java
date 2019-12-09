@@ -13,6 +13,7 @@ public final class ProjectManagementConstants {
 	
 	public static final String  URL_TASK_Service="/tasks";
 	public static final String  URL_TASK_getAllTasks="/alltasks";
+	public static final String  URL_TASK_getAllParentTasks="/allparenttasks";
 	public static final String  URL_TASK_searchAllTasks="/search";
 	public static final String  URL_TASK_addTask="/add";
 	public static final String  URL_TASK_deleteGetTask="/task/{taskId}";

@@ -56,6 +56,17 @@ public class TaskDTO implements Serializable {
 
 	/** The user name. */
 	public String userName;
+	
+	 
+	public String setParentTask;
+
+	public String getSetParentTask() {
+		return setParentTask;
+	}
+
+	public void setSetParentTask(String setParentTask) {
+		this.setParentTask = setParentTask;
+	}
 
 	/**
 	 * Gets the user id.
@@ -316,8 +327,13 @@ public class TaskDTO implements Serializable {
 	public String toString() {
 		return "TaskDTO [taskId=" + taskId + ", parentTaskId=" + parentTaskId + ", projectId=" + projectId + ", userId="
 				+ userId + ", taskName=" + taskName + ", startDate=" + startDate + ", endDate=" + endDate
-				+ ", priority=" + priority + ", message=" + message + ", parentTaskName=" + parentTaskName
-				+ ", projectName=" + projectName + ", userName=" + userName + "]";
+				+ ", priority=" + priority + ", status=" + status + ", message=" + message + ", parentTaskName="
+				+ parentTaskName + ", projectName=" + projectName + ", userName=" + userName + ", setParentTask="
+				+ setParentTask + "]";
 	}
+
+ 
+
+ 
 
 }

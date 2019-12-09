@@ -36,6 +36,8 @@ public interface ProjectVORepository extends JpaRepository<ProjectVO, Integer>{
 	 */
 	List<ProjectVO> findByProjectContaining(String projectName);
 	
+	List<ProjectVO> findByProjectContainingOrProjectEndingWith(String projectName,String projectName1);
+	
 	/**
 	 * Find by users VO.
 	 *

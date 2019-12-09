@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import com.projectmanagement.app.util.ProjectManagementConstants;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
@@ -29,206 +32,179 @@ import com.projectmanagement.app.model.TaskDTO;
 import com.projectmanagement.app.service.TasksService;
 import com.projectmanagement.app.entity.TaskVO;
 
-
-
-
 /**
  * The Class TasksController.
  */
 @RestController
-@RequestMapping(value=ProjectManagementConstants.URL_TASK_Service)
+@RequestMapping(value = ProjectManagementConstants.URL_TASK_Service)
 public class TasksController {
 
-
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	/** The tasks service. */
 	@Autowired
-	private	TasksService tasksService;
-	
-	
-	
+	private TasksService tasksService;
+
 	/**
 	 * Gets the all tasks.
 	 *
 	 * @return the all tasks
 	 */
 	@CrossOrigin
-	@GetMapping(value=ProjectManagementConstants.URL_TASK_getAllTasks)
-	public ResponseEntity<List<TaskDTO>> getAllTasks()
-	{
-		List<TaskDTO> taskList=new ArrayList<>();
-		try
-		{		
-			taskList=tasksService.getAllTasks();
-			
+	@GetMapping(value = ProjectManagementConstants.URL_TASK_getAllTasks)
+	public ResponseEntity<List<TaskDTO>> getAllTasks() {
+		List<TaskDTO> taskList = new ArrayList<>();
+		try {
+			taskList = tasksService.getAllTasks();
+
 			return ResponseEntity.ok().body(taskList);
-		}
-		catch(Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
-			return ResponseEntity.badRequest().body(null);			
+			log.error(e.getMessage());
+			return ResponseEntity.badRequest().body(null);
 		}
-		
-		
-		
+
 	}
 	
+	@CrossOrigin
+	@GetMapping(value = ProjectManagementConstants.URL_TASK_getAllParentTasks)
+	public ResponseEntity<List<TaskDTO>> getAllParentTasks() {
+		List<TaskDTO> taskList = new ArrayList<>();
+		try {
+			taskList = tasksService.getAllParentTasks();
+
+			return ResponseEntity.ok().body(taskList);
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+			return ResponseEntity.badRequest().body(null);
+		}
+
+	}
+
 	/**
 	 * Search tasks.
 	 *
-	 * @param projectName the project name
+	 * @param projectName
+	 *            the project name
 	 * @return the response entity
 	 */
 	@CrossOrigin
-	@PostMapping(value=ProjectManagementConstants.URL_TASK_searchAllTasks)
-	public ResponseEntity<List<TaskDTO>> searchTasks(@RequestBody String taskName)
-	{
-		List<TaskDTO> taskList=new ArrayList<>();
-		try
-		{		
-			taskList=tasksService.searchTasks(taskName);
-			
+	@PostMapping(value = ProjectManagementConstants.URL_TASK_searchAllTasks)
+	public ResponseEntity<List<TaskDTO>> searchTasks(@RequestBody String projectName) {
+		List<TaskDTO> taskList = new ArrayList<>();
+		try {
+			taskList = tasksService.searchTasks(projectName);
+
 			return ResponseEntity.ok().body(taskList);
-		}
-		catch(Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
+			log.error(e.getMessage());
 			return ResponseEntity.badRequest().body(null);
 		}
-		
+
 	}
-	
-	
+
 	/**
 	 * Adds the task.
 	 *
-	 * @param taskDTO the task DTO
+	 * @param taskDTO
+	 *            the task DTO
 	 * @return the response entity
 	 */
 	@CrossOrigin
-	@PostMapping(value=ProjectManagementConstants.URL_TASK_addTask)
-	public ResponseEntity<TaskDTO> addTask(@RequestBody TaskDTO taskDTO)
-	{
-		try
-		{	
-			tasksService.save(taskDTO);
-			 taskDTO.setMessage(ProjectManagementConstants.TASK_Add_msgSuccess);
-			 return ResponseEntity.ok().body(taskDTO);
-			
-		}
-		catch(Exception e)
-		{
+	@PostMapping(value = ProjectManagementConstants.URL_TASK_addTask)
+	public ResponseEntity<TaskDTO> addTask(@RequestBody TaskDTO taskDTO) {
+		try {
+			if (taskDTO.getSetParentTask()!=null && taskDTO.getSetParentTask().equals("1")) {
+				tasksService.saveParentTask(taskDTO);
+			} else {
+				tasksService.save(taskDTO);
+			}
+			taskDTO.setMessage(ProjectManagementConstants.TASK_Add_msgSuccess);
+			return ResponseEntity.ok().body(taskDTO);
+
+		} catch (Exception e) {
 			e.printStackTrace();
+			log.error(e.getMessage());
 			taskDTO.setMessage(ProjectManagementConstants.TASK_Add_msgFailure);
 			return ResponseEntity.badRequest().body(taskDTO);
 		}
-				
+
 	}
-	
+
 	/**
 	 * Update task.
 	 *
-	 * @param taskDTO the task DTO
+	 * @param taskDTO
+	 *            the task DTO
 	 * @return the response entity
 	 */
 	@CrossOrigin
-	@PutMapping(value=ProjectManagementConstants.URL_TASK_update)
-	public ResponseEntity<TaskDTO> updateTask(@RequestBody TaskDTO taskDTO)
-	{
-		try
-		{	
-			  tasksService.save(taskDTO);
-			  taskDTO.setMessage(ProjectManagementConstants.TASK_Update_msgSuccess);			
-			  return ResponseEntity.ok().body(taskDTO);
-		}
-		catch(Exception e)
-		{
+	@PutMapping(value = ProjectManagementConstants.URL_TASK_update)
+	public ResponseEntity<TaskDTO> updateTask(@RequestBody TaskDTO taskDTO) {
+		try {
+			tasksService.save(taskDTO);
+			taskDTO.setMessage(ProjectManagementConstants.TASK_Update_msgSuccess);
+			return ResponseEntity.ok().body(taskDTO);
+		} catch (Exception e) {
 			e.printStackTrace();
+			log.error(e.getMessage());
 			taskDTO.setMessage(ProjectManagementConstants.TASK_Update_msgFailure);
 			return ResponseEntity.badRequest().body(taskDTO);
 		}
-				
+
 	}
-		
-	/**
-	 * Gets the task by parent.
-	 *
-	 * @param parentId the parent id
-	 * @return the task by parent
-	 */
-	@CrossOrigin
-	@GetMapping(value=ProjectManagementConstants.URL_TASK_Parent_Task)
-	public ResponseEntity<TaskDTO> getTaskByParent(@PathVariable("parentId")String parentId)
-	{
-		TaskDTO taskDTO=new TaskDTO();		
-		try
-		{	
-			taskDTO=tasksService.getTaskByParentId(Long.valueOf(parentId));
-			taskDTO.setMessage(ProjectManagementConstants.TASK_Get_msgSuccess);			
-			return ResponseEntity.ok().body(taskDTO);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-			taskDTO.setMessage(ProjectManagementConstants.TASK_Get_msgFailure);
-			return ResponseEntity.badRequest().body(taskDTO);
-		}
-				
-	}
-	
+
 	/**
 	 * Gets the task.
 	 *
-	 * @param taskId the task id
+	 * @param taskId
+	 *            the task id
 	 * @return the task
 	 */
 	@CrossOrigin
-	@GetMapping(value=ProjectManagementConstants.URL_TASK_deleteGetTask)
-	public ResponseEntity<TaskDTO> getTask(@PathVariable("taskId")String taskId)
-	{
-		TaskDTO taskDTO=new TaskDTO();		
-		try
-		{	
-			taskDTO=tasksService.getTaskById(Long.parseLong(taskId));
-			 taskDTO.setMessage(ProjectManagementConstants.TASK_Get_msgSuccess);			
-			 return ResponseEntity.ok().body(taskDTO);
-		}
-		catch(Exception e)
-		{
+	@GetMapping(value = ProjectManagementConstants.URL_TASK_deleteGetTask)
+	public ResponseEntity<TaskDTO> getTask(@PathVariable("taskId") String taskId) {
+		TaskDTO taskDTO = new TaskDTO();
+		try {
+			taskDTO = tasksService.getTaskById(Long.parseLong(taskId));
+			taskDTO.setMessage(ProjectManagementConstants.TASK_Get_msgSuccess);
+			return ResponseEntity.ok().body(taskDTO);
+		} catch (Exception e) {
 			e.printStackTrace();
+			log.error(e.getMessage());
 			taskDTO.setMessage(ProjectManagementConstants.TASK_Get_msgFailure);
 			return ResponseEntity.badRequest().body(taskDTO);
 		}
-				
+
 	}
 
-	
 	/**
 	 * Delete task.
 	 *
-	 * @param taskId the task id
+	 * @param taskId
+	 *            the task id
 	 * @return the response entity
 	 */
 	@CrossOrigin
-	@DeleteMapping(value=ProjectManagementConstants.URL_TASK_deleteGetTask)
-	public ResponseEntity<DeleteRecordDTO> deleteTask(@PathVariable("taskId")String taskId)
-	{
-		DeleteRecordDTO deleteRecord=new DeleteRecordDTO();		
+	@DeleteMapping(value = ProjectManagementConstants.URL_TASK_deleteGetTask)
+	public ResponseEntity<DeleteRecordDTO> deleteTask(@PathVariable("taskId") String taskId) {
+		DeleteRecordDTO deleteRecord = new DeleteRecordDTO();
 		deleteRecord.setDeleteId(taskId);
-		
-		try
-		{	
-			tasksService.deleteByTaskById(Long.parseLong(taskId));	
+
+		try {
+			tasksService.deleteByTaskById(Long.parseLong(taskId));
 			deleteRecord.setMessage(ProjectManagementConstants.TASK_Delete_msgSuccess);
-			 return ResponseEntity.ok().body(deleteRecord);
-		}
-		catch (Exception e) {
-			
+			return ResponseEntity.ok().body(deleteRecord);
+		} catch (Exception e) {
+
 			e.printStackTrace();
+			log.error(e.getMessage());
 			deleteRecord.setMessage(ProjectManagementConstants.TASK_Delete_msgFailure);
 			return ResponseEntity.badRequest().body(deleteRecord);
 		}
-				
+
 	}
 
 }

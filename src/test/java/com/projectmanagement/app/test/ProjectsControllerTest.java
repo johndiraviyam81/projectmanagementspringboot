@@ -67,11 +67,11 @@ class ProjectsControllerTest {
 	/** The project DTO 4. */
 	ProjectDTO projectDTO4 = new ProjectDTO();
 
-	/** The project DTO 4 error. */
-	ProjectDTO projectDTO4Error = new ProjectDTO();
+ 
+	ProjectDTO projectDTO5 = new ProjectDTO();
 
-	/** The project DTO 5 error. */
-	ProjectDTO projectDTO5Error = new ProjectDTO();
+	
+	ProjectDTO projectDTOEmpty = new ProjectDTO();
 
 	/** The delete record. */
 	DeleteRecordDTO deleteRecord = new DeleteRecordDTO();
@@ -80,24 +80,33 @@ class ProjectsControllerTest {
 	DeleteRecordDTO notDeleteRecord = new DeleteRecordDTO();
 
 	/** The project list json. */
-	String projectListJson = "[{\"projectId\":\"1\",\"userId\":\"1\",\"userName\":\"JohnDiraviyam\",\"projectName\":\"Solr elmer project\",\"startDate\":\"2019-12-01\",\"endDate\":\"2019-12-28\",\"priority\":\"60\",\"message\":null},{\"projectId\":\"2\",\"userId\":\"2\",\"userName\":\"JohnDiraviyam\",\"projectName\":\"Perkin elmer project\",\"startDate\":\"2018-06-17\",\"endDate\":\"2018-11-28\",\"priority\":\"90\",\"message\":null},{\"projectId\":\"3\",\"userId\":\"2\",\"userName\":\"JohnDiraviyam\",\"projectName\":\"ILL elmer project\",\"startDate\":\"2019-02-17\",\"endDate\":\"2019-08-28\",\"priority\":\"30\",\"message\":null}]";
+	String projectListJson = "[{\"projectId\":\"1\",\"userId\":\"1\",\"userName\":\"John\",\"projectName\":\"Termanite Project\",\"startDate\":\"2019-12-06\",\"endDate\":\"2019-12-07\",\"priority\":\"0\",\"message\":null,\"noOfTasks\":\"2\"},{\"projectId\":\"2\",\"userId\":\"2\",\"userName\":\"Ghomes\",\"projectName\":\"Solr Project\",\"startDate\":\"2019-12-06\",\"endDate\":\"2019-12-07\",\"priority\":\"10\",\"message\":null,\"noOfTasks\":\"1\"},{\"projectId\":\"3\",\"userId\":\"3\",\"userName\":\"Boogy man\",\"projectName\":\"Versatile Project\",\"startDate\":\"2019-12-06\",\"endDate\":\"2019-12-07\",\"priority\":\"30\",\"message\":null,\"noOfTasks\":null}]";
 
-	/** The project 4 json. */
-	String project4Json = "{\"projectId\":\"4\",\"userId\":\"1\",\"userName\":\"JohnDiraviyam\",\"projectName\":\"Marion Bestie project\",\"startDate\":\"2008-05-01\",\"endDate\":\"2014-10-21\",\"priority\":\"60\",\"message\":\"Project is added successfully\"}";
 
-	/** The project 4 json. */
-	String project4UpdateJson = "{\"projectId\":\"4\",\"userId\":\"1\",\"userName\":\"JohnDiraviyam\",\"projectName\":\"Marion Bestie project\",\"startDate\":\"2008-05-01\",\"endDate\":\"2014-10-21\",\"priority\":\"60\",\"message\":\"Project is updated successfully\"}";
+	String projectAddJson = "{\"projectId\":\"3\",\"userId\":\"3\",\"userName\":\"Boogy man\",\"projectName\":\"Versatile Project\",\"startDate\":\"2019-12-06\",\"endDate\":\"2019-12-07\",\"priority\":\"30\",\"message\":null,\"noOfTasks\":null}";
 
-	/** The project 4 json. */
-	String project4GetJson = "{\"projectId\":\"4\",\"userId\":\"1\",\"userName\":\"JohnDiraviyam\",\"projectName\":\"Marion Bestie project\",\"startDate\":\"2008-05-01\",\"endDate\":\"2014-10-21\",\"priority\":\"60\",\"message\":\"Project is fetched successfully\"}";
+	String projectAddReturnJson = "{\"projectId\":\"3\",\"userId\":\"3\",\"userName\":\"Boogy man\",\"projectName\":\"Versatile Project\",\"startDate\":\"2019-12-06\",\"endDate\":\"2019-12-07\",\"priority\":\"30\",\"message\":\"Project is added successfully\",\"noOfTasks\":null}";
+	
+	String project4UpdateJson = "{\"projectId\":\"2\",\"userId\":\"2\",\"userName\":\"Ghomes\",\"projectName\":\"Solr Project\",\"startDate\":\"2019-12-06\",\"endDate\":\"2019-12-07\",\"priority\":\"10\",\"message\":null,\"noOfTasks\":null}";
 
-	/** The project 4 json. */
-	String project4NotGetJson = "{\"projectId\":null,\"userId\":null,\"userName\":null,\"projectName\":null,\"startDate\":null,\"endDate\":null,\"priority\":null,\"message\":\"Project is fetched successfully\"}";
+	String project4UpdateReturnJson = "{\"projectId\":\"2\",\"userId\":\"2\",\"userName\":\"Ghomes\",\"projectName\":\"Solr Project\",\"startDate\":\"2019-12-06\",\"endDate\":\"2019-12-07\",\"priority\":\"10\",\"message\":\"Project is updated successfully\",\"noOfTasks\":null}";
 
+	
+	String project4GetJson = "{\"projectId\":\"1\",\"userId\":\"1\",\"userName\":\"John\",\"projectName\":\"Termanite Project\",\"startDate\":\"2019-12-06\",\"endDate\":\"2019-12-07\",\"priority\":\"0\",\"message\":\"Project is fetched successfully\",\"noOfTasks\":\"2\"}";
+
+	
+	String projectNotGetJson = "{\"projectId\":null,\"userId\":null,\"userName\":null,\"projectName\":null,\"startDate\":null,\"endDate\":null,\"priority\":null,\"message\":\"Project is fetched successfully\",\"noOfTasks\":null}";
+
+	String projectEmptyJson = "{\"projectId\":null,\"userId\":null,\"userName\":null,\"projectName\":null,\"startDate\":null,\"endDate\":null,\"priority\":null,\"message\":null,\"noOfTasks\":null}";
+	
+	String projectAddEmptyJson = "{\"projectId\":null,\"userId\":null,\"userName\":null,\"projectName\":null,\"startDate\":null,\"endDate\":null,\"priority\":null,\"message\":\"Project is added successfully\",\"noOfTasks\":null}";
+	
+	String projectUpdateEmptyJson = "{\"projectId\":null,\"userId\":null,\"userName\":null,\"projectName\":null,\"startDate\":null,\"endDate\":null,\"priority\":null,\"message\":\"Project is updated successfully\",\"noOfTasks\":null}";
+	
 	/** The project 4 not exception json. */
-	String project4NotExceptionJson = "{\"projectId\":null,\"userId\":null,\"userName\":null,\"projectName\":null,\"startDate\":null,\"endDate\":null,\"priority\":null,\"message\":\"Error has been occured while retrieving project\"}";
+	String projectGetNotExceptionJson = "{\"projectId\":null,\"userId\":null,\"userName\":null,\"projectName\":null,\"startDate\":null,\"endDate\":null,\"priority\":null,\"message\":\"Error has been occured while retrieving project\",\"noOfTasks\":null}";
 
-	/** The project 4 json. */
+	
 	String project4NotUpdateJson = "{\"projectId\":null,\"userId\":null,\"userName\":null,\"projectName\":null,\"startDate\":null,\"endDate\":null,\"priority\":null,\"message\":\"Project is updated successfully\"}";
 
 	/** The delete record json. */
@@ -106,24 +115,21 @@ class ProjectsControllerTest {
 	/** The delete not record json. */
 	String deleteNotRecordJson = "{\"deleteId\":\"10\",\"message\":\"Project is not deleted successfully as user is referenced in users or tasks\"}";
 
-	/** The project 4 error json. */
-	String project4ErrorJson = "{\"projectId\":null,\"userId\":\"1\",\"userName\":\"JohnDiraviyam\",\"projectName\":\"Doveton selton project\",\"startDate\":\"121232007-05-01\",\"endDate\":\"2014-10-21\",\"priority\":\"30\",\"message\":\"Project is added successfully\"}";
-
-	/** The project 5 error json. */
-	String project5ErrorJson = "{\"projectId\":null,\"userId\":null,\"userName\":null,\"projectName\":null,\"startDate\":\"sdsfsdf32007-05-01\",\"endDate\":\"saa-10-21\",\"priority\":\"fgfghg\",\"message\":null}";
-
-	/** The project 5 error json. */
-	String project5ErrorReturnJson = "{\"projectId\":null,\"userId\":null,\"userName\":null,\"projectName\":null,\"startDate\":\"sdsfsdf32007-05-01\",\"endDate\":\"saa-10-21\",\"priority\":\"fgfghg\",\"message\":\"Error has been occured while creating project\"}";
-
-	/** The project 5 error json. */
-	String project5UpErrorJson = "{\"projectId\":null,\"userId\":null,\"userName\":null,\"projectName\":null,\"startDate\":\"sdsfsdf32007-05-01\",\"endDate\":\"saa-10-21\",\"priority\":\"fgfghg\",\"message\":null}";
-
-	/** The project 5 error json. */
-	String project5UpErrorReturnJson = "{\"projectId\":null,\"userId\":null,\"userName\":null,\"projectName\":null,\"startDate\":\"sdsfsdf32007-05-01\",\"endDate\":\"saa-10-21\",\"priority\":\"fgfghg\",\"message\":\"Error has been occured while updating project\"}";
+	
+	String projectAddErrorJson = "{\"projectId\":null,\"userId\":null,\"userName\":null,\"projectName\":null,\"startDate\":\"start20-12-06\",\"endDate\":\"end19-12-06\",\"priority\":\"pri234\",\"message\":null,\"noOfTasks\":null}";
 
 	
+	String projectAddReturnErrorJson = "{\"projectId\":null,\"userId\":null,\"userName\":null,\"projectName\":null,\"startDate\":\"start20-12-06\",\"endDate\":\"end19-12-06\",\"priority\":\"pri234\",\"message\":\"Error has been occured while creating project\",\"noOfTasks\":null}";
+
+	
+	
+	String projectUpdateErrorJson = "{\"projectId\":\"1\",\"userId\":null,\"userName\":null,\"projectName\":null,\"startDate\":\"start20-12-06\",\"endDate\":\"end19-12-06\",\"priority\":\"pri234\",\"message\":null,\"noOfTasks\":null}";
+
+	String projectUpdateReturnErrorJson = "{\"projectId\":\"1\",\"userId\":null,\"userName\":null,\"projectName\":null,\"startDate\":\"start20-12-06\",\"endDate\":\"end19-12-06\",\"priority\":\"pri234\",\"message\":\"Error has been occured while updating project\",\"noOfTasks\":null}";
+	
+		
 	/** The projectContain. */
-	String projectContain = "Solr";
+	String projectContain = "Project";
 
 	/**
 	 * Sets the up.
@@ -135,54 +141,52 @@ class ProjectsControllerTest {
 	void setUp() throws Exception {
 
 		mvc = MockMvcBuilders.standaloneSetup(projectsController).build();
-		this.projectDTO1.setProjectId("1");
-		this.projectDTO1.setProjectName("Solr elmer project");
-		this.projectDTO1.setStartDate("2019-12-01");
-		this.projectDTO1.setEndDate("2019-12-28");
-		this.projectDTO1.setUserId("1");
-		this.projectDTO1.setUserName("JohnDiraviyam");
-		this.projectDTO1.setPriority("60");
-
-		this.projectDTO2.setProjectId("2");
-		this.projectDTO2.setProjectName("Perkin elmer project");
-		this.projectDTO2.setStartDate("2018-06-17");
-		this.projectDTO2.setEndDate("2018-11-28");
-		this.projectDTO2.setUserId("2");
-		this.projectDTO2.setUserName("JohnDiraviyam");
-		this.projectDTO2.setPriority("90");
-
-		this.projectDTO3.setProjectId("3");
-		this.projectDTO3.setProjectName("ILL elmer project");
-		this.projectDTO3.setStartDate("2019-02-17");
-		this.projectDTO3.setEndDate("2019-08-28");
-		this.projectDTO3.setUserId("2");
-		this.projectDTO3.setUserName("JohnDiraviyam");
-		this.projectDTO3.setPriority("30");
-
-		this.projectDTO4.setProjectId("4");
-		this.projectDTO4.setProjectName("Marion Bestie project");
-		this.projectDTO4.setStartDate("2008-05-01");
-		this.projectDTO4.setEndDate("2014-10-21");
-		this.projectDTO4.setPriority("60");
-		this.projectDTO4.setUserId("1");
-		this.projectDTO4.setUserName("JohnDiraviyam");
-		this.projectDTO4.setMessage(ProjectManagementConstants.PROJECT_Add_msgSuccess);
-
-		this.projectDTO4.toString();
-		this.projectDTO4.equals(projectDTO4);
-		this.projectDTO4Error.setProjectName("Doveton selton project");
-		this.projectDTO4Error.setStartDate("121232007-05-01");
-		this.projectDTO4Error.setEndDate("2014-10-21");
-		this.projectDTO4Error.setPriority("30");
-		this.projectDTO4Error.setUserId("1");
-		this.projectDTO4Error.setUserName("JohnDiraviyam");
-		this.projectDTO4Error.setMessage(ProjectManagementConstants.PROJECT_Add_msgFailure);
-
-		this.projectDTO5Error.setStartDate("sdsfsdf32007-05-01");
-		this.projectDTO5Error.setEndDate("saa-10-21");
-		this.projectDTO5Error.setPriority("fgfghg");
-
 		
+
+		this.projectDTO1.setProjectId("1");
+		this.projectDTO1.setProjectName("Termanite Project");
+		this.projectDTO1.setStartDate("2019-12-06");
+		this.projectDTO1.setEndDate("2019-12-07");
+		this.projectDTO1.setUserId("1");
+		this.projectDTO1.setUserName("John");
+		this.projectDTO1.setPriority("0");
+		this.projectDTO1.setNoOfTasks("2");
+
+		this.projectDTO1.toString();
+		this.projectDTO1.equals(projectDTO1);
+		
+		this.projectDTO2.setProjectId("2");
+		this.projectDTO2.setProjectName("Solr Project");
+		this.projectDTO2.setStartDate("2019-12-06");
+		this.projectDTO2.setEndDate("2019-12-07");
+		this.projectDTO2.setUserId("2");
+		this.projectDTO2.setUserName("Ghomes");
+		this.projectDTO2.setPriority("10");
+		this.projectDTO2.setNoOfTasks("1");
+		
+		
+		
+		this.projectDTO3.setProjectId("3");
+		this.projectDTO3.setProjectName("Versatile Project");
+		this.projectDTO3.setStartDate("2019-12-06");
+		this.projectDTO3.setEndDate("2019-12-07");
+		this.projectDTO3.setUserId("3");
+		this.projectDTO3.setUserName("Boogy man");
+		this.projectDTO3.setPriority("30");
+		
+
+		this.projectDTO4.setProjectId("1");	
+		this.projectDTO4.setStartDate("start20-12-06");
+		this.projectDTO4.setEndDate("end19-12-06");
+		this.projectDTO4.setPriority("pri234");
+
+		this.projectDTO5.setProjectId("1");	
+		this.projectDTO5.setStartDate("start20-12-06");
+		this.projectDTO5.setEndDate("end19-12-06");
+		this.projectDTO5.setPriority("pri234");	
+		
+
+				
 
 		this.projectList.add(this.projectDTO1);
 		this.projectList.add(this.projectDTO2);
@@ -263,15 +267,15 @@ class ProjectsControllerTest {
 	@Test
 	void testAddProjectPositiveFlow() throws Exception {
 
-		when(projectsService.save(this.projectDTO4)).thenReturn(4L);
+		when(projectsService.save(this.projectDTO3)).thenReturn(3L);
 		this.projectDTO4.setMessage(ProjectManagementConstants.PROJECT_Add_msgSuccess);
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(ProjectManagementConstants.URL_PROJECT_Service
 						+ ProjectManagementConstants.URL_PROJECT_addProject)
-				.content(project4Json).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
+				.content(this.projectAddJson).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
 		MockHttpServletResponse response = mvc.perform(requestBuilder).andExpect(status().isOk()).andReturn()
 				.getResponse();
-		assertEquals(project4Json, response.getContentAsString());
+		assertEquals(this.projectAddReturnJson, response.getContentAsString());
 
 	}
 
@@ -284,15 +288,15 @@ class ProjectsControllerTest {
 	@Test
 	void testAddProjectNegativeFlow() throws Exception {
 
-		when(projectsService.save(this.projectDTO4Error)).thenReturn(0L);
+		when(projectsService.save(this.projectDTOEmpty)).thenReturn(0L);
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(ProjectManagementConstants.URL_PROJECT_Service
 						+ ProjectManagementConstants.URL_PROJECT_addProject)
-				.content(this.project4ErrorJson).contentType(MediaType.APPLICATION_JSON)
+				.content(this.projectEmptyJson).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON);
 		MockHttpServletResponse response = mvc.perform(requestBuilder).andExpect(status().isOk()).andReturn()
 				.getResponse();
-		assertEquals(this.project4ErrorJson, response.getContentAsString());
+		assertEquals(this.projectAddEmptyJson, response.getContentAsString());
 
 	}
 
@@ -305,15 +309,15 @@ class ProjectsControllerTest {
 	@Test
 	void testAddProjectExceptionNegativeFlow() throws Exception {
 
-		when(projectsService.save(this.projectDTO5Error)).thenThrow(DateTimeParseException.class);
+		when(projectsService.save(this.projectDTO4)).thenThrow(DateTimeParseException.class);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(ProjectManagementConstants.URL_PROJECT_Service
 						+ ProjectManagementConstants.URL_PROJECT_addProject)
-				.content(this.project5ErrorJson).contentType(MediaType.APPLICATION_JSON)
+				.content(this.projectAddErrorJson).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON);
 		MockHttpServletResponse response = mvc.perform(requestBuilder).andReturn().getResponse();
-		assertEquals(project5ErrorReturnJson, response.getContentAsString());
+		assertEquals(this.projectAddReturnErrorJson, response.getContentAsString());
 
 	}
 
@@ -384,12 +388,12 @@ class ProjectsControllerTest {
 	 */
 	@Test
 	void testGetProjectPositiveFlow() throws Exception {
-		when(projectsService.getProjectById(4L)).thenReturn(this.projectDTO4);
+		when(projectsService.getProjectById(1L)).thenReturn(this.projectDTO1);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(ProjectManagementConstants.URL_PROJECT_Service + ProjectManagementConstants.URL_PROJECT_update
-						+ "/4")
-				.content(project4GetJson).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
+						+ "/1")
+				.content(this.project4GetJson).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
 		MockHttpServletResponse response = mvc.perform(requestBuilder).andExpect(status().isOk()).andReturn()
 				.getResponse();
 		assertEquals(this.project4GetJson, response.getContentAsString());
@@ -409,10 +413,10 @@ class ProjectsControllerTest {
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(ProjectManagementConstants.URL_PROJECT_Service + ProjectManagementConstants.URL_PROJECT_update
 						+ "/10")
-				.content(project4NotGetJson).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
+				.content(this.projectNotGetJson).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
 		MockHttpServletResponse response = mvc.perform(requestBuilder).andExpect(status().isOk()).andReturn()
 				.getResponse();
-		assertEquals(this.project4NotGetJson, response.getContentAsString());
+		assertEquals(this.projectNotGetJson, response.getContentAsString());
 
 	}
 
@@ -429,11 +433,11 @@ class ProjectsControllerTest {
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get(ProjectManagementConstants.URL_PROJECT_Service + ProjectManagementConstants.URL_PROJECT_update
 						+ "/10")
-				.content(project4NotExceptionJson).contentType(MediaType.APPLICATION_JSON)
+				.content(this.projectGetNotExceptionJson).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON);
 		MockHttpServletResponse response = mvc.perform(requestBuilder).andExpect(status().isBadRequest()).andReturn()
 				.getResponse();
-		assertEquals(this.project4NotExceptionJson, response.getContentAsString());
+		assertEquals(this.projectGetNotExceptionJson, response.getContentAsString());
 
 	}
 
@@ -445,14 +449,14 @@ class ProjectsControllerTest {
 	 */
 	@Test
 	void testUpdateProjectPositiveFlow() throws Exception {
-		when(projectsService.save(projectDTO4)).thenReturn(4L);
+		when(projectsService.save(projectDTO2)).thenReturn(2L);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(ProjectManagementConstants.URL_PROJECT_Service + ProjectManagementConstants.URL_PROJECT_update)
-				.content(project4UpdateJson).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
+				.content(this.project4UpdateJson).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
 		MockHttpServletResponse response = mvc.perform(requestBuilder).andExpect(status().isOk()).andReturn()
 				.getResponse();
-		assertEquals(this.project4UpdateJson, response.getContentAsString());
+		assertEquals(this.project4UpdateReturnJson, response.getContentAsString());
 
 	}
 
@@ -464,7 +468,7 @@ class ProjectsControllerTest {
 	 */
 	@Test
 	void testUpdateProjectnegativeFlow() throws Exception {
-		when(projectsService.save(projectDTO4)).thenReturn(0L);
+		when(projectsService.save(this.projectDTOEmpty)).thenReturn(0L);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(ProjectManagementConstants.URL_PROJECT_Service + ProjectManagementConstants.URL_PROJECT_update)
@@ -484,15 +488,15 @@ class ProjectsControllerTest {
 	 */
 	@Test
 	void testUpdateProjectExceptionFlow() throws Exception {
-		when(projectsService.save(this.projectDTO5Error)).thenThrow(NullPointerException.class);
+		when(projectsService.save(this.projectDTO5)).thenThrow(NullPointerException.class);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
 				.put(ProjectManagementConstants.URL_PROJECT_Service + ProjectManagementConstants.URL_PROJECT_update)
-				.content(project5UpErrorJson).contentType(MediaType.APPLICATION_JSON)
+				.content(this.projectUpdateErrorJson).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON);
 		MockHttpServletResponse response = mvc.perform(requestBuilder).andExpect(status().isBadRequest()).andReturn()
 				.getResponse();
-		assertEquals(this.project5UpErrorReturnJson, response.getContentAsString());
+		assertEquals(this.projectUpdateReturnErrorJson, response.getContentAsString());
 
 	}
 

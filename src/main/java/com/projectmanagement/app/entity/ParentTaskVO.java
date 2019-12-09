@@ -33,9 +33,9 @@ public class ParentTaskVO {
 	protected	long parentId;
 	
 	/** The parent task. */
-	@OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name="task_id")
-	private TaskVO parentTask;
+	/** The task. */
+	@Column(name="parent_task")
+	protected String parentTask;
 	
 	/**
 	 * Instantiates a new parent task VO.
@@ -45,43 +45,33 @@ public class ParentTaskVO {
 		
 	}
 
-	/**
-	 * Gets the parent id.
-	 *
-	 * @return the parent id
-	 */
-	public long getParentId() {
+	 
+	
+	 public long getParentId() {
 		return parentId;
 	}
 
-	/**
-	 * Sets the parent id.
-	 *
-	 * @param parentId the new parent id
-	 */
+
+
 	public void setParentId(long parentId) {
 		this.parentId = parentId;
 	}
 
-	/**
-	 * Gets the parent task.
-	 *
-	 * @return the parent task
-	 */
-	public TaskVO getParentTask() {
+
+
+	public String getParentTask() {
 		return parentTask;
 	}
 
-	/**
-	 * Sets the parent task.
-	 *
-	 * @param parentTask the new parent task
-	 */
-	public void setParentTask(TaskVO parentTask) {
+
+
+	public void setParentTask(String parentTask) {
 		this.parentTask = parentTask;
 	}
-	
-	 /* (non-Javadoc)
+
+
+
+	/* (non-Javadoc)
  	 * @see java.lang.Object#equals(java.lang.Object)
  	 */
  	@Override

@@ -83,7 +83,9 @@ class TasksServiceImplTest {
 	UsersVO usersVO2=new UsersVO();
 	
 	/** The projectContain. */
-	String taskContain="task";
+	String projectContain="task";
+	
+	List<TaskDTO> parentTasksLists = new ArrayList<>();
 	
 	List<TaskDTO> taskList=new ArrayList<>();
 	
@@ -93,6 +95,13 @@ class TasksServiceImplTest {
 	
 	TaskDTO taskDto3=new TaskDTO();
 	
+	TaskDTO taskParentDto1 = new TaskDTO();
+	
+	TaskDTO taskParentDto2 = new TaskDTO();
+	
+	TaskDTO taskParentDtoError = new TaskDTO();
+	TaskDTO taskDto4=new TaskDTO();
+	
 	/** The task vo 1. */
 	TaskVO taskVo1=new TaskVO();
 	
@@ -101,6 +110,10 @@ class TasksServiceImplTest {
 	
 	/** The task vo 2. */
 	TaskVO taskVo3=new TaskVO();
+	
+	
+	/** The task vo 2. */
+	TaskVO taskVo4=new TaskVO();
 	
 	/** The project VO 1. */
 	ProjectVO projectVO1=new ProjectVO();
@@ -112,10 +125,24 @@ class TasksServiceImplTest {
 	ProjectVO projectVO3=new ProjectVO();
 	
 	/** The parent task VO. */
-	ParentTaskVO parentTaskVO=new ParentTaskVO();
+	ParentTaskVO parentTaskVO1=new ParentTaskVO();
+	
+	ParentTaskVO parentTaskVO2=new ParentTaskVO();
+	
+	ParentTaskVO parentTaskVOEmpty=new ParentTaskVO();
 	
 	/** The task VO list. */
 	List<TaskVO> taskVOList=new ArrayList<>();
+	
+	List<TaskVO> newTaskVOList=new ArrayList<>();
+	
+	List<TaskVO> nextTaskVOList=new ArrayList<>();
+	
+	
+	
+	List<ParentTaskVO> parentTaskVOList=new ArrayList<>();
+	
+	List<ProjectVO> projectVOList=new ArrayList<>();
 	
 	/** The task VO list null. */
 	List<TaskVO> taskVOListNull=null;
@@ -129,119 +156,157 @@ class TasksServiceImplTest {
 		MockitoAnnotations.initMocks(this);
 		
 		this.usersVO1.setUserId(1);
-		this.usersVO1.setFirstName("John Diraviyam");
+		this.usersVO1.setFirstName("John");
 		this.usersVO1.setLastName("Leslee");
 		this.usersVO1.setEmployeeId(12412);
 		
-		this.usersVO2.setUserId(5);
-		this.usersVO2.setFirstName("Boogy Man");
+		this.usersVO2.setUserId(2);
+		this.usersVO2.setFirstName("Ghomes");
 		this.usersVO2.setLastName("Shelton");
 		this.usersVO2.setEmployeeId(42412);
 		
 	
 		this.projectVO1.setProjectId(1L);
-		this.projectVO1.setProject("Solr elmer project");
+		this.projectVO1.setProject("Termanite Project");
 		this.projectVO1.setStartDate(LocalDate.parse("2019-12-01"));
 		this.projectVO1.setEndDate(LocalDate.parse("2019-12-28"));
-		this.projectVO1.setPriority(60);
+		this.projectVO1.setPriority(20);
 		this.projectVO1.setUsersVO(this.usersVO1);
-		
+		this.projectVO1.setTaskList(this.newTaskVOList);
 	
 	
 		this.projectVO2.setProjectId(2L);
-		this.projectVO2.setProject("Perkin elmer project");
+		this.projectVO2.setProject("Solr Project");
 		this.projectVO2.setStartDate(LocalDate.parse("2018-06-17"));
 		this.projectVO2.setEndDate(LocalDate.parse("2018-11-28"));
-		this.projectVO2.setPriority(90);
+		this.projectVO2.setPriority(30);
 		this.projectVO2.setUsersVO(this.usersVO2);
+		this.projectVO1.setTaskList(this.nextTaskVOList);
 		
+		this.projectVOList.add(projectVO1);
+		this.projectVOList.add(projectVO2);
 
-		
 
+		this.taskParentDto1.setTaskId("1");
+		this.taskParentDto1.setTaskName("Termanite Parent Task 1");
+		this.taskParentDto1.setSetParentTask("1");
 		
+		this.parentTaskVO1.setParentId(1);
+		this.parentTaskVO1.setParentTask("Termanite Parent Task 1");
+		this.parentTaskVO1.toString();
+		this.parentTaskVO1.equals(parentTaskVO1);
+		
+		this.parentTaskVO2.setParentId(2);
+		this.parentTaskVO2.setParentTask("Solr Parent Task");
+		this.parentTaskVO2.toString();
+		this.parentTaskVO2.equals(parentTaskVO2);
+		
+		this.parentTaskVOList.add(this.parentTaskVO1);
+		this.parentTaskVOList.add(this.parentTaskVO2);
+		
+		this.taskParentDto2.setTaskId("2");
+		this.taskParentDto2.setTaskName("Solr Parent Task");
+		this.taskParentDto2.setSetParentTask("1");
+		
+		this.parentTasksLists.add(this.taskParentDto1);
+		this.parentTasksLists.add(this.taskParentDto2);
+
+		this.taskParentDtoError.setSetParentTask("1");
 	
-		
-
-		this.taskDto1.setTaskId("11");
-		this.taskDto1.setEndDate("2019-11-30");
+		this.taskDto1.setTaskId("1");
+		this.taskDto1.setEndDate("2019-12-28");
 		this.taskDto1.setParentTaskId(null);
 		this.taskDto1.setParentTaskName(null);
 		this.taskDto1.setPriority("20");
 		this.taskDto1.setProjectId("1");
-		this.taskDto1.setProjectName("Solr elmer project");
-		this.taskDto1.setStartDate("2019-11-29");
-		this.taskDto1.setTaskName("Task of this Project 1");
+		this.taskDto1.setProjectName("Termanite Project");
+		this.taskDto1.setStartDate("2019-12-06");
+		this.taskDto1.setTaskName("Termanite Task 1");
 		this.taskDto1.setUserId("1");
-		this.taskDto1.setUserName("John Diraviyam");
+		this.taskDto1.setUserName("John");
+		this.taskDto1.setStatus("Pending");
 		
-		
-		this.taskVo1.setTaskId(11);
-		this.taskVo1.setTask("Task of this Project 1");
+		this.taskVo1.setTaskId(1);
+		this.taskVo1.setTask("Termanite Task 1");
 		this.taskVo1.setProjectVO(projectVO1);
-		this.taskVo1.setEndDate(LocalDate.parse("2019-11-30"));
-		this.taskVo1.setStartDate(LocalDate.parse("2019-11-29"));
-		this.taskVo1.setPriority(30);
 		this.taskVo1.setUsersVO(usersVO1);
-		this.taskVo1.setStatus("Start");
+		this.taskVo1.setStartDate(LocalDate.parse("2019-12-06"));
+		this.taskVo1.setEndDate(LocalDate.parse("2019-12-28"));
+		this.taskVo1.setStatus("Pending");
+		this.taskVo1.setPriority(20);
 		this.taskVo1.setParentTaskVO(null);
 		
+		this.taskDto4.setTaskId("14");
+		this.taskDto4.setTaskName("ParentTaskNmae");
+		this.taskDto4.setSetParentTask("1");
 		
-		this.taskDto2.setTaskId("12");
-		this.taskDto2.setEndDate("2019-11-30");
-		this.taskDto2.setParentTaskId(null);
-		this.taskDto2.setParentTaskName(null);
-		this.taskDto2.setPriority("20");
-		this.taskDto2.setProjectId("2");
-		this.taskDto2.setProjectName("Perkin elmer project");
-		this.taskDto2.setStartDate("2019-11-29");
-		this.taskDto2.setTaskName("Solr second Task");
-		this.taskDto2.setUserId("5");
-		this.taskDto2.setUserName("Boogy man");
+		this.taskDto1.toString();
+		this.taskDto1.equals(taskDto1);
+
+					
+		this.taskDto2.setTaskId("2");
+		this.taskDto2.setEndDate("2019-12-20");
+		this.taskDto2.setParentTaskId("1");
+		this.taskDto2.setParentTaskName("Termanite Parent Task 1");
+		this.taskDto2.setPriority("10");
+		this.taskDto2.setProjectId("1");
+		this.taskDto2.setProjectName("Termanite Project");
+		this.taskDto2.setStartDate("2019-12-06");
+		this.taskDto2.setTaskName("Termanite Task 2");
+		this.taskDto2.setUserId("1");
+		this.taskDto2.setUserName("John");
+		this.taskDto2.setStatus("Pending");
 		
-		this.taskVo2.setTaskId(12);
-		this.taskVo2.setTask("Solr second Task");
-		this.taskVo2.setProjectVO(projectVO2);
-		this.taskVo2.setEndDate(LocalDate.parse("2019-11-30"));
-		this.taskVo2.setStartDate(LocalDate.parse("2019-11-29"));
-		this.taskVo2.setPriority(20);
-		this.taskVo2.setUsersVO(usersVO2);
-		this.taskVo2.setStatus("Start");
-		this.taskVo2.setParentTaskVO(null);
+		this.taskVo2.setTaskId(2);
+		this.taskVo2.setTask("Termanite Task 2");
+		this.taskVo2.setProjectVO(projectVO1);
+		this.taskVo2.setUsersVO(usersVO1);
+		this.taskVo2.setStartDate(LocalDate.parse("2019-12-06"));
+		this.taskVo2.setEndDate(LocalDate.parse("2019-12-20"));
+		this.taskVo2.setStatus("Pending");
+		this.taskVo2.setPriority(10);
+		this.taskVo2.setParentTaskVO(this.parentTaskVO1);
+		this.taskVo2.toString();
+		this.taskVo2.equals(taskVo2);
 		
-		this.taskDto3.setTaskId("13");
-		this.taskDto3.setEndDate("2019-12-13");
-		this.taskDto3.setParentTaskId("7");
-		this.taskDto3.setParentTaskName("Solr second Task");
-		this.taskDto3.setPriority("20");
-		this.taskDto3.setProjectId("1");
-		this.taskDto3.setProjectName("Solr elmer project");
-		this.taskDto3.setStartDate("2019-11-29");
-		this.taskDto3.setTaskName("Task 4 velld");
-		this.taskDto3.setUserId("1");
-		this.taskDto3.setUserName("John Diraviyam");
+		this.taskDto2.toString();
+		this.taskDto2.equals(taskDto2);
 		
-		this.parentTaskVO.setParentId(7);
-		this.parentTaskVO.setParentTask(taskVo2);
 		
-		this.taskVo3.setTaskId(13);
-		this.taskVo3.setTask("Task 4 velld");
-		this.taskVo3.setProjectVO(projectVO1);
-		this.taskVo3.setEndDate(LocalDate.parse("2019-11-30"));
-		this.taskVo3.setStartDate(LocalDate.parse("2019-12-13"));
-		this.taskVo3.setPriority(20);
-		this.taskVo3.setUsersVO(usersVO1);
-		this.taskVo3.setStatus("Start");
-		this.taskVo3.setParentTaskVO(parentTaskVO);
+		this.taskDto3.setTaskId("3");
+		this.taskDto3.setEndDate("2019-12-20");
+		this.taskDto3.setParentTaskId(null);
+		this.taskDto3.setParentTaskName(null);
+		this.taskDto3.setPriority("15");
+		this.taskDto3.setProjectId("2");
+		this.taskDto3.setProjectName("Solr Project");
+		this.taskDto3.setStartDate("2019-12-06");
+		this.taskDto3.setTaskName("Solr Task 1");
+		this.taskDto3.setUserId("2");
+		this.taskDto3.setUserName("Ghomes");
+		this.taskDto3.setStatus("Pending");
 		
+		this.taskVo3.setTaskId(3);
+		this.taskVo3.setTask("Solr Task 1");
+		this.taskVo3.setProjectVO(projectVO2);
+		this.taskVo3.setUsersVO(usersVO2);
+		this.taskVo3.setStartDate(LocalDate.parse("2019-12-06"));
+		this.taskVo3.setEndDate(LocalDate.parse("2019-12-20"));
+		this.taskVo3.setStatus("Pending");
+		this.taskVo3.setPriority(15);
+		this.taskVo3.setParentTaskVO(null);
+		this.taskVo3.toString();
+		this.taskVo3.equals(taskVo3);
+		
+
 		this.taskList.add(taskDto1);
 		this.taskList.add(taskDto2);
 		this.taskList.add(taskDto3);
-		
-		
-		
 
+		this.newTaskVOList.add(this.taskVo1);
+		this.newTaskVOList.add(this.taskVo2);
 		
-
+		this.nextTaskVOList.add(this.taskVo3);
 		
 		this.taskVOList.add(this.taskVo1);
 		this.taskVOList.add(this.taskVo2);
@@ -273,35 +338,37 @@ class TasksServiceImplTest {
 
 	@Test
 	void testSearchTasksPositiveFlow() throws Exception {
-		when(taskVORepository.findByTaskContaining(this.taskContain)).thenReturn(taskVOList);
+		when(projectVORepository.findByProjectContainingOrProjectEndingWith(this.projectContain,this.projectContain)).thenReturn(projectVOList);
+		
 		List<TaskDTO> allTasks=new ArrayList<>();
 		this.taskList.stream().forEach(taskVO->{allTasks.add(taskVO);});
-		tasksService.searchTasks(taskContain);
+		tasksService.searchTasks(projectContain);
 		
-		verify(taskVORepository, times(1)).findByTaskContaining(this.taskContain);
+		verify(projectVORepository, times(1)).findByProjectContainingOrProjectEndingWith(this.projectContain,this.projectContain);
 		assertEquals(3,allTasks.size());
 	}
 	
 	@Test
 	void testSearchTasksNegativeFlow() throws Exception {
-		when(taskVORepository.findByTaskContaining(this.taskContain)).thenReturn(null);
+		List<ProjectVO> emptyTaskNull=null;
+		when(projectVORepository.findByProjectContainingOrProjectEndingWith(this.projectContain,this.projectContain)).thenReturn(emptyTaskNull);
 		List<TaskDTO> allTasks=new ArrayList<>();
 		this.taskDTOListNull.stream().forEach(taskVO->{allTasks.add(taskVO);});
-		tasksService.searchTasks(taskContain);
+		tasksService.searchTasks(projectContain);
 		
-		verify(taskVORepository, times(1)).findByTaskContaining(this.taskContain);
+		verify(projectVORepository, times(1)).findByProjectContainingOrProjectEndingWith(this.projectContain,this.projectContain);
 		assertEquals(0,allTasks.size());
 	}
 
 	@Test
 	void testGetTaskByIdPositiveFlow() throws Exception {
 	 
-				when(taskVORepository.findByTaskId(11L)).thenReturn(this.taskVo1);
+				when(taskVORepository.findByTaskId(1L)).thenReturn(this.taskVo1);
 				TaskVO taskGetVO=this.taskVo1;				 
-				tasksService.getTaskById(11L);				
-				verify(taskVORepository, times(1)).findByTaskId(11L);
-				assertEquals(11,taskGetVO.getTaskId());
-				assertEquals("Task of this Project 1",taskGetVO.getTask());
+				tasksService.getTaskById(1L);				
+				verify(taskVORepository, times(1)).findByTaskId(1L);
+				assertEquals(1,taskGetVO.getTaskId());
+				assertEquals("Termanite Task 1",taskGetVO.getTask());
 				assertEquals(taskGetVO,taskVo1);
 	}
 
@@ -318,9 +385,9 @@ class TasksServiceImplTest {
 	@Test
 	void testDeleteByTaskByIdPositiveFlow() throws Exception {
 	TaskVO deleteTaskVO=new TaskVO();
-		when(taskVORepository.findByTaskId(11L)).thenReturn(this.taskVo1);	
+		when(taskVORepository.findByTaskId(1L)).thenReturn(this.taskVo1);	
 		parentTaskVORepository.deleteByParentTask(taskVo1);	
-		taskVORepository.deleteByTaskId(11L);	
+		taskVORepository.deleteByTaskId(1L);	
 		tasksService.deleteByTaskById(11L);		 
 		assertEquals(null,deleteTaskVO.getTask());
 	}
@@ -328,60 +395,33 @@ class TasksServiceImplTest {
 	@Test
 	void testDeleteByTaskByIdNegativeFlow() throws Exception {
 	TaskVO deleteTaskVO=this.taskVo1;
-		when(taskVORepository.findByTaskId(11L)).thenReturn(null);	
+		when(taskVORepository.findByTaskId(1L)).thenReturn(null);	
 		parentTaskVORepository.deleteByParentTask(null);	
 		taskVORepository.deleteByTaskId(0);	
-		tasksService.deleteByTaskById(11L);		 
-		assertEquals("Task of this Project 1",deleteTaskVO.getTask());
+		tasksService.deleteByTaskById(1L);		 
+		assertEquals("Termanite Task 1",deleteTaskVO.getTask());
 	}
 	
-	@Test
-	void testGetTaskByParentId() {
-		//fail("Not yet implemented"); // TODO
-				assert(true);
-	}
 
-	@Test
-	void testGetTaskByParentIdPositiveFlow() throws Exception {
-	 
-				when(parentTaskVORepository.findByParentId(7L)).thenReturn(this.parentTaskVO);
-				ParentTaskVO parentTaskGetVO=this.parentTaskVO;				 
-				tasksService.getTaskByParentId(7L);				
-				verify(parentTaskVORepository, times(1)).findByParentId(7L);
-				assertEquals(12,parentTaskGetVO.getParentTask().getTaskId());
-				assertEquals("Solr second Task",parentTaskGetVO.getParentTask().getTask());
-				assertEquals(parentTaskGetVO.getParentTask(),this.taskVo2);
-	}
 
-	@Test
-	void testGetTaskByParentIdNegativeFlow() throws Exception {
-	 
-		when(parentTaskVORepository.findByParentId(8L)).thenReturn(null);
-		ParentTaskVO parentTaskGetVO=new ParentTaskVO();				 
-		tasksService.getTaskByParentId(8L);				
-		verify(parentTaskVORepository, times(1)).findByParentId(8L);
-		assertEquals(null,parentTaskGetVO.getParentTask());			
-	}
+
+
 	
 	@Test
 	void testSavePositiveFlow() throws Exception {
-		long taskId=0L;
-		TaskVO parentCreateTaskVO=null;
-		ParentTaskVO  newPatentTaskVO=parentTaskVO;		
-		TaskVO createTaskVO=this.taskVo3;
-		when(taskVORepository.findByTaskId(12L)).thenReturn(this.taskVo2);
-		when(parentTaskVORepository.findByParentTask(taskVo2)).thenReturn(null);
-		when(parentTaskVORepository.save(this.parentTaskVO)).thenReturn(newPatentTaskVO);
+		 
+	 	when(parentTaskVORepository.findByParentId(1)).thenReturn(this.parentTaskVO1);
 		when(projectVORepository.findByProjectId(1)).thenReturn(this.projectVO1);
 		when(usersVORepository.findByUserId(1L)).thenReturn(this.usersVO1);
-		when(taskVORepository.save(createTaskVO)).thenReturn(this.taskVo3);
+		when(taskVORepository.save(this.taskVo2)).thenReturn(this.taskVo2);
 		
-		tasksService.save(this.taskDto3);				
-		verify(taskVORepository, times(1)).save(createTaskVO);
-		assertEquals(createTaskVO,this.taskVo3);	
-		assertEquals(createTaskVO.getUsersVO(),this.usersVO1);	
-		assertEquals(createTaskVO.getParentTaskVO(),this.parentTaskVO);	
-		assertEquals(createTaskVO.getProjectVO(),this.projectVO1);	
+		tasksService.save(this.taskDto2);				
+		verify(taskVORepository, times(1)).save(this.taskVo2);
+		assertEquals(taskVo2,this.taskVo2);	
+		assertEquals("Pending",this.taskVo2.getStatus());
+		assertEquals(this.taskVo2.getUsersVO(),this.usersVO1);	
+		assertEquals(this.taskVo2.getParentTaskVO(),this.parentTaskVO1);	
+		assertEquals(this.taskVo2.getProjectVO(),this.projectVO1);	
 		
 	}
 		
@@ -389,23 +429,58 @@ class TasksServiceImplTest {
 	@Test
 	void testSaveAlternatePositiveFlow() throws Exception {
 		long taskId=0L;
-		TaskVO parentCreateTaskVO=null;
-		ParentTaskVO  newPatentTaskVO=null;		
-		TaskVO createTaskVO=this.taskVo2;
+		TaskVO createTaskVO=this.taskVo1;
+		createTaskVO.setStatus("Pending");
 		when(taskVORepository.findByTaskId(0)).thenReturn(null);
-		when(parentTaskVORepository.findByParentTask(null)).thenReturn(null);
-		when(parentTaskVORepository.save(null)).thenReturn(null);
-		when(projectVORepository.findByProjectId(1)).thenReturn(this.projectVO2);
-		when(usersVORepository.findByUserId(1L)).thenReturn(this.usersVO2);
-		when(taskVORepository.save(createTaskVO)).thenReturn(this.taskVo2);
+		when(parentTaskVORepository.findByParentId(0)).thenReturn(null);
+		when(projectVORepository.findByProjectId(1)).thenReturn(this.projectVO1);
+		when(usersVORepository.findByUserId(1L)).thenReturn(this.usersVO1);
+		when(taskVORepository.save(createTaskVO)).thenReturn(this.taskVo1);
 		
-		tasksService.save(this.taskDto2);				
+		tasksService.save(this.taskDto1);				
 		verify(taskVORepository, times(1)).save(createTaskVO);
-		assertEquals(createTaskVO,this.taskVo2);	
-		assertEquals(createTaskVO.getUsersVO(),this.usersVO2);	
+		assertEquals(createTaskVO,this.taskVo1);	
+		assertEquals(createTaskVO.getUsersVO(),this.usersVO1);	
 		assertEquals(createTaskVO.getParentTaskVO(),null);	
-		assertEquals(createTaskVO.getProjectVO(),this.projectVO2);	
+		assertEquals(createTaskVO.getProjectVO(),this.projectVO1);	
 		
 	}
+
 	
+	@Test
+	void testSaveParentTaskPositiveFlow() throws Exception {
+		ParentTaskVO createTaskVO=parentTaskVO2;
+		when(parentTaskVORepository.save(parentTaskVO2)).thenReturn(parentTaskVO2);
+		
+		
+		tasksService.saveParentTask(this.taskParentDto2);				
+		verify(parentTaskVORepository, times(1)).save(createTaskVO);
+		assertEquals(2,this.parentTaskVO2.getParentId());
+		assertEquals("Solr Parent Task",this.parentTaskVO2.getParentTask());
+		assertEquals(createTaskVO,this.parentTaskVO2);	
+	}
+	
+	@Test
+	void testGetAllParentTasksPositiveFlow() throws Exception {
+		when(parentTaskVORepository.findAll()).thenReturn(this.parentTaskVOList);
+		List<TaskDTO> allTasks=new ArrayList<>();
+		this.parentTasksLists.stream().forEach(parentTaskDto->{allTasks.add(parentTaskDto);});
+		tasksService.getAllParentTasks();
+		
+		verify(parentTaskVORepository, times(1)).findAll();
+		assertEquals(2,allTasks.size());
+	}
+	
+	@Test
+	void testGetAllParentTasksNegativeeFlow() throws Exception {
+		when(parentTaskVORepository.findAll()).thenReturn(null);
+		List<TaskDTO> allTasks=new ArrayList<>();
+		this.taskDTOListNull.stream().forEach(taskVO->{allTasks.add(taskVO);});
+		tasksService.getAllParentTasks();
+		
+		verify(parentTaskVORepository, times(1)).findAll();
+		assertEquals(0,allTasks.size());
+	}
+	
+
 }

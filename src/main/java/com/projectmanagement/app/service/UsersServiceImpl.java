@@ -112,23 +112,16 @@ public class UsersServiceImpl implements UsersService {
 		boolean deleteFlag=false;
 	
 	
-		if(userId!=null && !userId.isEmpty())
-		{
 			UsersVO userVO=usersVORepository.findByUserId(Long.parseLong(userId));
 			List<ProjectVO> projectsVO=projectVORepository.findByUsersVO(userVO);
 			List<TaskVO> tasksVO=taskVORepository.findByUsersVO(userVO);
-			if((projectsVO!=null && !projectsVO.isEmpty()) || (tasksVO!=null && !tasksVO.isEmpty()))
-			{
-				return deleteFlag;
-			}
-			else
+			if(!((projectsVO!=null && !projectsVO.isEmpty()) || (tasksVO!=null && !tasksVO.isEmpty())))
 			{
 			usersVORepository.deleteByUserId(Long.parseLong(userId));	
 			deleteFlag=true;
 			}
 		
 	
-	}
 		return deleteFlag;
 }
 	

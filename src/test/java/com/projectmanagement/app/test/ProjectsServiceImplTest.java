@@ -163,7 +163,7 @@ List<ProjectVO> projectVONullList=new ArrayList<>();
 		
 		
 		this.parentTaskVO.setParentId(1);
-		this.parentTaskVO.setParentTask(taskVo1);
+		this.parentTaskVO.setParentTask("Task Title");
 		
 		this.parentTaskVO.toString();
 		this.parentTaskVO.hashCode();
@@ -182,14 +182,6 @@ List<ProjectVO> projectVONullList=new ArrayList<>();
 		this.taskVOList.add(this.taskVo1);
 		this.taskVOList.add(this.taskVo2);
 		
-		this.projectDTO1.setProjectId("1");
-		this.projectDTO1.setProjectName("Solr elmer project");
-		this.projectDTO1.setStartDate("2019-12-01");
-		this.projectDTO1.setEndDate("2019-12-28");
-		this.projectDTO1.setPriority("60");
-		this.projectDTO1.setUserId("1");
-		this.projectDTO1.setUserName("John");
-	
 		this.projectVO1.setProjectId(1L);
 		this.projectVO1.setProject("Solr elmer project");
 		this.projectVO1.setStartDate(LocalDate.parse("2019-12-01"));
@@ -201,15 +193,19 @@ List<ProjectVO> projectVONullList=new ArrayList<>();
 		this.projectVO1.hashCode();
 		this.projectVO1.equals(projectVO1);
 		
-		this.projectDTO2.setProjectId("2");
-		this.projectDTO2.setProjectName("Perkin elmer project");
-		this.projectDTO2.setStartDate("2018-06-17");
-		this.projectDTO2.setEndDate("2018-11-28");
-		this.projectDTO2.setPriority("90");
-		this.projectDTO2.setUserId("1");
-		this.projectDTO2.setUserName("John");
 		
-	
+		this.projectDTO1.setProjectId("1");
+		this.projectDTO1.setProjectName("Solr elmer project");
+		this.projectDTO1.setStartDate("2019-12-01");
+		this.projectDTO1.setEndDate("2019-12-28");
+		this.projectDTO1.setPriority("60");
+		this.projectDTO1.setUserId("1");
+		this.projectDTO1.setUserName("John");
+		LocalDate today=LocalDate.of(19, 12, 03);
+		this.projectDTO1.setNoOfTasks(String.valueOf(this.taskVOList.size()));
+		
+		
+		
 		this.projectVO2.setProjectId(2L);
 		this.projectVO2.setProject("Perkin elmer project");
 		this.projectVO2.setStartDate(LocalDate.parse("2018-06-17"));
@@ -217,15 +213,29 @@ List<ProjectVO> projectVONullList=new ArrayList<>();
 		this.projectVO2.setPriority(90);
 		this.projectVO2.setUsersVO(this.usersVO);
 		
+		this.projectDTO2.setProjectId("2");
+		this.projectDTO2.setProjectName("Perkin elmer project");
+		this.projectDTO2.setStartDate("2018-06-17");
+		this.projectDTO2.setEndDate("2018-11-28");
+		this.projectDTO2.setPriority("90");
+		this.projectDTO2.setUserId("1");
+		this.projectDTO2.setUserName("John");
+		 
+		this.projectDTO2.setNoOfTasks("0");
+		
+		
+	
+
+
+		
 		this.projectDTO3.setProjectId("3");
 		this.projectDTO3.setProjectName("ILL elmer project");
 		this.projectDTO3.setStartDate("2019-02-17");
 		this.projectDTO3.setEndDate("2019-08-28");
 		this.projectDTO3.setPriority("30");
 		this.projectDTO3.setUserId("1");
-		this.projectDTO3.setUserName("John");
-		
-
+		this.projectDTO3.setUserName("John");		
+		this.projectDTO3.setNoOfTasks("0");
 		
 		this.projectVO3.setProject(this.projectDTO3.getProjectName());
 		this.projectVO3.setProjectId(Long.parseLong(this.projectDTO3.getProjectId()));
@@ -234,6 +244,10 @@ List<ProjectVO> projectVONullList=new ArrayList<>();
 		this.projectVO3.setEndDate(LocalDate.parse(this.projectDTO3.getEndDate()));
 		this.projectVO3.setPriority(Integer.parseInt(this.projectDTO3.getPriority()));
 		this.projectVO3.setUsersVO(this.usersVO);
+		 
+
+		
+
 		
 	 
 		/*this.projectVO4.setProjectId(0L);
@@ -260,6 +274,7 @@ List<ProjectVO> projectVONullList=new ArrayList<>();
 	@Test
 	void testGetAllProjectsPositiveFlow()  throws Exception {
 		when(projectVORepository.findAll()).thenReturn(projectVOList);
+		when(taskVORepository.findByProjectVO(this.projectVO1)).thenReturn(this.taskVOList);
 		List<ProjectDTO> allProjects=new ArrayList<>();
 		this.projectList.stream().forEach(projectVO->{allProjects.add(projectVO);});
 		projectsService.getAllProjects();
@@ -277,6 +292,7 @@ List<ProjectVO> projectVONullList=new ArrayList<>();
 	@Test
 	void testSearchProjectsPositiveFlow()  throws Exception {
 		when(projectVORepository.findByProjectContaining(this.projectContain)).thenReturn(projectVOList);
+		when(taskVORepository.findByProjectVO(this.projectVO1)).thenReturn(this.taskVOList);
 		List<ProjectDTO> allProjects=new ArrayList<>();
 		projectList.stream().forEach(projectVO->{allProjects.add(projectVO);});
 		
@@ -362,11 +378,13 @@ List<ProjectVO> projectVONullList=new ArrayList<>();
 	@Test
 	void testGetProjectByIdPositiveFlow() throws Exception{
 		
-		when(projectVORepository.findByProjectId(1)).thenReturn(this.projectVO1);		
+		when(projectVORepository.findByProjectId(1)).thenReturn(this.projectVO1);
+		when(taskVORepository.findByProjectVO(this.projectVO1)).thenReturn(this.taskVOList);
 		ProjectVO projectGetVo=this.projectVO1;
 		projectsService.getProjectById(1);
 		verify(projectVORepository, times(1)).findByProjectId(1);
 		assertEquals(1,this.projectVO1.getProjectId());
+		assertEquals(2,this.taskVOList.size());
 		assertEquals("Solr elmer project",this.projectVO1.getProject());
 		assertEquals(projectGetVo,this.projectVO1);
 	}

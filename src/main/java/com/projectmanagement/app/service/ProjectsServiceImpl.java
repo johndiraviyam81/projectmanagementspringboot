@@ -166,10 +166,12 @@ public class ProjectsServiceImpl implements ProjectsService {
 		
 		projectVo.setProject(projectDTO.getProjectName());
 		if(projectDTO.getProjectId()!=null && !projectDTO.getProjectId().isEmpty())
-		projectVo.setProjectId(Long.parseLong(projectDTO.getProjectId()));
+		{ projectVo.setProjectId(Long.parseLong(projectDTO.getProjectId())); }
 		
-		projectVo.setStartDate(LocalDate.parse(projectDTO.getStartDate()));
-		projectVo.setEndDate(LocalDate.parse(projectDTO.getEndDate()));
+		if(projectDTO.getStartDate()!=null)
+		{	projectVo.setStartDate(LocalDate.parse(projectDTO.getStartDate())); }
+		if(projectDTO.getEndDate()!=null)
+		{ projectVo.setEndDate(LocalDate.parse(projectDTO.getEndDate())); }
 		projectVo.setPriority(Integer.parseInt(projectDTO.getPriority()));
 		if(projectDTO.getUserId()!=null && !projectDTO.getUserId().isEmpty())
 		{
@@ -188,19 +190,26 @@ public class ProjectsServiceImpl implements ProjectsService {
 	private ProjectDTO mapProjectDto(ProjectVO projectVO)
 	{
 		ProjectDTO projectDTO=new ProjectDTO();
+		LocalDate today=LocalDate.now();
 		
 		projectDTO.setProjectId(String.valueOf(projectVO.getProjectId()));
 		projectDTO.setProjectName(projectVO.getProject());
-		projectDTO.setStartDate(String.valueOf(projectVO.getStartDate()));
-		projectDTO.setEndDate(String.valueOf(projectVO.getEndDate()));
+		if(projectVO.getStartDate()!=null)
+		{ projectDTO.setStartDate(String.valueOf(projectVO.getStartDate())); }
+		
+		if(projectVO.getEndDate()!=null)
+		{
+		projectDTO.setEndDate(String.valueOf(projectVO.getEndDate()));		
+		}
 		projectDTO.setPriority(String.valueOf(projectVO.getPriority()));
 		if(projectVO.getUsersVO()!=null && projectVO.getUsersVO().getUserId()>0)
 		{ 
 		projectDTO.setUserId(String.valueOf(projectVO.getUsersVO().getUserId()));
 		projectDTO.setUserName(projectVO.getUsersVO().getFirstName());
 		}
-		
-		
+		List<TaskVO> TaskList=taskVORepository.findByProjectVO(projectVO);
+		if(!TaskList.isEmpty())
+		{ projectDTO.setNoOfTasks(String.valueOf(TaskList.size())); }
 		
 		return projectDTO;
 	}

@@ -33,6 +33,8 @@ public interface TasksService
 	 */
 	public List<TaskDTO> getAllTasks() throws Exception; 
 	
+	public List<TaskDTO> getAllParentTasks() throws Exception;
+	
 	/**
 	 * Gets the task by id.
 	 *
@@ -40,22 +42,14 @@ public interface TasksService
 	 * @return the task by id
 	 */
 	public TaskDTO getTaskById(long taskId) throws Exception;
-	
-	/**
-	 * Gets the task by parent id.
-	 *
-	 * @param parentById the parent by id
-	 * @return the task by parent id
-	 */
-	public TaskDTO getTaskByParentId(long parentById) throws Exception;
-	
+	public long saveParentTask(TaskDTO taskDTO) throws Exception;
 	/**
 	 * Search tasks.
 	 *
 	 * @param taskName the task name
 	 * @return the list
 	 */
-	public List<TaskDTO> searchTasks(String taskName) throws Exception;
+	public List<TaskDTO> searchTasks(String projectName) throws Exception;
 	
 	/**
 	 * Delete by task by id.

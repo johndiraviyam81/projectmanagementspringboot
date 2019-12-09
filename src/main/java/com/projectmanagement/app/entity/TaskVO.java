@@ -17,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -41,7 +42,7 @@ public class TaskVO {
 	private ParentTaskVO parentTaskVO;
 
 	/** The project VO. */
-	@ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name="project_id")
 	private ProjectVO projectVO;
 	
@@ -299,7 +300,6 @@ public class TaskVO {
  	@Override
 	    public boolean equals(Object o) {
 	        if (this == o) return true;
-	        if (!(o instanceof TaskVO)) return false;
 	        TaskVO taskVO = (TaskVO) o;
 	        return Objects.equals(task, taskVO.task);
 	    }

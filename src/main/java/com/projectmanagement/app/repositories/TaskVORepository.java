@@ -6,6 +6,8 @@ package com.projectmanagement.app.repositories;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.annotation.QueryAnnotation;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,12 +32,13 @@ public interface TaskVORepository extends JpaRepository<TaskVO, Integer>{
 	TaskVO findByTaskId(long taskId);
 	
 	/**
-	 * Find by task containing.
+	 * Find by findByProjectVOContaining.
 	 *
-	 * @param taskName the task name
+	 * @param projectName the prject name
 	 * @return the list
 	 */
-	List<TaskVO> findByTaskContaining(String taskName);
+	
+	
 	
 	/**
 	 * Find by project VO.

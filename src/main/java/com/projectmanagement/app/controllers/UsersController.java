@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import com.projectmanagement.app.util.ProjectManagementConstants;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
@@ -38,7 +41,7 @@ import com.projectmanagement.app.entity.UsersVO;
 @RequestMapping(value=ProjectManagementConstants.URL_USER_Service)
 public class UsersController {
 
-
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	/** The users service. */
 	@Autowired
@@ -65,6 +68,7 @@ public class UsersController {
 		catch(Exception e)
 		{
 			e.printStackTrace();
+			log.error(e.getMessage());
 			return ResponseEntity.badRequest().body(null);
 		}
 		
@@ -92,6 +96,7 @@ public class UsersController {
 		catch(Exception e)
 		{
 			e.printStackTrace();
+			log.error(e.getMessage());
 			return ResponseEntity.badRequest().body(null);
 		}
 		
@@ -118,6 +123,7 @@ public class UsersController {
 		catch(Exception e)
 		{
 			e.printStackTrace();
+			log.error(e.getMessage());
 			userDTO.setMessage(ProjectManagementConstants.USER_Update_msgFailure);
 			return ResponseEntity.badRequest().body(userDTO);
 		}
@@ -143,6 +149,7 @@ public class UsersController {
 		catch(Exception e)
 		{
 			e.printStackTrace();
+			log.error(e.getMessage());
 			userDTO.setMessage(ProjectManagementConstants.USER_Add_msgFailure);
 			return ResponseEntity.badRequest().body(userDTO);
 		}
@@ -170,6 +177,7 @@ public class UsersController {
 		catch(Exception e)
 		{
 			e.printStackTrace();
+			log.error(e.getMessage());
 			userDto.setMessage(ProjectManagementConstants.USER_Get_msgFailure);
 			return ResponseEntity.badRequest().body(userDto);
 		}
@@ -201,6 +209,7 @@ public class UsersController {
 		 catch (Exception e) {
 			
 			e.printStackTrace();
+			log.error(e.getMessage());
 			deleteRecord.setMessage(ProjectManagementConstants.USER_Delete_msgFailure);
 			return ResponseEntity.badRequest().body(deleteRecord);
 		}

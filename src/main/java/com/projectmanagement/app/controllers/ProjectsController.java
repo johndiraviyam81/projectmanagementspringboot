@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import com.projectmanagement.app.util.ProjectManagementConstants;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
@@ -41,7 +44,7 @@ import com.projectmanagement.app.entity.ProjectVO;
 public class ProjectsController {
 
 
-	
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	/** The projects service. */
 	@Autowired
 	private	ProjectsService projectsService;
@@ -67,6 +70,7 @@ public class ProjectsController {
 		catch(Exception e)
 		{
 			e.printStackTrace();
+			log.error(e.getMessage());
 			return ResponseEntity.badRequest().body(null);
 		}
 		
@@ -94,6 +98,7 @@ public class ProjectsController {
 		catch(Exception e)
 		{
 			e.printStackTrace();
+			log.error(e.getMessage());
 			return ResponseEntity.badRequest().body(null);	
 					
 		}
@@ -123,6 +128,7 @@ public class ProjectsController {
 		catch(Exception e)
 		{
 			e.printStackTrace();
+			log.error(e.getMessage());
 			projectDTO.setMessage(ProjectManagementConstants.PROJECT_Add_msgFailure);
 			return ResponseEntity.badRequest().body(projectDTO);
 		}
@@ -158,6 +164,7 @@ public class ProjectsController {
 		catch (Exception e) {
 				
 			e.printStackTrace();
+			log.error(e.getMessage());
 			deleteRecord.setMessage(ProjectManagementConstants.PROJECT_Delete_msgFailure);
 			return ResponseEntity.badRequest().body(deleteRecord);
 		}
@@ -184,6 +191,7 @@ public class ProjectsController {
 		catch(Exception e)
 		{
 			e.printStackTrace();
+			log.error(e.getMessage());
 			projectDTO.setMessage(ProjectManagementConstants.PROJECT_Get_msgFailure);
 			return ResponseEntity.badRequest().body(projectDTO);
 		}
@@ -210,6 +218,7 @@ public class ProjectsController {
 		catch(Exception e)
 		{
 			e.printStackTrace();
+			log.error(e.getMessage());
 			projectDTO.setMessage(ProjectManagementConstants.PROJECT_Update_msgFailure);
 			return ResponseEntity.badRequest().body(projectDTO);
 		}
