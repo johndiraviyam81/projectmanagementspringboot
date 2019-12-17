@@ -39,7 +39,7 @@ import com.projectmanagement.app.service.TasksService;
  * The Class TasksControllerTest.
  */
 @ExtendWith(MockitoExtension.class)
-class TasksControllerTest {
+public class TasksControllerTest {
 
 	@InjectMocks
 	TasksController tasksController;
@@ -119,7 +119,7 @@ class TasksControllerTest {
 	String taskName = "Project";
 
 	@BeforeEach
-	void setUp() throws Exception {
+	public void setUp() throws Exception {
 		mvc = MockMvcBuilders.standaloneSetup(tasksController).build();
 		
 
@@ -224,7 +224,7 @@ class TasksControllerTest {
 	}
 
 	@Test
-	void testGetAllTasksPositiveFlow() throws Exception {
+	public void testGetAllTasksPositiveFlow() throws Exception {
 		when(tasksService.getAllTasks()).thenReturn(this.taskList);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -236,7 +236,7 @@ class TasksControllerTest {
 	}
 
 	@Test
-	void testGetAllTasksNegativeFlow() throws Exception {
+	public void testGetAllTasksNegativeFlow() throws Exception {
 		when(tasksService.getAllTasks()).thenReturn(null);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -248,7 +248,7 @@ class TasksControllerTest {
 	}
 
 	@Test
-	void testGetAllTasksExceptionFlow() throws Exception {
+	public void testGetAllTasksExceptionFlow() throws Exception {
 		when(tasksService.getAllTasks()).thenThrow(NullPointerException.class);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -260,7 +260,7 @@ class TasksControllerTest {
 	}
 	
 	@Test
-	void testGetParentAllTasksPositiveFlow() throws Exception {
+	public void testGetParentAllTasksPositiveFlow() throws Exception {
 		when(tasksService.getAllParentTasks()).thenReturn(this.parentTasksLists);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -272,7 +272,7 @@ class TasksControllerTest {
 	}
 
 	@Test
-	void testGetParentAllTasksNegativeFlow() throws Exception {
+	public void testGetParentAllTasksNegativeFlow() throws Exception {
 		when(tasksService.getAllParentTasks()).thenReturn(null);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -284,7 +284,7 @@ class TasksControllerTest {
 	}
 
 	@Test
-	void testGetParentAllTasksExceptionFlow() throws Exception {
+	public void testGetParentAllTasksExceptionFlow() throws Exception {
 		when(tasksService.getAllParentTasks()).thenThrow(NullPointerException.class);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -297,7 +297,7 @@ class TasksControllerTest {
 
 
 	@Test
-	void testSearchTasksPositiveFlow() throws Exception {
+	public void testSearchTasksPositiveFlow() throws Exception {
 		when(tasksService.searchTasks(taskName)).thenReturn(this.taskList);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -309,7 +309,7 @@ class TasksControllerTest {
 	}
 
 	@Test
-	void testSearchTasksNegativeFlow() throws Exception {
+	public void testSearchTasksNegativeFlow() throws Exception {
 		when(tasksService.searchTasks(taskName)).thenReturn(null);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -321,7 +321,7 @@ class TasksControllerTest {
 	}
 
 	@Test
-	void testSearchTasksExceptionFlow() throws Exception {
+	public void testSearchTasksExceptionFlow() throws Exception {
 		when(tasksService.searchTasks(taskName)).thenThrow(NullPointerException.class);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -333,7 +333,7 @@ class TasksControllerTest {
 	}
 
 	@Test
-	void testAddTaskPositiveFlow() throws Exception {
+	public void testAddTaskPositiveFlow() throws Exception {
 		when(tasksService.save(taskDto1)).thenReturn(1L);
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(ProjectManagementConstants.URL_TASK_Service + ProjectManagementConstants.URL_TASK_addTask)
@@ -344,7 +344,7 @@ class TasksControllerTest {
 	}
 
 	@Test
-	void testAddParentTaskPositiveFlow() throws Exception {
+	public void testAddParentTaskPositiveFlow() throws Exception {
 		when(tasksService.saveParentTask(this.taskParentDto1)).thenReturn(1L);
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post(ProjectManagementConstants.URL_TASK_Service + ProjectManagementConstants.URL_TASK_addTask)
@@ -355,7 +355,7 @@ class TasksControllerTest {
 	}
 	
 	@Test
-	void testAddParentTaskExceptionFlow() throws Exception {
+	public void testAddParentTaskExceptionFlow() throws Exception {
 		when(tasksService.saveParentTask(this.taskParentDtoError)).thenThrow(NullPointerException.class);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -367,7 +367,7 @@ class TasksControllerTest {
 	}
 	
 	@Test
-	void testAddTaskNegativeFlow() throws Exception {
+	public void testAddTaskNegativeFlow() throws Exception {
 		when(tasksService.save(this.taskErrorDto1)).thenReturn(0L);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -379,7 +379,7 @@ class TasksControllerTest {
 	}
 
 	@Test
-	void testAddTaskExceptionFlow() throws Exception {
+	public void testAddTaskExceptionFlow() throws Exception {
 		when(tasksService.save(this.taskErrorDto1)).thenThrow(NullPointerException.class);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -393,7 +393,7 @@ class TasksControllerTest {
  
 
 	@Test
-	void testUpdateTaskPositiveFlow() throws Exception {
+	public void testUpdateTaskPositiveFlow() throws Exception {
 		when(tasksService.save(taskDto2)).thenReturn(1L);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -405,7 +405,7 @@ class TasksControllerTest {
 	}
 
 	@Test
-	void testUpdateTaskNegativeFlow() throws Exception {
+	public void testUpdateTaskNegativeFlow() throws Exception {
 		when(tasksService.save(taskErrorDto1)).thenReturn(0L);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -417,7 +417,7 @@ class TasksControllerTest {
 	}
 
 	@Test
-	void testUpdateTaskExceptionFlow() throws Exception {
+	public void testUpdateTaskExceptionFlow() throws Exception {
 		when(tasksService.save(this.taskErrorDto1)).thenThrow(NullPointerException.class);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -431,7 +431,7 @@ class TasksControllerTest {
 	
 
 	@Test
-	void testGetTaskPositiveFlow() throws Exception {
+	public void testGetTaskPositiveFlow() throws Exception {
 		when(tasksService.getTaskById(2)).thenReturn(this.taskDto2);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -443,7 +443,7 @@ class TasksControllerTest {
 	}
 
 	@Test
-	void testGetTaskNegativeFlow() throws Exception {
+	public void testGetTaskNegativeFlow() throws Exception {
 		when(tasksService.getTaskById(0)).thenReturn(new TaskDTO());
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -455,7 +455,7 @@ class TasksControllerTest {
 	}
 
 	@Test
-	void testGetTaskExceptionFlow() throws Exception {
+	public void testGetTaskExceptionFlow() throws Exception {
 		when(tasksService.getTaskById(0)).thenThrow(NullPointerException.class);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -467,7 +467,7 @@ class TasksControllerTest {
 	}
 
 	@Test
-	void testDeleteTaskPositiveFlow() throws Exception {
+	public void testDeleteTaskPositiveFlow() throws Exception {
 		when(tasksService.deleteByTaskById(13)).thenReturn(true);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -480,7 +480,7 @@ class TasksControllerTest {
 	}
 
 	@Test
-	void testDeleteTaskNegativeFlow() throws Exception {
+	public void testDeleteTaskNegativeFlow() throws Exception {
 		when(tasksService.deleteByTaskById(-1)).thenReturn(false);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -492,7 +492,7 @@ class TasksControllerTest {
 	}
 
 	@Test
-	void testDeleteTaskExceptionFlow() throws Exception {
+	public void testDeleteTaskExceptionFlow() throws Exception {
 		when(tasksService.deleteByTaskById(0)).thenThrow(NullPointerException.class);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -504,7 +504,7 @@ class TasksControllerTest {
 	}
 
 	@Test
-	void testDeleteTask() {
+	public void testDeleteTask() {
 		assert (true);
 	}
 

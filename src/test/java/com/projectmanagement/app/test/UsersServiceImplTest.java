@@ -45,7 +45,7 @@ import com.projectmanagement.app.repositories.UsersVORepository;
 import com.projectmanagement.app.service.UsersServiceImpl;
 
 
-class UsersServiceImplTest {
+public class UsersServiceImplTest {
 	
 	@InjectMocks
 	UsersServiceImpl usersService;
@@ -103,7 +103,7 @@ class UsersServiceImplTest {
 	List<String> userString=new ArrayList<>();
 
  	@BeforeEach
-	void setUp() throws Exception {
+ 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		
 		this.userDto1.setUserId("1");
@@ -189,7 +189,7 @@ class UsersServiceImplTest {
 	}
 
 	@Test
-	void testGetAllUsersPositiveFlow() throws Exception {
+	public void testGetAllUsersPositiveFlow() throws Exception {
 		when(usersVORepository.findAll()).thenReturn(usersVOList);
 		List<UserDTO> allUsers=new ArrayList<>();
 		this.userList.stream().forEach(userVO->{allUsers.add(userVO);});
@@ -199,7 +199,7 @@ class UsersServiceImplTest {
 	}
 	
 	@Test
-	void testGetAllUsersNegativeFlow() throws Exception {
+	public void testGetAllUsersNegativeFlow() throws Exception {
 		when(usersVORepository.findAll()).thenReturn(null);
 		List<UserDTO> allUsers=new ArrayList<>();
 		this.userListEmpty.stream().forEach(userVO->{allUsers.add(userVO);});
@@ -209,7 +209,7 @@ class UsersServiceImplTest {
 	}
 
 	@Test
-	void testSearchUsersPositiveFlow() throws Exception {
+	public void testSearchUsersPositiveFlow() throws Exception {
 		when(usersVORepository.findByFirstNameIn(this.userString)).thenReturn(usersVOList);
 		List<UserDTO> allUsers=new ArrayList<>();
 		this.userList.stream().forEach(userVO->{allUsers.add(userVO);});
@@ -219,7 +219,7 @@ class UsersServiceImplTest {
 	}
 	
 	@Test
-	void testSearchUsersNegativeFlow() throws Exception {
+	public void testSearchUsersNegativeFlow() throws Exception {
 		when(usersVORepository.findByFirstNameIn(this.userString)).thenReturn(null);
 		List<UserDTO> allUsers=new ArrayList<>();
 		this.userListEmpty.stream().forEach(userVO->{allUsers.add(userVO);});
@@ -229,7 +229,7 @@ class UsersServiceImplTest {
 	}
 
 	@Test
-	void testGetUserPositiveFlow() throws Exception {
+	public void testGetUserPositiveFlow() throws Exception {
 		when(usersVORepository.findByUserId(1L)).thenReturn(this.usersVO1);
 		UsersVO getUserVO=this.usersVO1;
 		UserDTO getUserDto=this.userDto1;
@@ -243,7 +243,7 @@ class UsersServiceImplTest {
 	}
 	
 	@Test
-	void testGetUserNegativeFlow() throws Exception {
+	public void testGetUserNegativeFlow() throws Exception {
 		when(usersVORepository.findByUserId(2L)).thenReturn(null);
 		UsersVO getUserVO=new UsersVO();
 		UserDTO getUserDto=null;
@@ -256,7 +256,7 @@ class UsersServiceImplTest {
 	}
 
 	@Test
-	void testDeleteUserPositiveFlow() throws Exception {
+	public void testDeleteUserPositiveFlow() throws Exception {
 		when(usersVORepository.findByUserId(1L)).thenReturn(this.usersVO1);
 		when(projectVORepository.findByUsersVO(usersVO1)).thenReturn(this.projectVOList);
 		when(taskVORepository.findByUsersVO(usersVO1)).thenReturn(this.taskVOList);
@@ -272,7 +272,7 @@ class UsersServiceImplTest {
 	}
 	
 	@Test
-	void testDeleteUserAlternatePositiveFlow() throws Exception {
+	public void testDeleteUserAlternatePositiveFlow() throws Exception {
 		when(usersVORepository.findByUserId(6L)).thenReturn(this.usersVO3);
 		when(projectVORepository.findByUsersVO(usersVO3)).thenReturn(null);
 		when(taskVORepository.findByUsersVO(usersVO3)).thenReturn(null);
@@ -287,7 +287,7 @@ class UsersServiceImplTest {
 	}
 	
 	@Test
-	void testSavePositiveFlow() throws Exception {
+	public void testSavePositiveFlow() throws Exception {
 		when(usersVORepository.save(usersVO1)).thenReturn(this.usersVO1);
 		UsersVO createUserVO=this.usersVO1;
 		usersService.save(this.userDto1);	
@@ -299,7 +299,7 @@ class UsersServiceImplTest {
 	}
 	
 	@Test
-	void testSaveNegativeFlow() throws Exception {
+	public void testSaveNegativeFlow() throws Exception {
 		when(usersVORepository.save(usersVO3)).thenReturn(null);
 		UsersVO createUserVO=null ;
 		usersService.save(this.userDto3);	

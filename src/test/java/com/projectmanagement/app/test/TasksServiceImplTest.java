@@ -46,7 +46,7 @@ import com.projectmanagement.app.service.TasksServiceImpl;
 
 
 
-class TasksServiceImplTest {
+public class TasksServiceImplTest {
 	
 	@InjectMocks
 	TasksServiceImpl tasksService;
@@ -152,7 +152,7 @@ class TasksServiceImplTest {
  
 
 	@BeforeEach
-	void setUp() throws Exception {
+	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		
 		this.usersVO1.setUserId(1);
@@ -315,7 +315,7 @@ class TasksServiceImplTest {
 	}
 
 	@Test
-	void testGetAllTasksPositiveFlow() throws Exception {
+	public void testGetAllTasksPositiveFlow() throws Exception {
 		when(taskVORepository.findAll()).thenReturn(taskVOList);
 		List<TaskDTO> allTasks=new ArrayList<>();
 		this.taskList.stream().forEach(taskVO->{allTasks.add(taskVO);});
@@ -326,7 +326,7 @@ class TasksServiceImplTest {
 	}
 	
 	@Test
-	void testGetAllTasksNegativeeFlow() throws Exception {
+	public void testGetAllTasksNegativeeFlow() throws Exception {
 		when(taskVORepository.findAll()).thenReturn(null);
 		List<TaskDTO> allTasks=new ArrayList<>();
 		this.taskDTOListNull.stream().forEach(taskVO->{allTasks.add(taskVO);});
@@ -337,7 +337,7 @@ class TasksServiceImplTest {
 	}
 
 	@Test
-	void testSearchTasksPositiveFlow() throws Exception {
+	public void testSearchTasksPositiveFlow() throws Exception {
 		when(projectVORepository.findByProjectContainingOrProjectEndingWith(this.projectContain,this.projectContain)).thenReturn(projectVOList);
 		
 		List<TaskDTO> allTasks=new ArrayList<>();
@@ -349,7 +349,7 @@ class TasksServiceImplTest {
 	}
 	
 	@Test
-	void testSearchTasksNegativeFlow() throws Exception {
+	public void testSearchTasksNegativeFlow() throws Exception {
 		List<ProjectVO> emptyTaskNull=null;
 		when(projectVORepository.findByProjectContainingOrProjectEndingWith(this.projectContain,this.projectContain)).thenReturn(emptyTaskNull);
 		List<TaskDTO> allTasks=new ArrayList<>();
@@ -361,7 +361,7 @@ class TasksServiceImplTest {
 	}
 
 	@Test
-	void testGetTaskByIdPositiveFlow() throws Exception {
+	public void testGetTaskByIdPositiveFlow() throws Exception {
 	 
 				when(taskVORepository.findByTaskId(1L)).thenReturn(this.taskVo1);
 				TaskVO taskGetVO=this.taskVo1;				 
@@ -373,7 +373,7 @@ class TasksServiceImplTest {
 	}
 
 	@Test
-	void testGetTaskByIdNegativeFlow() throws Exception {
+	public void testGetTaskByIdNegativeFlow() throws Exception {
 	 
 				when(taskVORepository.findByTaskId(10L)).thenReturn(null);
 				TaskVO taskGetVO=null;				 
@@ -383,7 +383,7 @@ class TasksServiceImplTest {
 	}
 	
 	@Test
-	void testDeleteByTaskByIdPositiveFlow() throws Exception {
+	public void testDeleteByTaskByIdPositiveFlow() throws Exception {
 	TaskVO deleteTaskVO=new TaskVO();
 		when(taskVORepository.findByTaskId(1L)).thenReturn(this.taskVo1);	
 		parentTaskVORepository.deleteByParentTask(taskVo1);	
@@ -393,7 +393,7 @@ class TasksServiceImplTest {
 	}
 
 	@Test
-	void testDeleteByTaskByIdNegativeFlow() throws Exception {
+	public void testDeleteByTaskByIdNegativeFlow() throws Exception {
 	TaskVO deleteTaskVO=this.taskVo1;
 		when(taskVORepository.findByTaskId(1L)).thenReturn(null);	
 		parentTaskVORepository.deleteByParentTask(null);	
@@ -408,7 +408,7 @@ class TasksServiceImplTest {
 
 	
 	@Test
-	void testSavePositiveFlow() throws Exception {
+	public void testSavePositiveFlow() throws Exception {
 		 
 	 	when(parentTaskVORepository.findByParentId(1)).thenReturn(this.parentTaskVO1);
 		when(projectVORepository.findByProjectId(1)).thenReturn(this.projectVO1);
@@ -427,7 +427,7 @@ class TasksServiceImplTest {
 		
 		
 	@Test
-	void testSaveAlternatePositiveFlow() throws Exception {
+	public void testSaveAlternatePositiveFlow() throws Exception {
 		long taskId=0L;
 		TaskVO createTaskVO=this.taskVo1;
 		createTaskVO.setStatus("Pending");
@@ -448,7 +448,7 @@ class TasksServiceImplTest {
 
 	
 	@Test
-	void testSaveParentTaskPositiveFlow() throws Exception {
+	public void testSaveParentTaskPositiveFlow() throws Exception {
 		ParentTaskVO createTaskVO=parentTaskVO2;
 		when(parentTaskVORepository.save(parentTaskVO2)).thenReturn(parentTaskVO2);
 		
@@ -461,7 +461,7 @@ class TasksServiceImplTest {
 	}
 	
 	@Test
-	void testGetAllParentTasksPositiveFlow() throws Exception {
+	public void testGetAllParentTasksPositiveFlow() throws Exception {
 		when(parentTaskVORepository.findAll()).thenReturn(this.parentTaskVOList);
 		List<TaskDTO> allTasks=new ArrayList<>();
 		this.parentTasksLists.stream().forEach(parentTaskDto->{allTasks.add(parentTaskDto);});
@@ -472,7 +472,7 @@ class TasksServiceImplTest {
 	}
 	
 	@Test
-	void testGetAllParentTasksNegativeeFlow() throws Exception {
+	public void testGetAllParentTasksNegativeeFlow() throws Exception {
 		when(parentTaskVORepository.findAll()).thenReturn(null);
 		List<TaskDTO> allTasks=new ArrayList<>();
 		this.taskDTOListNull.stream().forEach(taskVO->{allTasks.add(taskVO);});

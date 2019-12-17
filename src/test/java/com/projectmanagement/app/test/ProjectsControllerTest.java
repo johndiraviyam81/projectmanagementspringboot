@@ -8,9 +8,12 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jsmart.zerocode.core.domain.TargetEnv;
+import org.jsmart.zerocode.core.runner.ZeroCodeUnitRunner;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.http.MediaType;
@@ -35,8 +38,11 @@ import com.projectmanagement.app.service.ProjectsService;
 /**
  * The Class ProjectsControllerTest.
  */
+
+
+//run it with zero code load runner
 @ExtendWith(MockitoExtension.class)
-class ProjectsControllerTest {
+public class ProjectsControllerTest {
 
 	/** The projects controller. */
 	@InjectMocks
@@ -138,7 +144,7 @@ class ProjectsControllerTest {
 	 *             the exception
 	 */
 	@BeforeEach
-	void setUp() throws Exception {
+	public void setUp() throws Exception {
 
 		mvc = MockMvcBuilders.standaloneSetup(projectsController).build();
 		
@@ -208,7 +214,7 @@ class ProjectsControllerTest {
 	 *             the exception
 	 */
 	@Test
-	void testGetAllProjectsPositiveFlow() throws Exception {
+	public void testGetAllProjectsPositiveFlow() throws Exception {
 		when(projectsService.getAllProjects()).thenReturn(projectList);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(
@@ -227,7 +233,7 @@ class ProjectsControllerTest {
 	 *             the exception
 	 */
 	@Test
-	void testGetAllProjectsNegativeFlow() throws Exception {
+	public void testGetAllProjectsNegativeFlow() throws Exception {
 		when(projectsService.getAllProjects()).thenReturn(null);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(
@@ -246,7 +252,7 @@ class ProjectsControllerTest {
 	 *             the exception
 	 */
 	@Test
-	void testGetAllProjectsExceptionNegativeFlow() throws Exception {
+	public void testGetAllProjectsExceptionNegativeFlow() throws Exception {
 		when(projectsService.getAllProjects()).thenThrow(NullPointerException.class);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(
@@ -265,7 +271,7 @@ class ProjectsControllerTest {
 	 *             the exception
 	 */
 	@Test
-	void testAddProjectPositiveFlow() throws Exception {
+	public void testAddProjectPositiveFlow() throws Exception {
 
 		when(projectsService.save(this.projectDTO3)).thenReturn(3L);
 		this.projectDTO4.setMessage(ProjectManagementConstants.PROJECT_Add_msgSuccess);
@@ -286,7 +292,7 @@ class ProjectsControllerTest {
 	 *             the exception
 	 */
 	@Test
-	void testAddProjectNegativeFlow() throws Exception {
+	public void testAddProjectNegativeFlow() throws Exception {
 
 		when(projectsService.save(this.projectDTOEmpty)).thenReturn(0L);
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -307,7 +313,7 @@ class ProjectsControllerTest {
 	 *             the exception
 	 */
 	@Test
-	void testAddProjectExceptionNegativeFlow() throws Exception {
+	public void testAddProjectExceptionNegativeFlow() throws Exception {
 
 		when(projectsService.save(this.projectDTO4)).thenThrow(DateTimeParseException.class);
 
@@ -328,7 +334,7 @@ class ProjectsControllerTest {
 	 *             the exception
 	 */
 	@Test
-	void testDeleteProjectPositiveFlow() throws Exception {
+	public void testDeleteProjectPositiveFlow() throws Exception {
 		when(projectsService.deleteProjectById(3L)).thenReturn(true);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete(
@@ -347,7 +353,7 @@ class ProjectsControllerTest {
 	 *             the exception
 	 */
 	@Test
-	void testDeleteProjectNegativeFlow() throws Exception {
+	public void testDeleteProjectNegativeFlow() throws Exception {
 		when(projectsService.deleteProjectById(10L)).thenReturn(false);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -367,7 +373,7 @@ class ProjectsControllerTest {
 	 *             the exception
 	 */
 	@Test
-	void testDeleteProjectExceptionNegativeFlow() throws Exception {
+	public void testDeleteProjectExceptionNegativeFlow() throws Exception {
 		when(projectsService.deleteProjectById(10L)).thenThrow(NullPointerException.class);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -387,7 +393,7 @@ class ProjectsControllerTest {
 	 *             the exception
 	 */
 	@Test
-	void testGetProjectPositiveFlow() throws Exception {
+	public void testGetProjectPositiveFlow() throws Exception {
 		when(projectsService.getProjectById(1L)).thenReturn(this.projectDTO1);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -407,7 +413,7 @@ class ProjectsControllerTest {
 	 *             the exception
 	 */
 	@Test
-	void testGetProjectNegativeFlow() throws Exception {
+	public void testGetProjectNegativeFlow() throws Exception {
 		when(projectsService.getProjectById(10L)).thenReturn(new ProjectDTO());
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -427,7 +433,7 @@ class ProjectsControllerTest {
 	 *             the exception
 	 */
 	@Test
-	void testGetProjectExceptionNegativeFlow() throws Exception {
+	public void testGetProjectExceptionNegativeFlow() throws Exception {
 		when(projectsService.getProjectById(10L)).thenThrow(NullPointerException.class);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -448,7 +454,7 @@ class ProjectsControllerTest {
 	 *             the exception
 	 */
 	@Test
-	void testUpdateProjectPositiveFlow() throws Exception {
+	public void testUpdateProjectPositiveFlow() throws Exception {
 		when(projectsService.save(projectDTO2)).thenReturn(2L);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -467,7 +473,7 @@ class ProjectsControllerTest {
 	 *             the exception
 	 */
 	@Test
-	void testUpdateProjectnegativeFlow() throws Exception {
+	public void testUpdateProjectnegativeFlow() throws Exception {
 		when(projectsService.save(this.projectDTOEmpty)).thenReturn(0L);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -487,7 +493,7 @@ class ProjectsControllerTest {
 	 *             the exception
 	 */
 	@Test
-	void testUpdateProjectExceptionFlow() throws Exception {
+	public void testUpdateProjectExceptionFlow() throws Exception {
 		when(projectsService.save(this.projectDTO5)).thenThrow(NullPointerException.class);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -507,7 +513,7 @@ class ProjectsControllerTest {
 	 *             the exception
 	 */
 	@Test
-	void testSearchGetAllProjectsPositiveFlow() throws Exception {
+	public void testSearchGetAllProjectsPositiveFlow() throws Exception {
 		when(projectsService.searchProjects(this.projectContain)).thenReturn(projectList);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -527,7 +533,7 @@ class ProjectsControllerTest {
 	 *             the exception
 	 */
 	@Test
-	void testSearchGetAllProjectsNegativeFlow() throws Exception {
+	public void testSearchGetAllProjectsNegativeFlow() throws Exception {
 		when(projectsService.searchProjects(this.projectContain)).thenReturn(null);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -547,7 +553,7 @@ class ProjectsControllerTest {
 	 *             the exception
 	 */
 	@Test
-	void testSearchGetAllExceptionProjectsNegativeFlow() throws Exception {
+	public void testSearchGetAllExceptionProjectsNegativeFlow() throws Exception {
 		when(projectsService.searchProjects(this.projectContain)).thenThrow(NullPointerException.class);
 
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders

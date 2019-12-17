@@ -47,7 +47,7 @@ import com.projectmanagement.app.service.ProjectsServiceImpl;
 /**
  * The Class ProjectsServiceImplTest.
  */
-class ProjectsServiceImplTest {
+public class ProjectsServiceImplTest {
 
 	/** The projects service. */
 	@InjectMocks
@@ -135,7 +135,7 @@ List<ProjectVO> projectVONullList=new ArrayList<>();
 	 * @throws Exception the exception
 	 */
 	@BeforeEach
-	void setUp() throws Exception {
+	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 	
 		this.usersVO.setUserId(1);
@@ -272,7 +272,7 @@ List<ProjectVO> projectVONullList=new ArrayList<>();
 	 * @throws Exception the exception
 	 */
 	@Test
-	void testGetAllProjectsPositiveFlow()  throws Exception {
+	public void testGetAllProjectsPositiveFlow()  throws Exception {
 		when(projectVORepository.findAll()).thenReturn(projectVOList);
 		when(taskVORepository.findByProjectVO(this.projectVO1)).thenReturn(this.taskVOList);
 		List<ProjectDTO> allProjects=new ArrayList<>();
@@ -290,7 +290,7 @@ List<ProjectVO> projectVONullList=new ArrayList<>();
 	 * @throws Exception the exception
 	 */
 	@Test
-	void testSearchProjectsPositiveFlow()  throws Exception {
+	public void testSearchProjectsPositiveFlow()  throws Exception {
 		when(projectVORepository.findByProjectContaining(this.projectContain)).thenReturn(projectVOList);
 		when(taskVORepository.findByProjectVO(this.projectVO1)).thenReturn(this.taskVOList);
 		List<ProjectDTO> allProjects=new ArrayList<>();
@@ -308,7 +308,7 @@ List<ProjectVO> projectVONullList=new ArrayList<>();
 	 * @throws Exception the exception
 	 */
 	@Test
-	void testGetAllProjectsNegativeFlow()  throws Exception {
+	public void testGetAllProjectsNegativeFlow()  throws Exception {
 		when(projectVORepository.findAll()).thenReturn(null);
 		List<ProjectDTO> allProjects=new ArrayList<>();
 		
@@ -325,7 +325,7 @@ List<ProjectVO> projectVONullList=new ArrayList<>();
 	 * @throws Exception the exception
 	 */
 	@Test
-	void testSearchProjectsNegativeFlow()  throws Exception {
+	public void testSearchProjectsNegativeFlow()  throws Exception {
 		when(projectVORepository.findByProjectContaining(this.projectContain)).thenReturn(null);
 		List<ProjectDTO> allProjects=new ArrayList<>();
 		
@@ -343,7 +343,7 @@ List<ProjectVO> projectVONullList=new ArrayList<>();
 	 * @throws Exception the exception
 	 */
 	@Test
-	void testSavePostiveFlow() throws Exception {
+	public void testSavePostiveFlow() throws Exception {
 		when(usersVORepository.findByUserId(1L)).thenReturn(this.usersVO);
 		when(projectVORepository.save(this.projectVO3)).thenReturn(this.projectVO3);
 		
@@ -360,7 +360,7 @@ List<ProjectVO> projectVONullList=new ArrayList<>();
 	 */
 
 	@Test
-	void testSaveNegativeFlow() throws Exception{
+	public void testSaveNegativeFlow() throws Exception{
 		when(usersVORepository.findByUserId(1)).thenReturn(this.usersVO);
 		when(projectVORepository.save(this.projectVO3)).thenReturn(null);		
 		UsersVO negUser=null;
@@ -376,7 +376,7 @@ List<ProjectVO> projectVONullList=new ArrayList<>();
 	 * @throws Exception the exception
 	 */
 	@Test
-	void testGetProjectByIdPositiveFlow() throws Exception{
+	public void testGetProjectByIdPositiveFlow() throws Exception{
 		
 		when(projectVORepository.findByProjectId(1)).thenReturn(this.projectVO1);
 		when(taskVORepository.findByProjectVO(this.projectVO1)).thenReturn(this.taskVOList);
@@ -395,7 +395,7 @@ List<ProjectVO> projectVONullList=new ArrayList<>();
 	 * @throws Exception the exception
 	 */
 	@Test
-	void testGetProjectByIdNegativeFlow() throws Exception{
+	public void testGetProjectByIdNegativeFlow() throws Exception{
 		
 		when(projectVORepository.findByProjectId(5)).thenReturn(null);		
 		ProjectVO projectGetVo=null;
@@ -411,7 +411,7 @@ List<ProjectVO> projectVONullList=new ArrayList<>();
 	 * @throws Exception the exception
 	 */
 	@Test
-	void testDeleteProjectByIdPositiveFlow() throws Exception{
+	public void testDeleteProjectByIdPositiveFlow() throws Exception{
 		ProjectVO deleteProject=new ProjectVO();
 		when(projectVORepository.findByProjectId(1)).thenReturn(this.projectVO1);	
 		when(taskVORepository.findByProjectVO(this.projectVO1)).thenReturn(this.taskVOList);
@@ -435,7 +435,7 @@ List<ProjectVO> projectVONullList=new ArrayList<>();
 	 * @throws Exception the exception
 	 */
 	@Test
-	void testDeleteProjectByIdNegativeFlow() throws Exception{
+	public void testDeleteProjectByIdNegativeFlow() throws Exception{
 		ProjectVO deleteProject=new ProjectVO();
 		when(projectVORepository.findByProjectId(1)).thenReturn(null);	
 		when(taskVORepository.findByProjectVO(this.projectVO1)).thenReturn(null);

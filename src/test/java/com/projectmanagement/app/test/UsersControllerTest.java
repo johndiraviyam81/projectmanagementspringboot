@@ -39,7 +39,7 @@ import com.projectmanagement.app.service.UsersService;
  * The Class UsersControllerTest.
  */
 @ExtendWith(MockitoExtension.class)
-class UsersControllerTest {
+public class UsersControllerTest {
 
 
 	@InjectMocks
@@ -109,7 +109,7 @@ class UsersControllerTest {
 	List<String> userString=new ArrayList<>();
 	
 	@BeforeEach
-	void setUp() throws Exception {
+	public void setUp() throws Exception {
 	mvc=MockMvcBuilders.standaloneSetup(usersController).build();
 	
 	this.userDto1.setUserId("1");
@@ -156,7 +156,7 @@ class UsersControllerTest {
 	}
 
 	@Test
-	void testGetAllUsersPositiveFlow() throws Exception {
+	public void testGetAllUsersPositiveFlow() throws Exception {
 		when(usersService.getAllUsers()).thenReturn(this.userList);		
 		
 		MockHttpServletRequestBuilder requestBuilder=MockMvcRequestBuilders.get(ProjectManagementConstants.URL_USER_Service+ProjectManagementConstants.URL_USER_getAllUsers).accept(MediaType.APPLICATION_JSON);
@@ -165,7 +165,7 @@ class UsersControllerTest {
 	}
 	
 	@Test
-	void testGetAllUsersNegativeFlow() throws Exception {
+	public void testGetAllUsersNegativeFlow() throws Exception {
 		when(usersService.getAllUsers()).thenReturn(null);		
 		
 		MockHttpServletRequestBuilder requestBuilder=MockMvcRequestBuilders.get(ProjectManagementConstants.URL_USER_Service+ProjectManagementConstants.URL_USER_getAllUsers).accept(MediaType.APPLICATION_JSON);
@@ -174,7 +174,7 @@ class UsersControllerTest {
 	}
 	
 	@Test
-	void testGetAllUsersExceptionFlow() throws Exception {
+	public void testGetAllUsersExceptionFlow() throws Exception {
 		when(usersService.getAllUsers()).thenThrow(NullPointerException.class);	
 		
 		MockHttpServletRequestBuilder requestBuilder=MockMvcRequestBuilders.get(ProjectManagementConstants.URL_USER_Service+ProjectManagementConstants.URL_USER_getAllUsers).accept(MediaType.APPLICATION_JSON);
@@ -183,7 +183,7 @@ class UsersControllerTest {
 	}
 
 	@Test
-	void testSearchUsersPositiveFlow() throws Exception {
+	public void testSearchUsersPositiveFlow() throws Exception {
 	when(usersService.searchUsers(this.userString)).thenReturn(this.userList);		
 		
 		MockHttpServletRequestBuilder requestBuilder=MockMvcRequestBuilders.post(ProjectManagementConstants.URL_USER_Service+ProjectManagementConstants.URL_USER_searchAllUsers).accept(MediaType.APPLICATION_JSON).content(this.userSearchStringsJson).contentType(MediaType.APPLICATION_JSON);
@@ -193,7 +193,7 @@ class UsersControllerTest {
 	}
 	
 	@Test
-	void testSearchUsersNegativeFlow() throws Exception {
+	public void testSearchUsersNegativeFlow() throws Exception {
 	when(usersService.searchUsers(this.userString)).thenReturn(null);		
 		
 		MockHttpServletRequestBuilder requestBuilder=MockMvcRequestBuilders.post(ProjectManagementConstants.URL_USER_Service+ProjectManagementConstants.URL_USER_searchAllUsers).accept(MediaType.APPLICATION_JSON).content(this.userSearchStringsJson).contentType(MediaType.APPLICATION_JSON);
@@ -203,7 +203,7 @@ class UsersControllerTest {
 	}
 
 	@Test
-	void testSearchUsersExceptionFlow() throws Exception {
+	public void testSearchUsersExceptionFlow() throws Exception {
 	when(usersService.searchUsers(this.userString)).thenThrow(NullPointerException.class);	
 		
 		MockHttpServletRequestBuilder requestBuilder=MockMvcRequestBuilders.post(ProjectManagementConstants.URL_USER_Service+ProjectManagementConstants.URL_USER_searchAllUsers).accept(MediaType.APPLICATION_JSON).content(this.userSearchStringsJson).contentType(MediaType.APPLICATION_JSON);
@@ -214,7 +214,7 @@ class UsersControllerTest {
 
 	
 	@Test
-	void testUpdateUserPositiveFlow() throws Exception {
+	public void testUpdateUserPositiveFlow() throws Exception {
 	when(usersService.save(this.userDto2)).thenReturn(5L);
 		
 		MockHttpServletRequestBuilder requestBuilder=MockMvcRequestBuilders.put(ProjectManagementConstants.URL_USER_Service+ProjectManagementConstants.URL_USER_update).accept(MediaType.APPLICATION_JSON).content(this.userDto2Json).contentType(MediaType.APPLICATION_JSON);
@@ -223,7 +223,7 @@ class UsersControllerTest {
 	}
 	
 	@Test
-	void testUpdateUserNegativeFlow() throws Exception {
+	public void testUpdateUserNegativeFlow() throws Exception {
 	when(usersService.save(null)).thenReturn(0L);
 		
 		MockHttpServletRequestBuilder requestBuilder=MockMvcRequestBuilders.put(ProjectManagementConstants.URL_USER_Service+ProjectManagementConstants.URL_USER_update).accept(MediaType.APPLICATION_JSON).content("0").contentType(MediaType.APPLICATION_JSON);
@@ -232,7 +232,7 @@ class UsersControllerTest {
 	}
 	
 	@Test
-	void testUpdateUserExceptionFlow() throws Exception {
+	public void testUpdateUserExceptionFlow() throws Exception {
 	when(usersService.save(this.userDto5Error)).thenThrow(NullPointerException.class);
 		
 		MockHttpServletRequestBuilder requestBuilder=MockMvcRequestBuilders.put(ProjectManagementConstants.URL_USER_Service+ProjectManagementConstants.URL_USER_update).accept(MediaType.APPLICATION_JSON).content(this.userDto5ErrorJson).contentType(MediaType.APPLICATION_JSON);
@@ -241,7 +241,7 @@ class UsersControllerTest {
 	}
 
 	@Test
-	void testAddUserPositiveFlow() throws Exception {
+	public void testAddUserPositiveFlow() throws Exception {
 when(usersService.save(this.userDto1)).thenReturn(1L);
 		
 		MockHttpServletRequestBuilder requestBuilder=MockMvcRequestBuilders.post(ProjectManagementConstants.URL_USER_Service+ProjectManagementConstants.URL_USER_addUser).accept(MediaType.APPLICATION_JSON).content(this.userDto1Json).contentType(MediaType.APPLICATION_JSON);
@@ -250,7 +250,7 @@ when(usersService.save(this.userDto1)).thenReturn(1L);
 	}
 	
 	@Test
-	void testAddUserNegativeFlow() throws Exception {
+	public void testAddUserNegativeFlow() throws Exception {
 when(usersService.save(this.userDto4Error)).thenReturn(0L);
 		
 		MockHttpServletRequestBuilder requestBuilder=MockMvcRequestBuilders.post(ProjectManagementConstants.URL_USER_Service+ProjectManagementConstants.URL_USER_addUser).accept(MediaType.APPLICATION_JSON).content("").contentType(MediaType.APPLICATION_JSON);
@@ -259,7 +259,7 @@ when(usersService.save(this.userDto4Error)).thenReturn(0L);
 	}
 	
 	@Test
-	void testAddUserExceptionFlow() throws Exception {
+	public void testAddUserExceptionFlow() throws Exception {
 when(usersService.save(this.userDto4Error)).thenThrow(NullPointerException.class);
 		
 		MockHttpServletRequestBuilder requestBuilder=MockMvcRequestBuilders.post(ProjectManagementConstants.URL_USER_Service+ProjectManagementConstants.URL_USER_addUser).accept(MediaType.APPLICATION_JSON).content(userDto4ErrorJson).contentType(MediaType.APPLICATION_JSON);
@@ -268,7 +268,7 @@ when(usersService.save(this.userDto4Error)).thenThrow(NullPointerException.class
 	}
 
 	@Test
-	void testGetUserPositiveFlow() throws Exception{
+	public void testGetUserPositiveFlow() throws Exception{
 	when(usersService.getUser("6")).thenReturn(this.userDto3);
 		
 		MockHttpServletRequestBuilder requestBuilder=MockMvcRequestBuilders.get(ProjectManagementConstants.URL_USER_Service+ProjectManagementConstants.URL_USER_update+"/6").accept(MediaType.APPLICATION_JSON).content("6").contentType(MediaType.APPLICATION_JSON);
@@ -277,7 +277,7 @@ when(usersService.save(this.userDto4Error)).thenThrow(NullPointerException.class
 	}
 	
 	@Test
-	void testGetUserNegativeFlow() throws Exception{
+	public void testGetUserNegativeFlow() throws Exception{
 	when(usersService.getUser("10")).thenReturn(new UserDTO());
 		
 		MockHttpServletRequestBuilder requestBuilder=MockMvcRequestBuilders.get(ProjectManagementConstants.URL_USER_Service+ProjectManagementConstants.URL_USER_update+"/10").accept(MediaType.APPLICATION_JSON).content("10").contentType(MediaType.APPLICATION_JSON);
@@ -286,7 +286,7 @@ when(usersService.save(this.userDto4Error)).thenThrow(NullPointerException.class
 	}
 	
 	@Test
-	void testGetUserExceptionFlow() throws Exception{
+	public void testGetUserExceptionFlow() throws Exception{
 	when(usersService.getUser("0")).thenThrow(NullPointerException.class);
 		
 		MockHttpServletRequestBuilder requestBuilder=MockMvcRequestBuilders.get(ProjectManagementConstants.URL_USER_Service+ProjectManagementConstants.URL_USER_update+"/0").accept(MediaType.APPLICATION_JSON).content("0").contentType(MediaType.APPLICATION_JSON);
@@ -295,7 +295,7 @@ when(usersService.save(this.userDto4Error)).thenThrow(NullPointerException.class
 	}
 
 	@Test
-	void testDeleteUserPositiveFlow()  throws Exception{
+	public void testDeleteUserPositiveFlow()  throws Exception{
 	when(usersService.deleteUser("6")).thenReturn(true);
 		
 		MockHttpServletRequestBuilder requestBuilder=MockMvcRequestBuilders.delete(ProjectManagementConstants.URL_USER_Service+ProjectManagementConstants.URL_USER_update+"/6").accept(MediaType.APPLICATION_JSON).content("6").contentType(MediaType.APPLICATION_JSON);
@@ -304,7 +304,7 @@ when(usersService.save(this.userDto4Error)).thenThrow(NullPointerException.class
 	}
 	
 	@Test
-	void testDeleteUserNegativeFlow()  throws Exception{
+	public void testDeleteUserNegativeFlow()  throws Exception{
 	when(usersService.deleteUser("10")).thenReturn(false);
 		
 		MockHttpServletRequestBuilder requestBuilder=MockMvcRequestBuilders.delete(ProjectManagementConstants.URL_USER_Service+ProjectManagementConstants.URL_USER_update+"/10").accept(MediaType.APPLICATION_JSON).content("10").contentType(MediaType.APPLICATION_JSON);
@@ -313,7 +313,7 @@ when(usersService.save(this.userDto4Error)).thenThrow(NullPointerException.class
 	}
 	
 	@Test
-	void testDeleteUserExceptionFlow()  throws Exception{
+	public void testDeleteUserExceptionFlow()  throws Exception{
 	when(usersService.deleteUser("0")).thenThrow(NullPointerException.class);
 		
 		MockHttpServletRequestBuilder requestBuilder=MockMvcRequestBuilders.delete(ProjectManagementConstants.URL_USER_Service+ProjectManagementConstants.URL_USER_update+"/0").accept(MediaType.APPLICATION_JSON).content("0").contentType(MediaType.APPLICATION_JSON);

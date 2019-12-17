@@ -29,13 +29,7 @@ public interface ParentTaskVORepository extends JpaRepository<ParentTaskVO, Inte
 	 */
 	ParentTaskVO findByParentId(long parentId);
 	
-	/**
-	 * Find by parent task.
-	 *
-	 * @param parentTaskVO the parent task VO
-	 * @return the parent task VO
-	 */
-	ParentTaskVO findByParentTask(TaskVO parentTaskVO);
+	
 	
 	/**
 	 * Delete by parent task.
