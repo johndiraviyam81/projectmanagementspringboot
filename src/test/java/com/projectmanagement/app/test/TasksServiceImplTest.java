@@ -44,128 +44,147 @@ import com.projectmanagement.app.repositories.UsersVORepository;
 import com.projectmanagement.app.service.TasksService;
 import com.projectmanagement.app.service.TasksServiceImpl;
 
-
-
+/**
+ * The Class TasksServiceImplTest.
+ */
 public class TasksServiceImplTest {
-	
+
+	/** The tasks service. */
 	@InjectMocks
 	TasksServiceImpl tasksService;
 
+	/** The task VO repository. */
 	@Mock
 	TaskVORepository taskVORepository;
-	
+
 	/** The parent task VO repository. */
 	@Mock
 	ParentTaskVORepository parentTaskVORepository;
-	
+
 	/** The project VO repository. */
 	@Mock
 	ProjectVORepository projectVORepository;
-	
+
 	/** The users VO repository. */
 	@Mock
 	UsersVORepository usersVORepository;
-	
+
 	/** The project DTO 4. */
-	ProjectDTO projectDTO4=new ProjectDTO();
-	
+	ProjectDTO projectDTO4 = new ProjectDTO();
+
 	/** The project VO 4. */
-	ProjectVO projectVO4=new ProjectVO();
-	
+	ProjectVO projectVO4 = new ProjectVO();
+
 	/** The project DTO 4 error. */
-	ProjectDTO projectDTO4Error=new ProjectDTO();
-	
-	/** The users VO2. */
-	UsersVO usersVO1=new UsersVO();
-	
+	ProjectDTO projectDTO4Error = new ProjectDTO();
 
 	/** The users VO2. */
-	UsersVO usersVO2=new UsersVO();
-	
+	UsersVO usersVO1 = new UsersVO();
+
+	/** The users VO2. */
+	UsersVO usersVO2 = new UsersVO();
+
 	/** The projectContain. */
-	String projectContain="task";
-	
-	List<TaskDTO> parentTasksLists = new ArrayList<>();
-	
-	List<TaskDTO> taskList=new ArrayList<>();
-	
-	TaskDTO taskDto1=new TaskDTO();
-	
-	TaskDTO taskDto2=new TaskDTO();
-	
-	TaskDTO taskDto3=new TaskDTO();
-	
-	TaskDTO taskParentDto1 = new TaskDTO();
-	
-	TaskDTO taskParentDto2 = new TaskDTO();
-	
-	TaskDTO taskParentDtoError = new TaskDTO();
-	TaskDTO taskDto4=new TaskDTO();
-	
-	/** The task vo 1. */
-	TaskVO taskVo1=new TaskVO();
-	
-	/** The task vo 2. */
-	TaskVO taskVo2=new TaskVO();
-	
-	/** The task vo 2. */
-	TaskVO taskVo3=new TaskVO();
-	
-	
-	/** The task vo 2. */
-	TaskVO taskVo4=new TaskVO();
-	
-	/** The project VO 1. */
-	ProjectVO projectVO1=new ProjectVO();
-	
-	/** The project VO 2. */
-	ProjectVO projectVO2=new ProjectVO();
-	
-	/** The project VO 3. */
-	ProjectVO projectVO3=new ProjectVO();
-	
-	/** The parent task VO. */
-	ParentTaskVO parentTaskVO1=new ParentTaskVO();
-	
-	ParentTaskVO parentTaskVO2=new ParentTaskVO();
-	
-	ParentTaskVO parentTaskVOEmpty=new ParentTaskVO();
-	
-	/** The task VO list. */
-	List<TaskVO> taskVOList=new ArrayList<>();
-	
-	List<TaskVO> newTaskVOList=new ArrayList<>();
-	
-	List<TaskVO> nextTaskVOList=new ArrayList<>();
-	
-	
-	
-	List<ParentTaskVO> parentTaskVOList=new ArrayList<>();
-	
-	List<ProjectVO> projectVOList=new ArrayList<>();
-	
-	/** The task VO list null. */
-	List<TaskVO> taskVOListNull=null;
-	
-	List<TaskDTO> taskDTOListNull=new ArrayList<>();
-	
- 
+	String projectContain = "task";
 
+	/** The parent tasks lists. */
+	List<TaskDTO> parentTasksLists = new ArrayList<>();
+
+	/** The task list. */
+	List<TaskDTO> taskList = new ArrayList<>();
+
+	/** The task dto 1. */
+	TaskDTO taskDto1 = new TaskDTO();
+
+	/** The task dto 2. */
+	TaskDTO taskDto2 = new TaskDTO();
+
+	/** The task dto 3. */
+	TaskDTO taskDto3 = new TaskDTO();
+
+	/** The task parent dto 1. */
+	TaskDTO taskParentDto1 = new TaskDTO();
+
+	/** The task parent dto 2. */
+	TaskDTO taskParentDto2 = new TaskDTO();
+
+	/** The task parent dto error. */
+	TaskDTO taskParentDtoError = new TaskDTO();
+
+	/** The task dto 4. */
+	TaskDTO taskDto4 = new TaskDTO();
+
+	/** The task vo 1. */
+	TaskVO taskVo1 = new TaskVO();
+
+	/** The task vo 2. */
+	TaskVO taskVo2 = new TaskVO();
+
+	/** The task vo 2. */
+	TaskVO taskVo3 = new TaskVO();
+
+	/** The task vo 2. */
+	TaskVO taskVo4 = new TaskVO();
+
+	/** The project VO 1. */
+	ProjectVO projectVO1 = new ProjectVO();
+
+	/** The project VO 2. */
+	ProjectVO projectVO2 = new ProjectVO();
+
+	/** The project VO 3. */
+	ProjectVO projectVO3 = new ProjectVO();
+
+	/** The parent task VO. */
+	ParentTaskVO parentTaskVO1 = new ParentTaskVO();
+
+	/** The parent task VO 2. */
+	ParentTaskVO parentTaskVO2 = new ParentTaskVO();
+
+	/** The parent task VO empty. */
+	ParentTaskVO parentTaskVOEmpty = new ParentTaskVO();
+
+	/** The task VO list. */
+	List<TaskVO> taskVOList = new ArrayList<>();
+
+	/** The new task VO list. */
+	List<TaskVO> newTaskVOList = new ArrayList<>();
+
+	/** The next task VO list. */
+	List<TaskVO> nextTaskVOList = new ArrayList<>();
+
+	/** The parent task VO list. */
+	List<ParentTaskVO> parentTaskVOList = new ArrayList<>();
+
+	/** The project VO list. */
+	List<ProjectVO> projectVOList = new ArrayList<>();
+
+	/** The task VO list null. */
+	List<TaskVO> taskVOListNull = null;
+
+	/** The task DTO list null. */
+	List<TaskDTO> taskDTOListNull = new ArrayList<>();
+
+	/**
+	 * Sets the up.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@BeforeEach
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		
+
 		this.usersVO1.setUserId(1);
 		this.usersVO1.setFirstName("John");
 		this.usersVO1.setLastName("Leslee");
 		this.usersVO1.setEmployeeId(12412);
-		
+
 		this.usersVO2.setUserId(2);
 		this.usersVO2.setFirstName("Ghomes");
 		this.usersVO2.setLastName("Shelton");
 		this.usersVO2.setEmployeeId(42412);
-		
-	
+
 		this.projectVO1.setProjectId(1L);
 		this.projectVO1.setProject("Termanite Project");
 		this.projectVO1.setStartDate(LocalDate.parse("2019-12-01"));
@@ -173,8 +192,7 @@ public class TasksServiceImplTest {
 		this.projectVO1.setPriority(20);
 		this.projectVO1.setUsersVO(this.usersVO1);
 		this.projectVO1.setTaskList(this.newTaskVOList);
-	
-	
+
 		this.projectVO2.setProjectId(2L);
 		this.projectVO2.setProject("Solr Project");
 		this.projectVO2.setStartDate(LocalDate.parse("2018-06-17"));
@@ -182,37 +200,36 @@ public class TasksServiceImplTest {
 		this.projectVO2.setPriority(30);
 		this.projectVO2.setUsersVO(this.usersVO2);
 		this.projectVO1.setTaskList(this.nextTaskVOList);
-		
+
 		this.projectVOList.add(projectVO1);
 		this.projectVOList.add(projectVO2);
-
 
 		this.taskParentDto1.setTaskId("1");
 		this.taskParentDto1.setTaskName("Termanite Parent Task 1");
 		this.taskParentDto1.setSetParentTask("1");
-		
+
 		this.parentTaskVO1.setParentId(1);
 		this.parentTaskVO1.setParentTask("Termanite Parent Task 1");
 		this.parentTaskVO1.toString();
 		this.parentTaskVO1.equals(parentTaskVO1);
-		
+
 		this.parentTaskVO2.setParentId(2);
 		this.parentTaskVO2.setParentTask("Solr Parent Task");
 		this.parentTaskVO2.toString();
 		this.parentTaskVO2.equals(parentTaskVO2);
-		
+
 		this.parentTaskVOList.add(this.parentTaskVO1);
 		this.parentTaskVOList.add(this.parentTaskVO2);
-		
+
 		this.taskParentDto2.setTaskId("2");
 		this.taskParentDto2.setTaskName("Solr Parent Task");
 		this.taskParentDto2.setSetParentTask("1");
-		
+
 		this.parentTasksLists.add(this.taskParentDto1);
 		this.parentTasksLists.add(this.taskParentDto2);
 
 		this.taskParentDtoError.setSetParentTask("1");
-	
+
 		this.taskDto1.setTaskId("1");
 		this.taskDto1.setEndDate("2019-12-28");
 		this.taskDto1.setParentTaskId(null);
@@ -225,7 +242,7 @@ public class TasksServiceImplTest {
 		this.taskDto1.setUserId("1");
 		this.taskDto1.setUserName("John");
 		this.taskDto1.setStatus("Pending");
-		
+
 		this.taskVo1.setTaskId(1);
 		this.taskVo1.setTask("Termanite Task 1");
 		this.taskVo1.setProjectVO(projectVO1);
@@ -235,15 +252,14 @@ public class TasksServiceImplTest {
 		this.taskVo1.setStatus("Pending");
 		this.taskVo1.setPriority(20);
 		this.taskVo1.setParentTaskVO(null);
-		
+
 		this.taskDto4.setTaskId("14");
 		this.taskDto4.setTaskName("ParentTaskNmae");
 		this.taskDto4.setSetParentTask("1");
-		
+
 		this.taskDto1.toString();
 		this.taskDto1.equals(taskDto1);
 
-					
 		this.taskDto2.setTaskId("2");
 		this.taskDto2.setEndDate("2019-12-20");
 		this.taskDto2.setParentTaskId("1");
@@ -256,7 +272,7 @@ public class TasksServiceImplTest {
 		this.taskDto2.setUserId("1");
 		this.taskDto2.setUserName("John");
 		this.taskDto2.setStatus("Pending");
-		
+
 		this.taskVo2.setTaskId(2);
 		this.taskVo2.setTask("Termanite Task 2");
 		this.taskVo2.setProjectVO(projectVO1);
@@ -268,11 +284,10 @@ public class TasksServiceImplTest {
 		this.taskVo2.setParentTaskVO(this.parentTaskVO1);
 		this.taskVo2.toString();
 		this.taskVo2.equals(taskVo2);
-		
+
 		this.taskDto2.toString();
 		this.taskDto2.equals(taskDto2);
-		
-		
+
 		this.taskDto3.setTaskId("3");
 		this.taskDto3.setEndDate("2019-12-20");
 		this.taskDto3.setParentTaskId(null);
@@ -285,7 +300,7 @@ public class TasksServiceImplTest {
 		this.taskDto3.setUserId("2");
 		this.taskDto3.setUserName("Ghomes");
 		this.taskDto3.setStatus("Pending");
-		
+
 		this.taskVo3.setTaskId(3);
 		this.taskVo3.setTask("Solr Task 1");
 		this.taskVo3.setProjectVO(projectVO2);
@@ -297,7 +312,6 @@ public class TasksServiceImplTest {
 		this.taskVo3.setParentTaskVO(null);
 		this.taskVo3.toString();
 		this.taskVo3.equals(taskVo3);
-		
 
 		this.taskList.add(taskDto1);
 		this.taskList.add(taskDto2);
@@ -305,182 +319,267 @@ public class TasksServiceImplTest {
 
 		this.newTaskVOList.add(this.taskVo1);
 		this.newTaskVOList.add(this.taskVo2);
-		
+
 		this.nextTaskVOList.add(this.taskVo3);
-		
+
 		this.taskVOList.add(this.taskVo1);
 		this.taskVOList.add(this.taskVo2);
 		this.taskVOList.add(this.taskVo3);
 
 	}
 
+	/**
+	 * Test get all tasks positive flow.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testGetAllTasksPositiveFlow() throws Exception {
 		when(taskVORepository.findAll()).thenReturn(taskVOList);
-		List<TaskDTO> allTasks=new ArrayList<>();
-		this.taskList.stream().forEach(taskVO->{allTasks.add(taskVO);});
+		List<TaskDTO> allTasks = new ArrayList<>();
+		this.taskList.stream().forEach(taskVO -> {
+			allTasks.add(taskVO);
+		});
 		tasksService.getAllTasks();
-		
+
 		verify(taskVORepository, times(1)).findAll();
-		assertEquals(3,allTasks.size());
+		assertEquals(3, allTasks.size());
 	}
-	
+
+	/**
+	 * Test get all tasks negativee flow.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testGetAllTasksNegativeeFlow() throws Exception {
 		when(taskVORepository.findAll()).thenReturn(null);
-		List<TaskDTO> allTasks=new ArrayList<>();
-		this.taskDTOListNull.stream().forEach(taskVO->{allTasks.add(taskVO);});
+		List<TaskDTO> allTasks = new ArrayList<>();
+		this.taskDTOListNull.stream().forEach(taskVO -> {
+			allTasks.add(taskVO);
+		});
 		tasksService.getAllTasks();
-		
+
 		verify(taskVORepository, times(1)).findAll();
-		assertEquals(0,allTasks.size());
+		assertEquals(0, allTasks.size());
 	}
 
+	/**
+	 * Test search tasks positive flow.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testSearchTasksPositiveFlow() throws Exception {
-		when(projectVORepository.findByProjectContainingOrProjectEndingWith(this.projectContain,this.projectContain)).thenReturn(projectVOList);
-		
-		List<TaskDTO> allTasks=new ArrayList<>();
-		this.taskList.stream().forEach(taskVO->{allTasks.add(taskVO);});
+		when(projectVORepository.findByProjectContainingOrProjectEndingWith(this.projectContain, this.projectContain))
+				.thenReturn(projectVOList);
+
+		List<TaskDTO> allTasks = new ArrayList<>();
+		this.taskList.stream().forEach(taskVO -> {
+			allTasks.add(taskVO);
+		});
 		tasksService.searchTasks(projectContain);
-		
-		verify(projectVORepository, times(1)).findByProjectContainingOrProjectEndingWith(this.projectContain,this.projectContain);
-		assertEquals(3,allTasks.size());
+
+		verify(projectVORepository, times(1)).findByProjectContainingOrProjectEndingWith(this.projectContain,
+				this.projectContain);
+		assertEquals(3, allTasks.size());
 	}
-	
+
+	/**
+	 * Test search tasks negative flow.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testSearchTasksNegativeFlow() throws Exception {
-		List<ProjectVO> emptyTaskNull=null;
-		when(projectVORepository.findByProjectContainingOrProjectEndingWith(this.projectContain,this.projectContain)).thenReturn(emptyTaskNull);
-		List<TaskDTO> allTasks=new ArrayList<>();
-		this.taskDTOListNull.stream().forEach(taskVO->{allTasks.add(taskVO);});
+		List<ProjectVO> emptyTaskNull = null;
+		when(projectVORepository.findByProjectContainingOrProjectEndingWith(this.projectContain, this.projectContain))
+				.thenReturn(emptyTaskNull);
+		List<TaskDTO> allTasks = new ArrayList<>();
+		this.taskDTOListNull.stream().forEach(taskVO -> {
+			allTasks.add(taskVO);
+		});
 		tasksService.searchTasks(projectContain);
-		
-		verify(projectVORepository, times(1)).findByProjectContainingOrProjectEndingWith(this.projectContain,this.projectContain);
-		assertEquals(0,allTasks.size());
+
+		verify(projectVORepository, times(1)).findByProjectContainingOrProjectEndingWith(this.projectContain,
+				this.projectContain);
+		assertEquals(0, allTasks.size());
 	}
 
+	/**
+	 * Test get task by id positive flow.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testGetTaskByIdPositiveFlow() throws Exception {
-	 
-				when(taskVORepository.findByTaskId(1L)).thenReturn(this.taskVo1);
-				TaskVO taskGetVO=this.taskVo1;				 
-				tasksService.getTaskById(1L);				
-				verify(taskVORepository, times(1)).findByTaskId(1L);
-				assertEquals(1,taskGetVO.getTaskId());
-				assertEquals("Termanite Task 1",taskGetVO.getTask());
-				assertEquals(taskGetVO,taskVo1);
+
+		when(taskVORepository.findByTaskId(1L)).thenReturn(this.taskVo1);
+		TaskVO taskGetVO = this.taskVo1;
+		tasksService.getTaskById(1L);
+		verify(taskVORepository, times(1)).findByTaskId(1L);
+		assertEquals(1, taskGetVO.getTaskId());
+		assertEquals("Termanite Task 1", taskGetVO.getTask());
+		assertEquals(taskGetVO, taskVo1);
 	}
 
+	/**
+	 * Test get task by id negative flow.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testGetTaskByIdNegativeFlow() throws Exception {
-	 
-				when(taskVORepository.findByTaskId(10L)).thenReturn(null);
-				TaskVO taskGetVO=null;				 
-				tasksService.getTaskById(10L);				
-				verify(taskVORepository, times(1)).findByTaskId(10L);
-				assertEquals(null,taskGetVO);				
+
+		when(taskVORepository.findByTaskId(10L)).thenReturn(null);
+		TaskVO taskGetVO = null;
+		tasksService.getTaskById(10L);
+		verify(taskVORepository, times(1)).findByTaskId(10L);
+		assertEquals(null, taskGetVO);
 	}
-	
+
+	/**
+	 * Test delete by task by id positive flow.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testDeleteByTaskByIdPositiveFlow() throws Exception {
-	TaskVO deleteTaskVO=new TaskVO();
-		when(taskVORepository.findByTaskId(1L)).thenReturn(this.taskVo1);	
-		parentTaskVORepository.deleteByParentTask(taskVo1);	
-		taskVORepository.deleteByTaskId(1L);	
-		tasksService.deleteByTaskById(11L);		 
-		assertEquals(null,deleteTaskVO.getTask());
+		TaskVO deleteTaskVO = new TaskVO();
+		when(taskVORepository.findByTaskId(1L)).thenReturn(this.taskVo1);
+		parentTaskVORepository.deleteByParentTask(taskVo1);
+		taskVORepository.deleteByTaskId(1L);
+		tasksService.deleteByTaskById(11L);
+		assertEquals(null, deleteTaskVO.getTask());
 	}
 
+	/**
+	 * Test delete by task by id negative flow.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testDeleteByTaskByIdNegativeFlow() throws Exception {
-	TaskVO deleteTaskVO=this.taskVo1;
-		when(taskVORepository.findByTaskId(1L)).thenReturn(null);	
-		parentTaskVORepository.deleteByParentTask(null);	
-		taskVORepository.deleteByTaskId(0);	
-		tasksService.deleteByTaskById(1L);		 
-		assertEquals("Termanite Task 1",deleteTaskVO.getTask());
+		TaskVO deleteTaskVO = this.taskVo1;
+		when(taskVORepository.findByTaskId(1L)).thenReturn(null);
+		parentTaskVORepository.deleteByParentTask(null);
+		taskVORepository.deleteByTaskId(0);
+		tasksService.deleteByTaskById(1L);
+		assertEquals("Termanite Task 1", deleteTaskVO.getTask());
 	}
-	
 
-
-
-
-	
+	/**
+	 * Test save positive flow.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testSavePositiveFlow() throws Exception {
-		 
-	 	when(parentTaskVORepository.findByParentId(1)).thenReturn(this.parentTaskVO1);
+
+		when(parentTaskVORepository.findByParentId(1)).thenReturn(this.parentTaskVO1);
 		when(projectVORepository.findByProjectId(1)).thenReturn(this.projectVO1);
 		when(usersVORepository.findByUserId(1L)).thenReturn(this.usersVO1);
 		when(taskVORepository.save(this.taskVo2)).thenReturn(this.taskVo2);
-		
-		tasksService.save(this.taskDto2);				
+
+		tasksService.save(this.taskDto2);
 		verify(taskVORepository, times(1)).save(this.taskVo2);
-		assertEquals(taskVo2,this.taskVo2);	
-		assertEquals("Pending",this.taskVo2.getStatus());
-		assertEquals(this.taskVo2.getUsersVO(),this.usersVO1);	
-		assertEquals(this.taskVo2.getParentTaskVO(),this.parentTaskVO1);	
-		assertEquals(this.taskVo2.getProjectVO(),this.projectVO1);	
-		
+		assertEquals(taskVo2, this.taskVo2);
+		assertEquals("Pending", this.taskVo2.getStatus());
+		assertEquals(this.taskVo2.getUsersVO(), this.usersVO1);
+		assertEquals(this.taskVo2.getParentTaskVO(), this.parentTaskVO1);
+		assertEquals(this.taskVo2.getProjectVO(), this.projectVO1);
+
 	}
-		
-		
+
+	/**
+	 * Test save alternate positive flow.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testSaveAlternatePositiveFlow() throws Exception {
-		long taskId=0L;
-		TaskVO createTaskVO=this.taskVo1;
+		long taskId = 0L;
+		TaskVO createTaskVO = this.taskVo1;
 		createTaskVO.setStatus("Pending");
 		when(taskVORepository.findByTaskId(0)).thenReturn(null);
 		when(parentTaskVORepository.findByParentId(0)).thenReturn(null);
 		when(projectVORepository.findByProjectId(1)).thenReturn(this.projectVO1);
 		when(usersVORepository.findByUserId(1L)).thenReturn(this.usersVO1);
 		when(taskVORepository.save(createTaskVO)).thenReturn(this.taskVo1);
-		
-		tasksService.save(this.taskDto1);				
+
+		tasksService.save(this.taskDto1);
 		verify(taskVORepository, times(1)).save(createTaskVO);
-		assertEquals(createTaskVO,this.taskVo1);	
-		assertEquals(createTaskVO.getUsersVO(),this.usersVO1);	
-		assertEquals(createTaskVO.getParentTaskVO(),null);	
-		assertEquals(createTaskVO.getProjectVO(),this.projectVO1);	
-		
+		assertEquals(createTaskVO, this.taskVo1);
+		assertEquals(createTaskVO.getUsersVO(), this.usersVO1);
+		assertEquals(createTaskVO.getParentTaskVO(), null);
+		assertEquals(createTaskVO.getProjectVO(), this.projectVO1);
+
 	}
 
-	
+	/**
+	 * Test save parent task positive flow.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testSaveParentTaskPositiveFlow() throws Exception {
-		ParentTaskVO createTaskVO=parentTaskVO2;
+		ParentTaskVO createTaskVO = parentTaskVO2;
 		when(parentTaskVORepository.save(parentTaskVO2)).thenReturn(parentTaskVO2);
-		
-		
-		tasksService.saveParentTask(this.taskParentDto2);				
+
+		tasksService.saveParentTask(this.taskParentDto2);
 		verify(parentTaskVORepository, times(1)).save(createTaskVO);
-		assertEquals(2,this.parentTaskVO2.getParentId());
-		assertEquals("Solr Parent Task",this.parentTaskVO2.getParentTask());
-		assertEquals(createTaskVO,this.parentTaskVO2);	
+		assertEquals(2, this.parentTaskVO2.getParentId());
+		assertEquals("Solr Parent Task", this.parentTaskVO2.getParentTask());
+		assertEquals(createTaskVO, this.parentTaskVO2);
 	}
-	
+
+	/**
+	 * Test get all parent tasks positive flow.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testGetAllParentTasksPositiveFlow() throws Exception {
 		when(parentTaskVORepository.findAll()).thenReturn(this.parentTaskVOList);
-		List<TaskDTO> allTasks=new ArrayList<>();
-		this.parentTasksLists.stream().forEach(parentTaskDto->{allTasks.add(parentTaskDto);});
+		List<TaskDTO> allTasks = new ArrayList<>();
+		this.parentTasksLists.stream().forEach(parentTaskDto -> {
+			allTasks.add(parentTaskDto);
+		});
 		tasksService.getAllParentTasks();
-		
+
 		verify(parentTaskVORepository, times(1)).findAll();
-		assertEquals(2,allTasks.size());
+		assertEquals(2, allTasks.size());
 	}
-	
+
+	/**
+	 * Test get all parent tasks negativee flow.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@Test
 	public void testGetAllParentTasksNegativeeFlow() throws Exception {
 		when(parentTaskVORepository.findAll()).thenReturn(null);
-		List<TaskDTO> allTasks=new ArrayList<>();
-		this.taskDTOListNull.stream().forEach(taskVO->{allTasks.add(taskVO);});
+		List<TaskDTO> allTasks = new ArrayList<>();
+		this.taskDTOListNull.stream().forEach(taskVO -> {
+			allTasks.add(taskVO);
+		});
 		tasksService.getAllParentTasks();
-		
+
 		verify(parentTaskVORepository, times(1)).findAll();
-		assertEquals(0,allTasks.size());
+		assertEquals(0, allTasks.size());
 	}
-	
 
 }

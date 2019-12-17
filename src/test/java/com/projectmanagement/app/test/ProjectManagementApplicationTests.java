@@ -5,7 +5,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.projectmanagement.app.ProjectManagementApplication;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class BooksSubjectsApplicationTests.
  */
@@ -17,15 +16,14 @@ public class ProjectManagementApplicationTests {
 	 */
 	@Test
 	public void contextLoads() {
-		}
-			
+	}
+
 	/**
 	 * Main.
-	*/
+	 */
 	@Test
 	public void main() {
 		ProjectManagementApplication.main(new String[] {});
-	   }
-	
+	}
 
 }
