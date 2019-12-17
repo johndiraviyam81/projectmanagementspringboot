@@ -9,7 +9,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class DeleteRecordDTO.
  */
@@ -62,8 +61,9 @@ public class DeleteRecordDTO implements Serializable {
 		this.message = message;
 	}
 
- 
-
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "DeleteRecordDTO [deleteId=" + deleteId + ", message=" + message + "]";

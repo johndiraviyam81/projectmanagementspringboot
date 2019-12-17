@@ -15,45 +15,37 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class UsersVO.
  */
 @Entity
 @Table(name = "users")
 public class UsersVO {
-	
+
 	/** The user id. */
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="user_id")
-	private long userId;	
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "user_id")
+	private long userId;
+
 	/** The first name. */
-	@Column(name="first_name")
+	@Column(name = "first_name")
 	private String firstName;
-	
+
 	/** The last name. */
-	@Column(name="last_name")
+	@Column(name = "last_name")
 	private String lastName;
-	
+
 	/** The employee id. */
-	@Column(name="employee_id")
+	@Column(name = "employee_id")
 	private long employeeId;
-
-
-
-	
 
 	/**
 	 * Instantiates a new users VO.
 	 */
 	public UsersVO() {
-		
+
 	}
-
-
-	
 
 	/**
 	 * Gets the user id.
@@ -64,20 +56,15 @@ public class UsersVO {
 		return userId;
 	}
 
-
-
-
 	/**
 	 * Sets the user id.
 	 *
-	 * @param userId the new user id
+	 * @param userId
+	 *            the new user id
 	 */
 	public void setUserId(long userId) {
 		this.userId = userId;
 	}
-
-
-
 
 	/**
 	 * Gets the first name.
@@ -88,20 +75,15 @@ public class UsersVO {
 		return firstName;
 	}
 
-
-
-
 	/**
 	 * Sets the first name.
 	 *
-	 * @param firstName the new first name
+	 * @param firstName
+	 *            the new first name
 	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-
-
-
 
 	/**
 	 * Gets the last name.
@@ -112,20 +94,15 @@ public class UsersVO {
 		return lastName;
 	}
 
-
-
-
 	/**
 	 * Sets the last name.
 	 *
-	 * @param lastName the new last name
+	 * @param lastName
+	 *            the new last name
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-
-
-
 
 	/**
 	 * Gets the employee id.
@@ -136,44 +113,48 @@ public class UsersVO {
 		return employeeId;
 	}
 
-
-
-
 	/**
 	 * Sets the employee id.
 	 *
-	 * @param employeeId the new employee id
+	 * @param employeeId
+	 *            the new employee id
 	 */
 	public void setEmployeeId(long employeeId) {
 		this.employeeId = employeeId;
 	}
 
-	 /* (non-Javadoc)
- 	 * @see java.lang.Object#equals(java.lang.Object)
- 	 */
- 	@Override
-	    public boolean equals(Object o) {
-	        if (this == o) return true;
-	        UsersVO usersVO = (UsersVO) o;
-	        return Objects.equals(firstName, usersVO.firstName);
-	    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		UsersVO usersVO = (UsersVO) o;
+		return Objects.equals(firstName, usersVO.firstName);
+	}
 
-	    /* (non-Javadoc)
-    	 * @see java.lang.Object#hashCode()
-    	 */
-    	@Override
-	    public int hashCode() {
-	        return Objects.hash(firstName);
-	    }
-	    
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		return Objects.hash(firstName);
+	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "UsersVO [userId=" + userId + ", firstName=" + firstName +", lastName=" + lastName +", employeeId=" + employeeId  + "]";
+		return "UsersVO [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", employeeId="
+				+ employeeId + "]";
 	}
 
 }

@@ -13,18 +13,18 @@ import com.projectmanagement.app.entity.ProjectVO;
 import com.projectmanagement.app.entity.TaskVO;
 import com.projectmanagement.app.entity.UsersVO;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface UsersVORepository.
  */
 @Transactional
 @Repository("usersVORepository")
-public interface UsersVORepository extends JpaRepository<UsersVO, Integer>{
+public interface UsersVORepository extends JpaRepository<UsersVO, Integer> {
 
 	/**
 	 * Find by user id.
 	 *
-	 * @param userId the user id
+	 * @param userId
+	 *            the user id
 	 * @return the users VO
 	 */
 	UsersVO findByUserId(long userId);
@@ -32,20 +32,18 @@ public interface UsersVORepository extends JpaRepository<UsersVO, Integer>{
 	/**
 	 * Find by first name in.
 	 *
-	 * @param userNames the user names
+	 * @param userNames
+	 *            the user names
 	 * @return the list
 	 */
 	List<UsersVO> findByFirstNameIn(List<String> userNames);
-	
+
 	/**
 	 * Delete by user id.
 	 *
-	 * @param userId the user id
+	 * @param userId
+	 *            the user id
 	 */
 	void deleteByUserId(long userId);
-	
-	
-	
 
-		
 }

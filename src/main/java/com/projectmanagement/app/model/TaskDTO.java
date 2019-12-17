@@ -9,7 +9,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TaskDTO.
  */
@@ -56,14 +55,24 @@ public class TaskDTO implements Serializable {
 
 	/** The user name. */
 	public String userName;
-	
-	 
+
+	/** The set parent task. */
 	public String setParentTask;
 
+	/**
+	 * Gets the sets the parent task.
+	 *
+	 * @return the sets the parent task
+	 */
 	public String getSetParentTask() {
 		return setParentTask;
 	}
 
+	/**
+	 * Sets the sets the parent task.
+	 *
+	 * @param setParentTask the new sets the parent task
+	 */
 	public void setSetParentTask(String setParentTask) {
 		this.setParentTask = setParentTask;
 	}
@@ -315,6 +324,9 @@ public class TaskDTO implements Serializable {
 		this.userName = userName;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -323,6 +335,9 @@ public class TaskDTO implements Serializable {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "TaskDTO [taskId=" + taskId + ", parentTaskId=" + parentTaskId + ", projectId=" + projectId + ", userId="
@@ -331,9 +346,5 @@ public class TaskDTO implements Serializable {
 				+ parentTaskName + ", projectName=" + projectName + ", userName=" + userName + ", setParentTask="
 				+ setParentTask + "]";
 	}
-
- 
-
- 
 
 }

@@ -39,8 +39,9 @@ import com.projectmanagement.app.entity.TaskVO;
 @RequestMapping(value = ProjectManagementConstants.URL_TASK_Service)
 public class TasksController {
 
+	/** The log. */
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
-	
+
 	/** The tasks service. */
 	@Autowired
 	private TasksService tasksService;
@@ -65,7 +66,12 @@ public class TasksController {
 		}
 
 	}
-	
+
+	/**
+	 * Gets the all parent tasks.
+	 *
+	 * @return the all parent tasks
+	 */
 	@CrossOrigin
 	@GetMapping(value = ProjectManagementConstants.URL_TASK_getAllParentTasks)
 	public ResponseEntity<List<TaskDTO>> getAllParentTasks() {
@@ -116,7 +122,7 @@ public class TasksController {
 	@PostMapping(value = ProjectManagementConstants.URL_TASK_addTask)
 	public ResponseEntity<TaskDTO> addTask(@RequestBody TaskDTO taskDTO) {
 		try {
-			if (taskDTO.getSetParentTask()!=null && taskDTO.getSetParentTask().equals("1")) {
+			if (taskDTO.getSetParentTask() != null && taskDTO.getSetParentTask().equals("1")) {
 				tasksService.saveParentTask(taskDTO);
 			} else {
 				tasksService.save(taskDTO);

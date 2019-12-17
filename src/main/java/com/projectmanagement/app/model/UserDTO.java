@@ -9,7 +9,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class UserDTO.
  */
@@ -128,7 +127,9 @@ public class UserDTO implements Serializable {
 		this.message = message;
 	}
 
-
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -137,6 +138,9 @@ public class UserDTO implements Serializable {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "UserDTO [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", employeeId="

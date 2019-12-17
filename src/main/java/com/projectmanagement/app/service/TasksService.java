@@ -6,23 +6,19 @@ import java.util.List;
 import com.projectmanagement.app.entity.ProjectVO;
 import com.projectmanagement.app.model.TaskDTO;
 
-
-
-
-
-// TODO: Auto-generated Javadoc
 /**
  * The Interface TasksService.
  */
-public interface TasksService 
-{
-	
+public interface TasksService {
+
 	/**
 	 * Save.
 	 *
-	 * @param taskDTO the task DTO
+	 * @param taskDTO
+	 *            the task DTO
 	 * @return the long
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	public long save(TaskDTO taskDTO) throws Exception;
 
@@ -30,35 +26,52 @@ public interface TasksService
 	 * Gets the all tasks.
 	 *
 	 * @return the all tasks
+	 * @throws Exception the exception
 	 */
-	public List<TaskDTO> getAllTasks() throws Exception; 
-	
+	public List<TaskDTO> getAllTasks() throws Exception;
+
+	/**
+	 * Gets the all parent tasks.
+	 *
+	 * @return the all parent tasks
+	 * @throws Exception the exception
+	 */
 	public List<TaskDTO> getAllParentTasks() throws Exception;
-	
+
 	/**
 	 * Gets the task by id.
 	 *
-	 * @param taskId the task id
+	 * @param taskId            the task id
 	 * @return the task by id
+	 * @throws Exception the exception
 	 */
 	public TaskDTO getTaskById(long taskId) throws Exception;
+
+	/**
+	 * Save parent task.
+	 *
+	 * @param taskDTO the task DTO
+	 * @return the long
+	 * @throws Exception the exception
+	 */
 	public long saveParentTask(TaskDTO taskDTO) throws Exception;
+
 	/**
 	 * Search tasks.
 	 *
-	 * @param taskName the task name
+	 * @param projectName the project name
 	 * @return the list
+	 * @throws Exception the exception
 	 */
 	public List<TaskDTO> searchTasks(String projectName) throws Exception;
-	
+
 	/**
 	 * Delete by task by id.
 	 *
-	 * @param taskId the task id
+	 * @param taskId            the task id
 	 * @return true, if successful
-	 * @throws SQLException the SQL exception
+	 * @throws Exception the exception
 	 */
 	public boolean deleteByTaskById(long taskId) throws Exception;
-
 
 }
